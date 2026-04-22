@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Y-AIMS Lab — Y-AIMS Laboratory | NC State</title>
+  <meta name="description" content="The Y-AIMS Laboratory at NC State integrates molecular modeling, data science, and AI to accelerate materials discovery." />
+  <meta property="og:title" content="Y-AIMS Lab — NC State University" />
+  <meta property="og:description" content="Integrating molecular modeling, data science, and AI to accelerate materials discovery." />
+  <meta property="og:type" content="website" />
+
+  <!-- Official NC State University fonts (Univers, Glypha, Roboto) via NC State CDN -->
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <!-- Roboto Mono for code labels -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto+Condensed:wght@300;400;700&display=swap" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NC State Utility Bar (official brand requirement) -->
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+
+    <!-- Official NCSU Brick Logo -->
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
+      <img src="assets/ncsu/circle-wolf-400.png"
+           alt="NC State University circle wolf mark"
+           width="36" height="36"
+           class="nav-wolf-img"
+           loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="index.html" class="active" aria-current="page">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav-mobile" role="list">
+    <a href="index.html" class="active" aria-current="page">Home</a>
+    <a href="research.html">Research</a>
+    <a href="team.html">Team</a>
+    <a href="publications.html">Publications</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="software.html">Software</a>
+    <a href="news.html">News</a>
+    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
+      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Toggle theme</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     HERO — Animated molecular background + static content
+     ============================================================ -->
+<section class="hero" aria-label="Y-AIMS Laboratory hero">
+  <!-- Animated Canvas Background -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+  <!-- Static grid overlay texture -->
+  <div class="hero-grid-overlay" aria-hidden="true"></div>
+
+  <!-- Gradient fade at bottom -->
+  <div class="hero-fade-bottom" aria-hidden="true"></div>
+
+  <div class="container hero-content">
+
+    <!-- NCSU Brick Logo above headline -->
+    <div class="hero-ncsu-logo fade-in">
+      <img src="assets/ncsu/brick-white-on-red-web.png"
+           alt="NC State University"
+           class="hero-brick-logo"
+           loading="eager" />
+    </div>
+
+    <h1 class="hero-title fade-in">
+      AI &amp; Materials<br/>
+      <em class="hero-accent">Simulations Lab</em>
+    </h1>
+
+    <p class="hero-subtitle fade-in">
+      Integrating multiscale molecular modeling, data science,
+      and artificial intelligence to accelerate predictive
+      materials design and discovery.
+    </p>
+
+    <div class="hero-cta fade-in">
+      <a href="research.html" class="btn btn-primary">Explore Research</a>
+      <a href="publications.html" class="btn btn-outline-white">Publications</a>
+    </div>
+
+    <!-- Stats -->
+    <div class="hero-stats fade-in">
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Research Areas</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">100+</span>
+        <span class="stat-label">Publications</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">8</span>
+        <span class="stat-label">Funding Sources</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <span class="stat-num">20+</span>
+        <span class="stat-label">Years Active</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     ABOUT STRIP
+     ============================================================ -->
+<main id="main-content" tabindex="-1">
+<section class="about-strip">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text fade-in">
+        <p class="section-label" aria-hidden="true">About Y-AIMS</p>
+        <h2 class="section-title">Where Computation Meets Discovery</h2>
+        <div class="divider"></div>
+        <p>
+          Welcome to the Y-AIMS Laboratory at North Carolina
+          State University. We develop and deploy AI workflows and multiscale molecular
+          modeling methods for predictive and data-efficient materials understanding and design.
+        </p>
+        <p style="margin-top:var(--space-4)">
+          Our research spans density functional theory (DFT), all-atom molecular dynamics (MD),
+          and coarse-grained approaches — bridging atomistic insight with machine learning
+          to unlock new materials faster.
+        </p>
+        <a href="research.html" class="btn btn-outline" style="margin-top:var(--space-8)">Our Research →</a>
+      </div>
+      <div class="about-visual fade-in">
+        <div class="about-banner-wrap">
+          <img
+            src="assets/aims-banner.jpg"
+            alt="Y-AIMS Laboratory — AI and Materials Simulations: nanoparticles, molecular structures, and computational workstations"
+            class="about-banner-img"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     RESEARCH AREAS
+     ============================================================ -->
+<section class="research-section" style="background: var(--color-surface);">
+  <div class="container">
+    <div class="section-header fade-in">
+      <p class="section-label" aria-hidden="true">Core Focus</p>
+      <h2 class="section-title">Research Areas</h2>
+      <p class="section-desc">Three interrelated pillars enabling data-efficient, AI-accelerated materials discovery.</p>
+    </div>
+
+    <div class="research-grid">
+      <article class="research-card fade-in">
+        <div class="rcard-top">
+          <span class="rcard-num">01</span>
+          <div class="rcard-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path d="M14 3C9 3 5 7 5 11c0 3 2 5 4 7l5 5 5-5c2-2 4-4 4-7 0-4-4-8-9-8z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+              <circle cx="14" cy="11" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+          </div>
+        </div>
+        <h3>Biomimetic Materials</h3>
+        <p>Self-assembly of DNA and RNA-based nanomaterials with responsive properties. Biomimetic design for phosphorus sustainability and enzyme engineering.</p>
+        <ul class="rcard-tags">
+          <li><span class="tag tag-red">DNA Nanotechnology</span></li>
+          <li><span class="tag tag-grey">Self-Assembly</span></li>
+        </ul>
+        <a href="research.html#biomimetic" class="rcard-link">Learn more →</a>
+      </article>
+
+      <article class="research-card fade-in stagger-2">
+        <div class="rcard-top">
+          <span class="rcard-num">02</span>
+          <div class="rcard-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <circle cx="14" cy="14" r="4" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="5" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="23" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="5" cy="19" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <circle cx="23" cy="19" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+              <line x1="14" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.2"/>
+              <line x1="14" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.2"/>
+              <line x1="14" y1="18" x2="7" y2="18" stroke="currentColor" stroke-width="1.2"/>
+              <line x1="14" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="1.2"/>
+            </svg>
+          </div>
+        </div>
+        <h3>Nanomaterials &amp; Nanoparticles</h3>
+        <p>Molecular modeling approaches for magnetic and metal nanoparticles. Multiscale modeling of nanoparticle systems from atomistic to mesoscale.</p>
+        <ul class="rcard-tags">
+          <li><span class="tag tag-red">Multiscale Modeling</span></li>
+          <li><span class="tag tag-grey">Magnetic Materials</span></li>
+        </ul>
+        <a href="research.html#nanomaterials" class="rcard-link">Learn more →</a>
+      </article>
+
+      <article class="research-card fade-in stagger-4">
+        <div class="rcard-top">
+          <span class="rcard-num">03</span>
+          <div class="rcard-icon">
+            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <rect x="3" y="18" width="4" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="9" y="12" width="4" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="15" y="7" width="4" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <rect x="21" y="3" width="4" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M3 16 L11 10 L19 5 L25 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+            </svg>
+          </div>
+        </div>
+        <h3>AI &amp; Data Science</h3>
+        <p>AI-driven workflows for materials discovery and optimization. Leveraging machine learning, Bayesian optimization, and graph neural networks.</p>
+        <ul class="rcard-tags">
+          <li><span class="tag tag-red">Machine Learning</span></li>
+          <li><span class="tag tag-blue">Neural Networks</span></li>
+        </ul>
+        <a href="research.html#ai" class="rcard-link">Learn more →</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PI SPOTLIGHT
+     ============================================================ -->
+<section class="pi-section" style="background: var(--color-bg);">
+  <div class="container">
+    <div class="pi-grid">
+      <div class="pi-photo fade-in">
+        <img src="assets/ncsu/circle-wolf-400.png"
+             alt="NC State University — Y-AIMS Laboratory"
+             class="pi-circle-wolf"
+             width="200" />
+      </div>
+      <div class="pi-text fade-in">
+        <p class="section-label" aria-hidden="true">Principal Investigator</p>
+        <h2 class="section-title" style="margin-bottom:var(--space-2)">Prof. Yaroslava Yingling</h2>
+        <p style="color:var(--color-primary);font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-6)">
+          Kobe Steel Distinguished Professor · Department of Materials Science and Engineering<br/>
+          Associate Department Head · University Faculty Scholar · NC State University
+        </p>
+        <div class="divider"></div>
+        <p>
+          Prof. Yingling leads the Y-AIMS Laboratory, developing AI workflows and multiscale
+          molecular modeling methods for materials discovery. Her research spans biomimetic
+          materials, nanomaterials, and data-driven materials design with over 100 publications
+          and 130+ invited talks worldwide.
+        </p>
+        <div class="pi-links">
+          <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ&hl=en"
+             target="_blank" rel="noopener" class="pi-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+            Google Scholar
+          </a>
+          <a href="https://orcid.org/0000-0002-8557-9992" target="_blank" rel="noopener" class="pi-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c2.359 0 3.881-1.369 3.881-3.722s-1.5-3.722-3.881-3.722h-2.297z"/></svg>
+            ORCID
+          </a>
+          <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="pi-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a href="team.html" class="btn btn-outline" style="margin-left:auto">Meet the Team →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FUNDING / AFFILIATIONS
+     ============================================================ -->
+<section class="funding-section" style="background: var(--color-surface);">
+  <div class="container">
+    <div class="section-header fade-in" style="text-align:center">
+      <p class="section-label" aria-hidden="true">Support &amp; Affiliations</p>
+      <h2 class="section-title">Funded By</h2>
+    </div>
+    <div class="funding-grid fade-in">
+      <div class="funder-pill">NSF STC STEPS</div>
+      <div class="funder-pill">NNF BIG</div>
+      <div class="funder-pill">DOE EFRC — CLSF</div>
+      <div class="funder-pill">NCSU CHiPS</div>
+      <div class="funder-pill">Nano@NCSU</div>
+      <div class="funder-pill">NSF Engineering</div>
+      <div class="funder-pill">NSF Materials Research</div>
+      <div class="funder-pill">Army Research Office</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+</main>
+<footer class="site-footer" role="contentinfo">
+  <!-- Official NCSU Brick Logo in footer -->
+  <div class="footer-ncsu-bar">
+    <div class="footer-ncsu-inner">
+      <img src="assets/ncsu/brick-white-on-red-web.png"
+           alt="NC State University"
+           class="footer-brick-logo"
+           loading="lazy" />
+    </div>
+  </div>
+
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Y-AIMS Laboratory</div>
+      <p>Y-AIMS Laboratory · North Carolina State University · Department of Materials Science and Engineering</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Research</h4>
+      <ul role="list">
+        <li><a href="research.html#biomimetic">Biomimetic Materials</a></li>
+        <li><a href="research.html#nanomaterials">Nanomaterials</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul role="list">
+        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/bg-animation.js?v=2"></script>
+</body>
+</html>

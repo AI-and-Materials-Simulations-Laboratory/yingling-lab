@@ -1,0 +1,582 @@
+/* ── PUBLICATIONS PAGE ─────────────────────────────────────── */
+
+/* HERO */
+.page-hero {
+  background: linear-gradient(135deg, var(--ncsu-red) 0%, var(--ncsu-red-dark) 60%, #3a0000 100%);
+  background-color: var(--ncsu-red-dark);
+  padding: var(--space-20) var(--space-8) var(--space-16);
+  text-align: center;
+}
+.page-hero-inner { max-width: 760px; margin: 0 auto; }
+.page-hero-label {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FFD9D9; /* 6.87:1 on ncsu-red-dark */
+  margin-bottom: var(--space-3);
+}
+.page-hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: var(--space-4);
+}
+.page-hero-subtitle {
+  font-size: var(--text-base);
+  color: #FFE8E8; /* 7.63:1 on ncsu-red-dark */
+  line-height: 1.65;
+}
+
+/* STATS BAR */
+.pub-stats-bar {
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.pub-stats-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-8);
+}
+.pub-stat { text-align: center; }
+.pub-stat-num {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--ncsu-red);
+  line-height: 1;
+}
+.pub-stat-label {
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+.pub-stat-div {
+  width: 1px;
+  height: 36px;
+  background: var(--color-border);
+}
+
+/* CONTROLS */
+.pub-controls {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+  z-index: 10;
+}
+.pub-controls-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--space-8);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+.pub-search-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 220px;
+}
+.pub-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.pub-search {
+  width: 100%;
+  padding: 9px 14px 9px 38px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.pub-search:focus { border-color: var(--ncsu-red); }
+.pub-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+.pub-select {
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  cursor: pointer;
+  outline: none;
+}
+.pub-select:focus { border-color: var(--ncsu-red); }
+.pub-reset-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pub-reset-btn:hover { border-color: var(--ncsu-red); color: var(--ncsu-red); }
+.pub-count-bar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-8) var(--space-3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+.pub-view-toggle { display: flex; gap: var(--space-1); }
+.view-btn {
+  padding: 6px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  line-height: 0;
+  transition: all 0.2s;
+}
+.view-btn.active, .view-btn:hover { border-color: var(--ncsu-red); color: var(--ncsu-red); background: rgba(204,0,0,0.06); }
+
+/* MAIN */
+.pub-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space-8) var(--space-8) var(--space-20);
+}
+
+/* ── LIST VIEW ─────────────────────────────────────────────── */
+.pub-list.view-list { display: flex; flex-direction: column; gap: 0; }
+.view-list .pub-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0 var(--space-5);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+}
+.view-list .pub-item:first-child { border-top: 1px solid var(--color-border); }
+
+.pub-num {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ncsu-red);
+  text-align: right;
+  padding-top: 3px;
+  line-height: 1.4;
+}
+.pub-body { min-width: 0; }
+.pub-title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.45;
+  margin-bottom: var(--space-1);
+}
+.pub-title a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.pub-title a:hover { color: var(--ncsu-red); }
+.pub-authors {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-bottom: var(--space-1);
+}
+.pub-authors strong { color: var(--color-text); font-weight: 600; }
+.pub-meta {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: var(--space-2);
+}
+.pub-meta .pub-journal { color: var(--color-text-faint); font-style: italic; }
+.pub-meta .pub-year { font-style: normal; font-weight: 600; color: var(--ncsu-red); }
+.pub-meta .pub-doi a {
+  font-style: normal;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-decoration: underline;
+}
+.pub-meta .pub-doi a:hover { color: var(--ncsu-red); }
+
+/* LABELS */
+.pub-labels { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-2); }
+.pub-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+.label-cover     { background: rgba(65,86,161,0.12); color: #4156A1; border: 1px solid rgba(65,86,161,0.25); }
+.label-press     { background: rgba(209,73,5,0.12);  color: #a83804; border: 1px solid rgba(209,73,5,0.25); }
+.label-award     { background: rgba(250,200,0,0.15); color: #7a5b00; border: 1px solid rgba(250,200,0,0.4); }
+.label-featured  { background: rgba(0,132,115,0.12); color: #006b60; border: 1px solid rgba(0,132,115,0.25); }
+.label-invited   { background: rgba(111,125,28,0.12); color: #5b6617; border: 1px solid rgba(111,125,28,0.25); }
+.label-book      { background: rgba(94,0,0,0.1);   color: #5e0000; border: 1px solid rgba(94,0,0,0.25); }
+
+/* EXTRA INFO (press releases, covers etc attached to publication) */
+.pub-extras { margin-top: var(--space-2); }
+.pub-extra-item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+.pub-extra-item::before { content: '→'; color: var(--ncsu-red); font-size: 11px; flex-shrink: 0; }
+.pub-extra-item a { color: var(--ncsu-red); text-decoration: none; }
+.pub-extra-item a:hover { text-decoration: underline; }
+
+/* COVER THUMB */
+.pub-cover-thumb {
+  width: 60px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ADD INFO BUTTON */
+.pub-add-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-2);
+  padding: 4px 10px;
+  border: 1px dashed var(--color-border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pub-add-btn:hover { border-color: var(--ncsu-red); color: var(--ncsu-red); }
+.pub-add-btn.has-extras { border-style: solid; border-color: rgba(204,0,0,0.3); color: var(--ncsu-red); }
+
+/* ── CARD VIEW ─────────────────────────────────────────────── */
+.pub-list.view-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-5);
+}
+.view-cards .pub-item {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.view-cards .pub-item:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+.view-cards .pub-num {
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  color: var(--ncsu-red);
+  text-align: left;
+}
+.view-cards .pub-cover-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+.view-cards .pub-cover-thumb { width: 52px; height: 68px; }
+.view-cards .pub-title { font-size: var(--text-sm); }
+.view-cards .pub-body { flex: 1; }
+.view-cards .pub-add-btn { margin-top: auto; }
+
+/* EMPTY STATE */
+.pub-empty {
+  text-align: center;
+  padding: var(--space-20) var(--space-8);
+  color: var(--color-text-muted);
+}
+.pub-empty svg { margin-bottom: var(--space-4); opacity: 0.4; }
+.pub-empty p { font-size: var(--text-lg); margin-bottom: var(--space-4); }
+.pub-empty button {
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ncsu-red);
+  cursor: pointer;
+  font-size: var(--text-sm);
+}
+
+/* ── MODAL ─────────────────────────────────────────────────── */
+.pub-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-4);
+}
+.pub-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(4px);
+}
+.pub-modal-box {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+}
+.pub-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.pub-modal-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+}
+.pub-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  padding: 0 var(--space-1);
+}
+.pub-modal-close:hover { color: var(--ncsu-red); }
+.pub-modal-body { padding: var(--space-5) var(--space-6); }
+.modal-pub-ref {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-style: italic;
+  margin-bottom: var(--space-5);
+  padding: var(--space-3);
+  background: var(--color-surface-2);
+  border-radius: 8px;
+  border-left: 3px solid var(--ncsu-red);
+  line-height: 1.5;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+.form-group { display: flex; flex-direction: column; gap: var(--space-1); }
+.form-group.full { grid-column: 1 / -1; }
+.form-group label {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding: 9px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  outline: none;
+  transition: border-color 0.2s;
+  resize: vertical;
+}
+.form-group input:focus,
+.form-group textarea:focus { border-color: var(--ncsu-red); }
+.form-hint { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* PRESS LIST IN MODAL */
+.press-list { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-3); }
+.press-list-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  font-size: var(--text-sm);
+}
+.press-list-item span { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.press-list-item a { color: var(--ncsu-red); font-size: var(--text-xs); }
+.press-list-item button {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+.press-list-item button:hover { color: var(--ncsu-red); }
+.press-add-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: var(--space-2);
+  align-items: center;
+}
+.press-add-row input {
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  outline: none;
+}
+.press-add-row input:focus { border-color: var(--ncsu-red); }
+.btn-add-press {
+  padding: 8px 14px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  color: var(--ncsu-red);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-add-press:hover { background: rgba(204,0,0,0.07); border-color: var(--ncsu-red); }
+
+.pub-modal-footer {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: flex-end;
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+.btn-cancel {
+  padding: 10px 20px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+.btn-save {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--ncsu-red);
+  color: #fff;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-save:hover { background: var(--ncsu-red-dark); }
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .pub-stats-inner { gap: var(--space-5); flex-wrap: wrap; }
+  .pub-controls-inner { flex-direction: column; align-items: stretch; }
+  .pub-search-wrap { min-width: 0; }
+  .form-grid { grid-template-columns: 1fr; }
+  .press-add-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .pub-main { padding: var(--space-5) var(--space-4) var(--space-16); }
+  .view-list .pub-item { grid-template-columns: 36px 1fr; gap: 0 var(--space-3); }
+  .pub-stats-bar .pub-stat-div { display: none; }
+}
+
+/* ── TOPIC / SUBTYPE BADGES ──────────────────────────────────── */
+.pub-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: var(--space-1);
+}
+
+.pub-topic {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  border: 1px solid transparent;
+}
+
+/* Topic colors — one per research area */
+.topic-ai-ml       { background: rgba(65,86,161,0.10); color: #4156A1; border-color: rgba(65,86,161,0.22); }
+.topic-nanoparticles { background: rgba(0,132,115,0.10); color: #006454; border-color: rgba(0,132,115,0.22); }
+.topic-cellulose   { background: rgba(111,125,28,0.12); color: #5a6616; border-color: rgba(111,125,28,0.25); }
+.topic-dna-rna     { background: rgba(209,73,5,0.10);  color: #b33e00; border-color: rgba(209,73,5,0.22); }
+.topic-polymer     { background: rgba(66,126,147,0.10); color: #2e6e85; border-color: rgba(66,126,147,0.22); }
+.topic-biomolecular{ background: rgba(204,0,0,0.07);   color: #990000; border-color: rgba(204,0,0,0.18); }
+.topic-informatics { background: rgba(250,200,0,0.12); color: #7a6000; border-color: rgba(250,200,0,0.35); }
+.topic-water       { background: rgba(66,126,147,0.14); color: #2a5f78; border-color: rgba(66,126,147,0.28); }
+.topic-laser       { background: rgba(94,0,0,0.09);    color: #5e0000; border-color: rgba(94,0,0,0.2); }
+
+[data-theme='dark'] .topic-ai-ml       { background: rgba(65,86,161,0.18); color: #8ca0f0; border-color: rgba(65,86,161,0.35); }
+[data-theme='dark'] .topic-nanoparticles { background: rgba(0,132,115,0.18); color: #4cc9b8; border-color: rgba(0,132,115,0.35); }
+[data-theme='dark'] .topic-cellulose   { background: rgba(111,125,28,0.18); color: #b8cc50; border-color: rgba(111,125,28,0.35); }
+[data-theme='dark'] .topic-dna-rna     { background: rgba(209,73,5,0.18);  color: #ff8a55; border-color: rgba(209,73,5,0.35); }
+[data-theme='dark'] .topic-polymer     { background: rgba(66,126,147,0.18); color: #7ec8df; border-color: rgba(66,126,147,0.35); }
+[data-theme='dark'] .topic-biomolecular{ background: rgba(255,51,51,0.12); color: #ff8888; border-color: rgba(255,51,51,0.25); }
+[data-theme='dark'] .topic-informatics { background: rgba(250,200,0,0.15); color: #f5d000; border-color: rgba(250,200,0,0.30); }
+[data-theme='dark'] .topic-water       { background: rgba(66,126,147,0.18); color: #7ec8df; border-color: rgba(66,126,147,0.35); }
+[data-theme='dark'] .topic-laser       { background: rgba(255,51,51,0.10); color: #cc7777; border-color: rgba(255,51,51,0.22); }
+
+/* Main background */
+.pub-main {
+  background: var(--color-bg);
+}

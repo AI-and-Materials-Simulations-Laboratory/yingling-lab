@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Research Areas — Y-AIMS Lab | NC State</title>
+  <meta name="description" content="Explore the three core research pillars of the Y-AIMS Laboratory: Biomimetic Materials, Nanomaterials & Nanoparticles, and AI & Data Science." />
+
+    <!-- Official NC State University fonts via NC State CDN -->
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <style>
+    /* ---- Research page specific ---- */
+    .research-area {
+      padding-block: clamp(var(--space-16), 8vw, var(--space-24));
+    }
+
+    .research-area:nth-child(even) {
+      background: var(--color-surface);
+    }
+
+    .research-area-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(var(--space-12), 6vw, var(--space-20));
+      align-items: center;
+    }
+
+    .research-area:nth-child(even) .research-area-inner {
+      direction: rtl;
+    }
+
+    .research-area:nth-child(even) .research-area-inner > * {
+      direction: ltr;
+    }
+
+    .research-area-text .section-label {
+      margin-bottom: var(--space-2);
+    }
+
+    .research-area-text h2 {
+      font-size: var(--text-xl);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+      color: var(--color-text);
+    }
+
+    .research-area-text .divider {
+      margin-bottom: var(--space-6);
+    }
+
+    .research-area-text p {
+      color: var(--color-text-muted);
+      line-height: 1.75;
+      margin-bottom: var(--space-4);
+    }
+
+    .research-topics {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      margin-top: var(--space-6);
+      margin-bottom: var(--space-8);
+    }
+
+    .research-topics li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      max-width: none;
+    }
+
+    .research-topics li::before {
+      content: '';
+      display: block;
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      margin-top: 0.45em;
+    }
+
+    .research-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    /* ---- Visual panels ---- */
+    .research-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 360px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Biomimetic visual — DNA double helix abstraction */
+    .vis-biomimetic {
+      background: linear-gradient(145deg, #1a0505 0%, #2d0808 50%, #1a0505 100%);
+      border: 1px solid rgba(204,0,0,0.15);
+    }
+
+    /* Nanomaterials visual — nanoparticle lattice */
+    .vis-nano {
+      background: linear-gradient(145deg, #051525 0%, #0a2040 50%, #051525 100%);
+      border: 1px solid rgba(0,95,163,0.2);
+    }
+
+    /* AI visual — neural network / data flow */
+    .vis-ai {
+      background: linear-gradient(145deg, #05100a 0%, #0a2016 50%, #05100a 100%);
+      border: 1px solid rgba(46,125,50,0.2);
+    }
+
+    .vis-biomimetic svg,
+    .vis-nano svg,
+    .vis-ai svg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      inset: 0;
+    }
+
+    /* ---- TOC / anchor nav ---- */
+    .research-toc {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+
+    .research-toc h3 {
+      font-size: var(--text-sm);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-text-faint);
+      margin-bottom: var(--space-4);
+    }
+
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+    }
+
+    .toc-list a {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: var(--space-2) var(--space-4);
+      border-radius: var(--radius-full);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      color: var(--color-text-muted);
+      background: var(--color-surface-offset);
+      text-decoration: none;
+      transition: all var(--transition-interactive);
+    }
+
+    .toc-list a:hover {
+      color: var(--color-primary);
+      background: var(--color-primary-highlight);
+    }
+
+    @media (max-width: 768px) {
+      .research-area-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .research-area:nth-child(even) .research-area-inner {
+        direction: ltr;
+      }
+
+      .research-visual {
+        min-height: 240px;
+        order: -1;
+      }
+    }
+
+    /* ---- Page header ---- */
+    .page-header {
+      background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
+      background-color: #990000; /* fallback for axe contrast detection */
+      padding: var(--space-20) var(--space-8) var(--space-16);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.13) 100%);
+      pointer-events: none;
+    }
+    .page-header .container {
+      position: relative;
+      z-index: 1;
+      max-width: var(--content-wide);
+      margin: 0 auto;
+    }
+    .page-header .section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #FFD9D9; /* 6.87:1 on #990000 — replaces rgba for axe detection */
+      margin-bottom: var(--space-3);
+    }
+    .page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .page-header p {
+      font-size: var(--text-base);
+      color: #FFE8E8; /* 7.63:1 on #990000 — replaces rgba for axe detection */
+      max-width: 58ch;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- ============================================================
+     NAVIGATION
+     ============================================================ -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
+      <img src="assets/ncsu/circle-wolf-400.png"
+           alt="NC State University circle wolf mark"
+           width="36" height="36"
+           class="nav-wolf-img"
+           loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html" class="active" aria-current="page">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
+    </div>
+
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="nav-mobile" role="list">
+    <a href="index.html">Home</a>
+    <a href="research.html" class="active" aria-current="page">Research</a>
+    <a href="team.html">Team</a>
+    <a href="publications.html">Publications</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="software.html">Software</a>
+    <a href="news.html">News</a>
+    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
+      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Dark Mode</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     PAGE HEADER
+     ============================================================ -->
+<main id="main-content" tabindex="-1">
+<header class="page-header">
+  <div class="container">
+    <div class="section-label fade-in">Research</div>
+    <h1 class="fade-in">Research Areas</h1>
+    <p class="fade-in">Three core pillars driving our work — biomimetic materials, nanomaterials, and AI-driven materials discovery.</p>
+  </div>
+</header>
+
+<!-- ============================================================
+     QUICK NAV
+     ============================================================ -->
+<section style="padding-block: var(--space-8); background: var(--color-bg);">
+  <div class="container">
+    <div class="research-toc fade-in">
+      <h3>Jump to section</h3>
+      <ul class="toc-list">
+        <li><a href="#biomimetic">01 · Biomimetic Materials</a></li>
+        <li><a href="#nanomaterials">02 · Nanomaterials &amp; Nanoparticles</a></li>
+        <li><a href="#ai">03 · AI &amp; Data Science</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     AREA 01 — BIOMIMETIC MATERIALS
+     ============================================================ -->
+<section id="biomimetic" class="research-area">
+  <div class="container">
+    <div class="research-area-inner">
+      <div class="research-area-text fade-in">
+        <div class="section-label">Area 01</div>
+        <h2>Biomimetic Materials</h2>
+        <div class="divider"></div>
+        <p>
+          We investigate the self-assembly of DNA and RNA nanomaterials with programmable, 
+          responsive properties. By combining principles from structural biology with 
+          computational materials design, we engineer molecular architectures that mimic 
+          natural biological systems at nanometer precision.
+        </p>
+        <p>
+          A central thrust is the biomimetic design of materials for phosphorus sustainability — 
+          developing bio-inspired capture and recycling strategies informed by molecular-level 
+          understanding of phosphate-binding proteins and nanochannel structures.
+        </p>
+        <ul class="research-topics">
+          <li>Self-assembly of DNA/RNA nanomaterials with responsive properties</li>
+          <li>Biomimetic design for phosphorus sustainability and nutrient recovery</li>
+          <li>Enzyme engineering and biocatalysis at the molecular scale</li>
+          <li>In silico materials design using DFT and all-atom MD</li>
+          <li>Nanochannel materials from biomolecular magnetic organic frameworks</li>
+        </ul>
+        <div class="research-tags">
+          <span class="tag tag-red">DNA Nanotechnology</span>
+          <span class="tag tag-grey">Self-Assembly</span>
+          <span class="tag tag-grey">Biocatalysis</span>
+          <span class="tag tag-grey">Phosphorus Sustainability</span>
+          <span class="tag tag-blue">In Silico Design</span>
+        </div>
+      </div>
+
+      <div class="research-visual vis-biomimetic fade-in" aria-hidden="true">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- DNA double-helix abstract -->
+          <!-- Strand 1 -->
+          <path d="M120,20 C160,60 240,100 200,140 C160,180 240,220 200,260 C160,300 240,340 200,380" 
+                fill="none" stroke="rgba(204,0,0,0.6)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Strand 2 -->
+          <path d="M280,20 C240,60 160,100 200,140 C240,180 160,220 200,260 C240,300 160,340 200,380" 
+                fill="none" stroke="rgba(204,0,0,0.35)" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- Base pairs -->
+          <line x1="152" y1="68" x2="248" y2="68" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <line x1="188" y1="110" x2="212" y2="110" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <line x1="164" y1="152" x2="236" y2="152" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <line x1="192" y1="194" x2="208" y2="194" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <line x1="162" y1="236" x2="238" y2="236" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <line x1="188" y1="278" x2="212" y2="278" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <line x1="158" y1="320" x2="242" y2="320" stroke="rgba(255,100,100,0.4)" stroke-width="1.5" stroke-dasharray="4 2"/>
+          <!-- Nodes -->
+          <circle cx="200" cy="140" r="6" fill="rgba(204,0,0,0.7)"/>
+          <circle cx="200" cy="260" r="6" fill="rgba(204,0,0,0.7)"/>
+          <circle cx="200" cy="200" r="4" fill="rgba(255,80,80,0.4)"/>
+          <!-- Satellite atoms -->
+          <circle cx="120" cy="60" r="4" fill="rgba(255,120,120,0.5)"/>
+          <circle cx="280" cy="80" r="4" fill="rgba(255,120,120,0.5)"/>
+          <circle cx="145" cy="190" r="3" fill="rgba(255,120,120,0.35)"/>
+          <circle cx="255" cy="230" r="3" fill="rgba(255,120,120,0.35)"/>
+          <!-- Phosphorus glow -->
+          <circle cx="200" cy="200" r="80" fill="none" stroke="rgba(204,0,0,0.06)" stroke-width="40"/>
+          <circle cx="200" cy="200" r="110" fill="none" stroke="rgba(204,0,0,0.04)" stroke-width="20"/>
+          <!-- Labels -->
+          <text x="64" y="142" fill="rgba(255,255,255,0.25)" font-size="9" font-family="monospace" aria-hidden="true">5'-ATCG-3'</text>
+          <text x="290" y="260" fill="rgba(255,255,255,0.25)" font-size="9" font-family="monospace" aria-hidden="true">3'-TAGC-5'</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     AREA 02 — NANOMATERIALS & NANOPARTICLES
+     ============================================================ -->
+<section id="nanomaterials" class="research-area">
+  <div class="container">
+    <div class="research-area-inner">
+      <div class="research-area-text fade-in">
+        <div class="section-label">Area 02</div>
+        <h2>Nanomaterials &amp; Nanoparticles</h2>
+        <div class="divider"></div>
+        <p>
+          We develop new molecular modeling approaches for magnetic and metal nanoparticles, 
+          enabling predictive understanding of their structure, dynamics, and interactions 
+          across multiple length scales. Our multiscale frameworks bridge atomistic resolution 
+          with mesoscale behavior.
+        </p>
+        <p>
+          Our polymer nanocomposite research elucidates how nanoparticle surface chemistry and 
+          dispersion state determine bulk mechanical and transport properties, guiding 
+          rational material design with reduced experimental iteration.
+        </p>
+        <ul class="research-topics">
+          <li>Molecular modeling for magnetic and metal nanoparticles</li>
+          <li>Multiscale modeling from atomistic to mesoscale</li>
+          <li>Polymer nanocomposites and interface engineering</li>
+          <li>Coarse-grained force field development for nanoparticle systems</li>
+          <li>Nanoparticle self-assembly and directed organization</li>
+        </ul>
+        <div class="research-tags">
+          <span class="tag tag-red">Multiscale Modeling</span>
+          <span class="tag tag-grey">Nanoparticles</span>
+          <span class="tag tag-grey">Magnetic Materials</span>
+          <span class="tag tag-grey">Polymer Nanocomposites</span>
+          <span class="tag tag-blue">Coarse-Grained MD</span>
+        </div>
+      </div>
+
+      <div class="research-visual vis-nano fade-in" aria-hidden="true">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Nanoparticle lattice arrangement -->
+          <!-- Central large particle -->
+          <circle cx="200" cy="200" r="28" fill="rgba(0,95,163,0.5)" stroke="rgba(77,166,232,0.6)" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="20" fill="rgba(0,95,163,0.3)"/>
+          <circle cx="200" cy="200" r="10" fill="rgba(77,166,232,0.4)"/>
+          <!-- Ring 1 particles -->
+          <circle cx="200" cy="120" r="18" fill="rgba(0,95,163,0.45)" stroke="rgba(77,166,232,0.5)" stroke-width="1.2"/>
+          <circle cx="200" cy="280" r="18" fill="rgba(0,95,163,0.45)" stroke="rgba(77,166,232,0.5)" stroke-width="1.2"/>
+          <circle cx="120" cy="200" r="18" fill="rgba(0,95,163,0.45)" stroke="rgba(77,166,232,0.5)" stroke-width="1.2"/>
+          <circle cx="280" cy="200" r="18" fill="rgba(0,95,163,0.45)" stroke="rgba(77,166,232,0.5)" stroke-width="1.2"/>
+          <!-- Ring 1 diagonal -->
+          <circle cx="143" cy="143" r="14" fill="rgba(0,80,140,0.4)" stroke="rgba(77,166,232,0.4)" stroke-width="1"/>
+          <circle cx="257" cy="143" r="14" fill="rgba(0,80,140,0.4)" stroke="rgba(77,166,232,0.4)" stroke-width="1"/>
+          <circle cx="143" cy="257" r="14" fill="rgba(0,80,140,0.4)" stroke="rgba(77,166,232,0.4)" stroke-width="1"/>
+          <circle cx="257" cy="257" r="14" fill="rgba(0,80,140,0.4)" stroke="rgba(77,166,232,0.4)" stroke-width="1"/>
+          <!-- Outer ring -->
+          <circle cx="200" cy="52" r="10" fill="rgba(0,60,100,0.35)" stroke="rgba(77,166,232,0.3)" stroke-width="1"/>
+          <circle cx="200" cy="348" r="10" fill="rgba(0,60,100,0.35)" stroke="rgba(77,166,232,0.3)" stroke-width="1"/>
+          <circle cx="52" cy="200" r="10" fill="rgba(0,60,100,0.35)" stroke="rgba(77,166,232,0.3)" stroke-width="1"/>
+          <circle cx="348" cy="200" r="10" fill="rgba(0,60,100,0.35)" stroke="rgba(77,166,232,0.3)" stroke-width="1"/>
+          <!-- Bonds / interactions -->
+          <line x1="200" y1="172" x2="200" y2="138" stroke="rgba(77,166,232,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="200" y1="228" x2="200" y2="262" stroke="rgba(77,166,232,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="172" y1="200" x2="138" y2="200" stroke="rgba(77,166,232,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="228" y1="200" x2="262" y2="200" stroke="rgba(77,166,232,0.3)" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="180" y1="180" x2="157" y2="157" stroke="rgba(77,166,232,0.2)" stroke-width="1" stroke-dasharray="2 3"/>
+          <line x1="220" y1="180" x2="243" y2="157" stroke="rgba(77,166,232,0.2)" stroke-width="1" stroke-dasharray="2 3"/>
+          <line x1="180" y1="220" x2="157" y2="243" stroke="rgba(77,166,232,0.2)" stroke-width="1" stroke-dasharray="2 3"/>
+          <line x1="220" y1="220" x2="243" y2="243" stroke="rgba(77,166,232,0.2)" stroke-width="1" stroke-dasharray="2 3"/>
+          <!-- Magnetic field lines -->
+          <ellipse cx="200" cy="200" rx="60" ry="80" fill="none" stroke="rgba(77,166,232,0.08)" stroke-width="1.5"/>
+          <ellipse cx="200" cy="200" rx="90" ry="120" fill="none" stroke="rgba(77,166,232,0.05)" stroke-width="1.5"/>
+          <ellipse cx="200" cy="200" rx="120" ry="160" fill="none" stroke="rgba(77,166,232,0.03)" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     AREA 03 — AI & DATA SCIENCE
+     ============================================================ -->
+<section id="ai" class="research-area">
+  <div class="container">
+    <div class="research-area-inner">
+      <div class="research-area-text fade-in">
+        <div class="section-label">Area 03</div>
+        <h2>AI &amp; Data Science</h2>
+        <div class="divider"></div>
+        <p>
+          We leverage data-science techniques and modern AI architectures to extract insights 
+          from heterogeneous materials datasets and accelerate the design–synthesis–characterization 
+          loop. Our workflows integrate LLMs, graph neural networks, and Bayesian optimization 
+          to make materials discovery more predictive and data-efficient.
+        </p>
+        <p>
+          A major focus is retrieval-augmented generation (RAG) for scientific literature mining, 
+          enabling automated extraction of experimental parameters and materials property trends 
+          to drive high-throughput experimental design campaigns.
+        </p>
+        <ul class="research-topics">
+          <li>AI-driven workflows for materials discovery and optimization</li>
+          <li>Bayesian optimization for high-throughput experimental design</li>
+          <li>Retrieval-augmented generation for scientific literature mining</li>
+          <li>Graph neural networks for molecular property prediction</li>
+          <li>Large language models for materials informatics</li>
+        </ul>
+        <div class="research-tags">
+          <span class="tag tag-red">Machine Learning</span>
+          <span class="tag tag-grey">Bayesian Optimization</span>
+          <span class="tag tag-blue">Graph Neural Networks</span>
+          <span class="tag tag-grey">RAG / LLMs</span>
+          <span class="tag tag-grey">High-Throughput Design</span>
+        </div>
+      </div>
+
+      <div class="research-visual vis-ai fade-in" aria-hidden="true">
+        <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+          <!-- Neural network / data pipeline visualization -->
+          <!-- Input layer (left) -->
+          <circle cx="80" cy="130" r="10" fill="rgba(46,125,50,0.5)" stroke="rgba(80,200,80,0.5)" stroke-width="1.2"/>
+          <circle cx="80" cy="170" r="10" fill="rgba(46,125,50,0.5)" stroke="rgba(80,200,80,0.5)" stroke-width="1.2"/>
+          <circle cx="80" cy="210" r="10" fill="rgba(46,125,50,0.5)" stroke="rgba(80,200,80,0.5)" stroke-width="1.2"/>
+          <circle cx="80" cy="250" r="10" fill="rgba(46,125,50,0.5)" stroke="rgba(80,200,80,0.5)" stroke-width="1.2"/>
+          <circle cx="80" cy="290" r="10" fill="rgba(46,125,50,0.5)" stroke="rgba(80,200,80,0.5)" stroke-width="1.2"/>
+          <!-- Hidden layer 1 -->
+          <circle cx="170" cy="110" r="12" fill="rgba(46,125,50,0.55)" stroke="rgba(80,200,80,0.55)" stroke-width="1.5"/>
+          <circle cx="170" cy="160" r="12" fill="rgba(46,125,50,0.55)" stroke="rgba(80,200,80,0.55)" stroke-width="1.5"/>
+          <circle cx="170" cy="210" r="12" fill="rgba(46,125,50,0.55)" stroke="rgba(80,200,80,0.55)" stroke-width="1.5"/>
+          <circle cx="170" cy="260" r="12" fill="rgba(46,125,50,0.55)" stroke="rgba(80,200,80,0.55)" stroke-width="1.5"/>
+          <circle cx="170" cy="310" r="12" fill="rgba(46,125,50,0.55)" stroke="rgba(80,200,80,0.55)" stroke-width="1.5"/>
+          <!-- Hidden layer 2 -->
+          <circle cx="250" cy="135" r="14" fill="rgba(46,125,50,0.65)" stroke="rgba(80,200,80,0.6)" stroke-width="1.5"/>
+          <circle cx="250" cy="200" r="14" fill="rgba(46,125,50,0.65)" stroke="rgba(80,200,80,0.6)" stroke-width="1.5"/>
+          <circle cx="250" cy="265" r="14" fill="rgba(46,125,50,0.65)" stroke="rgba(80,200,80,0.6)" stroke-width="1.5"/>
+          <!-- Output node -->
+          <circle cx="340" cy="200" r="18" fill="rgba(46,125,50,0.7)" stroke="rgba(80,200,80,0.8)" stroke-width="2"/>
+          <circle cx="340" cy="200" r="10" fill="rgba(80,200,80,0.4)"/>
+          <!-- Connections input → h1 -->
+          <line x1="90" y1="132" x2="158" y2="115" stroke="rgba(80,200,80,0.12)" stroke-width="1"/>
+          <line x1="90" y1="172" x2="158" y2="118" stroke="rgba(80,200,80,0.12)" stroke-width="1"/>
+          <line x1="90" y1="212" x2="158" y2="162" stroke="rgba(80,200,80,0.12)" stroke-width="1"/>
+          <line x1="90" y1="252" x2="158" y2="213" stroke="rgba(80,200,80,0.12)" stroke-width="1"/>
+          <line x1="90" y1="292" x2="158" y2="262" stroke="rgba(80,200,80,0.12)" stroke-width="1"/>
+          <line x1="90" y1="130" x2="158" y2="158" stroke="rgba(80,200,80,0.1)" stroke-width="0.8"/>
+          <line x1="90" y1="170" x2="158" y2="208" stroke="rgba(80,200,80,0.1)" stroke-width="0.8"/>
+          <line x1="90" y1="210" x2="158" y2="258" stroke="rgba(80,200,80,0.1)" stroke-width="0.8"/>
+          <line x1="90" y1="250" x2="158" y2="308" stroke="rgba(80,200,80,0.1)" stroke-width="0.8"/>
+          <!-- h1 → h2 -->
+          <line x1="182" y1="112" x2="236" y2="137" stroke="rgba(80,200,80,0.15)" stroke-width="1"/>
+          <line x1="182" y1="162" x2="236" y2="145" stroke="rgba(80,200,80,0.15)" stroke-width="1"/>
+          <line x1="182" y1="212" x2="236" y2="200" stroke="rgba(80,200,80,0.15)" stroke-width="1"/>
+          <line x1="182" y1="262" x2="236" y2="255" stroke="rgba(80,200,80,0.15)" stroke-width="1"/>
+          <line x1="182" y1="110" x2="236" y2="200" stroke="rgba(80,200,80,0.08)" stroke-width="0.8"/>
+          <line x1="182" y1="310" x2="236" y2="260" stroke="rgba(80,200,80,0.08)" stroke-width="0.8"/>
+          <!-- h2 → output -->
+          <line x1="264" y1="137" x2="322" y2="195" stroke="rgba(80,200,80,0.25)" stroke-width="1.5"/>
+          <line x1="264" y1="200" x2="322" y2="200" stroke="rgba(80,200,80,0.3)" stroke-width="1.5"/>
+          <line x1="264" y1="265" x2="322" y2="205" stroke="rgba(80,200,80,0.25)" stroke-width="1.5"/>
+          <!-- Bayesian optimization curve (top) -->
+          <path d="M60,70 Q120,30 200,55 Q280,80 340,45" fill="none" stroke="rgba(80,200,80,0.25)" stroke-width="1.5" stroke-dasharray="5 3"/>
+          <!-- Data flow arrow (bottom) -->
+          <path d="M60,355 L340,355" fill="none" stroke="rgba(80,200,80,0.2)" stroke-width="1.5" marker-end="none"/>
+          <polygon points="340,351 350,355 340,359" fill="rgba(80,200,80,0.3)"/>
+          <text x="160" y="370" fill="rgba(255,255,255,0.2)" font-size="9" font-family="monospace" text-anchor="middle" aria-hidden="true">data pipeline</text>
+          <!-- Layer labels -->
+          <text x="80" y="98" fill="rgba(255,255,255,0.2)" font-size="8" font-family="monospace" text-anchor="middle" aria-hidden="true">input</text>
+          <text x="170" y="88" fill="rgba(255,255,255,0.2)" font-size="8" font-family="monospace" text-anchor="middle" aria-hidden="true">hidden</text>
+          <text x="250" y="110" fill="rgba(255,255,255,0.2)" font-size="8" font-family="monospace" text-anchor="middle" aria-hidden="true">hidden</text>
+          <text x="340" y="175" fill="rgba(255,255,255,0.2)" font-size="8" font-family="monospace" text-anchor="middle" aria-hidden="true">output</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+</main>
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <div class="footer-ncsu-inner">
+      <img src="assets/ncsu/brick-white-on-red-web.png"
+           alt="NC State University"
+           class="footer-brick-logo"
+           loading="lazy" />
+    </div>
+  </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Y-AIMS Laboratory</div>
+      <p>Y-AIMS Laboratory at North Carolina State University. Integrating molecular modeling, data science, and AI for materials discovery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Research</h4>
+      <ul role="list">
+        <li><a href="research.html#biomimetic">Biomimetic Materials</a></li>
+        <li><a href="research.html#nanomaterials">Nanomaterials</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul role="list">
+        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>

@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News & Updates — Y-AIMS Lab | NC State</title>
+  <meta name="description" content="Latest news and updates from Prof. Yaroslava Yingling and the Y-AIMS Laboratory at NC State University, pulled from LinkedIn." />
+
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <style>
+    /* ─── PAGE HERO ─────────────────────────────────────────── */
+    .news-hero {
+      background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
+      padding: var(--space-20) var(--space-8) var(--space-16);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .news-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 60%, rgba(65,86,161,0.12) 100%);
+      pointer-events: none;
+    }
+    .news-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    .news-hero-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: var(--space-3);
+    }
+    .news-hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .news-hero-sub {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.72);
+      line-height: 1.65;
+    }
+
+    /* ─── SOURCE BAR ─────────────────────────────────────────── */
+    .news-source-bar {
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-4) var(--space-8);
+    }
+    .news-source-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+    .news-source-left {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+    }
+    .li-icon {
+      width: 32px;
+      height: 32px;
+      background: #0A66C2;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .news-source-label {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.4;
+    }
+    .news-source-label strong {
+      display: block;
+      color: var(--color-text);
+      font-weight: 700;
+      font-size: var(--text-base);
+    }
+    .li-follow-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 8px 18px;
+      background: #0A66C2;
+      color: #fff;
+      border-radius: 999px;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.18s;
+      white-space: nowrap;
+      border: none;
+    }
+    .li-follow-btn:hover {
+      background: #004182;
+      transform: translateY(-1px);
+    }
+
+    /* ─── FEED LAYOUT ────────────────────────────────────────── */
+    .news-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: var(--space-10) var(--space-8) var(--space-20);
+    }
+
+    .news-feed {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: var(--space-6);
+    }
+
+    /* ─── POST CARD ──────────────────────────────────────────── */
+    .li-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .li-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    /* Category accent bar at top */
+    .li-card-bar {
+      height: 3px;
+      flex-shrink: 0;
+    }
+    .bar-award       { background: #D97706; }
+    .bar-publication { background: var(--ncsu-red); }
+    .bar-event       { background: var(--ncsu-blue); }
+    .bar-people      { background: #7C3AED; }
+    .bar-education   { background: var(--ncsu-teal); }
+    .bar-research    { background: var(--ncsu-green); }
+
+    .li-card-body {
+      padding: var(--space-5) var(--space-6);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: var(--space-3);
+    }
+
+    /* Header row: author chip + date + category */
+    .li-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .li-author-chip {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+    }
+    .li-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--ncsu-red-dark), var(--ncsu-red-deepest));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .li-author-name {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+    .li-author-date {
+      font-size: 10px;
+      color: var(--color-text-faint);
+    }
+    .li-cat-badge {
+      display: inline-block;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .cat-award       { background: rgba(217,119,6,0.1);   color: #92400E; border: 1px solid rgba(217,119,6,0.2); }
+    .cat-publication { background: rgba(204,0,0,0.08);    color: var(--ncsu-red-dark); border: 1px solid rgba(204,0,0,0.18); }
+    .cat-event       { background: rgba(65,86,161,0.1);   color: #4156A1; border: 1px solid rgba(65,86,161,0.2); }
+    .cat-people      { background: rgba(124,58,237,0.09); color: #6D28D9; border: 1px solid rgba(124,58,237,0.18); }
+    .cat-education   { background: rgba(0,132,115,0.09);  color: #006B5E; border: 1px solid rgba(0,132,115,0.18); }
+    .cat-research    { background: rgba(111,125,28,0.1);  color: #4a5512; border: 1px solid rgba(111,125,28,0.2); }
+
+    [data-theme='dark'] .cat-award       { background: rgba(217,119,6,0.18);  color: #FCD34D; border-color: rgba(217,119,6,0.3); }
+    [data-theme='dark'] .cat-publication { background: rgba(255,51,51,0.12); color: #ff8888; border-color: rgba(255,51,51,0.25); }
+    [data-theme='dark'] .cat-event       { background: rgba(65,86,161,0.18); color: #8ca0f0; border-color: rgba(65,86,161,0.3); }
+    [data-theme='dark'] .cat-people      { background: rgba(124,58,237,0.16);color: #c4b5fd; border-color: rgba(124,58,237,0.28); }
+    [data-theme='dark'] .cat-education   { background: rgba(0,132,115,0.16); color: #4cc9b8; border-color: rgba(0,132,115,0.28); }
+    [data-theme='dark'] .cat-research    { background: rgba(111,125,28,0.18);color: #b8cc50; border-color: rgba(111,125,28,0.3); }
+
+    /* Post content */
+    .li-card-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+    }
+    .li-card-excerpt {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      flex: 1;
+      /* clamp to ~5 lines */
+      display: -webkit-box;
+      -webkit-line-clamp: 6;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Hashtags */
+    .li-hashtags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .li-hashtag {
+      font-size: 11px;
+      font-weight: 600;
+      color: #0A66C2;
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+    [data-theme='dark'] .li-hashtag { color: #60a5fa; }
+    .li-hashtag:hover { text-decoration: underline; }
+
+    /* Footer: LinkedIn link */
+    .li-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-3) var(--space-6) var(--space-5);
+      border-top: 1px solid var(--color-divider);
+      margin-top: auto;
+    }
+    .li-view-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: #0A66C2;
+      text-decoration: none;
+      transition: color 0.15s, gap 0.15s;
+      font-family: var(--font-display);
+    }
+    [data-theme='dark'] .li-view-link { color: #60a5fa; }
+    .li-view-link:hover { gap: 8px; }
+    .li-logo-small {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--color-text-faint);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .li-logo-small svg { opacity: 0.45; }
+
+    /* ─── FOLLOW CTA ─────────────────────────────────────────── */
+    .news-cta {
+      margin-top: var(--space-12);
+      background: linear-gradient(135deg, #EBF4FD 0%, #ddeeff 100%);
+      border: 1px solid rgba(10,102,194,0.15);
+      border-radius: 12px;
+      padding: var(--space-8) var(--space-10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+    [data-theme='dark'] .news-cta {
+      background: rgba(10,102,194,0.08);
+      border-color: rgba(10,102,194,0.2);
+    }
+    .news-cta-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-1);
+    }
+    .news-cta-text p {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .news-main { padding: var(--space-8) var(--space-4) var(--space-16); }
+      .news-source-bar { padding: var(--space-4); }
+      .news-cta { flex-direction: column; }
+    }
+    @media (max-width: 480px) {
+      .news-feed { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State University circle wolf mark"
+           width="36" height="36" class="nav-wolf-img" loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+      <li><a href="news.html" class="active" aria-current="page">News</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" role="list">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="team.html">Team</a>
+    <a href="publications.html">Publications</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="software.html">Software</a>
+    <a href="news.html" class="active" aria-current="page">News</a>
+    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
+      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Dark Mode</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="news-hero">
+  <div class="news-hero-inner">
+    <div class="news-hero-label" aria-hidden="true">Updates</div>
+    <h1 class="news-hero-title">News &amp; Updates</h1>
+    <p class="news-hero-sub">Latest from the Y-AIMS Laboratory — posts from Prof. Yingling's LinkedIn</p>
+  </div>
+</header>
+
+<!-- SOURCE BAR -->
+<div class="news-source-bar">
+  <div class="news-source-bar-inner">
+    <div class="news-source-left">
+      <div class="li-icon" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </div>
+      <div class="news-source-label">
+        <strong>Prof. Yaroslava Yingling</strong>
+        Posts sourced from LinkedIn · Updated manually
+      </div>
+    </div>
+    <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="li-follow-btn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      Follow on LinkedIn
+    </a>
+  </div>
+</div>
+
+<!-- FEED -->
+<main id="main-content" tabindex="-1" class="news-main">
+  <div class="news-feed" id="newsFeed" data-rss-url="">
+    <!-- Posts rendered by JS from POSTS data below -->
+  </div>
+
+  <!-- Follow CTA -->
+  <div class="news-cta">
+    <div class="news-cta-text">
+      <strong>Stay in the loop</strong>
+      <p>Follow Prof. Yingling on LinkedIn for real-time updates on research, awards, events, and lab news from the Y-AIMS Laboratory.</p>
+    </div>
+    <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="li-follow-btn" style="font-size:var(--text-sm);padding:10px 24px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      View LinkedIn Profile
+    </a>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <div class="footer-ncsu-inner">
+      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University"
+           class="footer-brick-logo" loading="lazy" />
+    </div>
+  </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Y-AIMS Laboratory</div>
+      <p>Y-AIMS Laboratory at North Carolina State University. Integrating molecular modeling, data science, and AI for materials discovery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Research</h4>
+      <ul role="list">
+        <li><a href="research.html#biomimetic">Biomimetic Materials</a></li>
+        <li><a href="research.html#nanomaterials">Nanomaterials</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul role="list">
+        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+/* ── LINKEDIN POSTS DATA ─────────────────────────────────────
+   Sourced from Prof. Yingling's LinkedIn profile (April 2026).
+   To update: add new entries at the top of this array.
+   ─────────────────────────────────────────────────────────── */
+const POSTS = [
+  {
+    date: 'February 2026',
+    cat: 'event',
+    catLabel: 'Conference',
+    barCls: 'bar-event',
+    catCls: 'cat-event',
+    title: 'Chairing GRC Computational Materials Science 2026 (Aug 2–7, Maine)',
+    excerpt: 'We worked hard, and the program is now ready for the 2026 GRC Computational Materials Science and Engineering (August 2–7, Jordan Hotel at Sunday River, Newry, Maine). Expect keynote sessions on computational methods and AI tools driving materials discovery, talks spanning DFT, MD, coarse-grained modeling, multiscale simulations, and a special focus on AI\'s expanding role in predictive modeling. Speakers include Berend Smit, Anna Balazs, Rampi Ramprasad, Heather Kulik, Markus Buehler, and many more.',
+    tags: ['#GRC2026', '#ComputationalMaterials', '#AIinMaterials'],
+    url: 'https://www.linkedin.com/posts/yaroslava-yingling_grc2026-grc2026-computationalmaterials-activity-7425020197507563520-ir1x'
+  },
+  {
+    date: 'November 2025',
+    cat: 'award',
+    catLabel: 'Award',
+    barCls: 'bar-award',
+    catCls: 'cat-award',
+    title: 'Prof. Yingling receives 2025 R.J. Reynolds Award — NC State\'s highest faculty honor',
+    excerpt: 'Incredibly thankful for this recognition. I could not have achieved this without the dedication of my research team, my collaborators, and the support of my family. Congratulations to Professor Yaroslava Yingling on receiving the 2025 R.J. Reynolds Tobacco Company Award for Excellence in Teaching, Research and Extension — the highest faculty honor in the NC State College of Engineering. Her pioneering contributions in molecular simulations, AI-enabled materials discovery, and interdisciplinary science have advanced the field in profound ways.',
+    tags: ['#NCState', '#FacultyAward', '#MaterialsScience'],
+    url: 'https://www.linkedin.com/posts/yaroslava-yingling_i-am-incredibly-thankful-for-this-recognition-activity-7396671391502135296-XpXZ'
+  },
+  {
+    date: 'September 2025',
+    cat: 'education',
+    catLabel: 'Education',
+    barCls: 'bar-education',
+    catCls: 'cat-education',
+    title: 'NC State hosts LLM in Materials & Chemistry hackathon (Sept 11–12)',
+    excerpt: 'NC State is one of the official "LLM in Materials and Chemistry" hackathon sites — and we want you on a team. LLMs like ChatGPT, Gemini, and Claude are powerful AI tools — but can they help design a polymer? Or summarize a decade of materials data in 30 seconds? This hackathon is your chance to find out. No AI or coding experience needed. We\'re building interdisciplinary teams with clearly defined challenges. Organized by Merve Fedai, Christina Bayard, Sabila Kader Pinky, and Deepak Sai Pendyala.',
+    tags: ['#AI', '#MachineLearning', '#MaterialsScience', '#Hackathon'],
+    url: 'https://www.linkedin.com/posts/yaroslava-yingling_nc-state-is-one-of-the-official-llm-in-materials-activity-7370633132607188992-TGkR'
+  },
+  {
+    date: 'August 2025',
+    cat: 'education',
+    catLabel: 'Education',
+    barCls: 'bar-education',
+    catCls: 'cat-education',
+    title: 'REU 2025 Symposium — Y-AIMS Lab student wins 1st Place Best Poster',
+    excerpt: 'NC State MSE REU 2025 symposium capped off an exciting summer of research in materials, synthesis, characterization, theory, simulations, AI, and machine learning! 🥇 1st Place Best Poster (MSE REU): Stephanie Euceda Trujillo, mentored by Merve Fedai (PI: Yaroslava Yingling). Congratulations to all REU participants and heartfelt thanks to the mentors, PIs, organizer Hillary Stone, and AI+Materials bootcamp instructor Alexey Gulyuk.',
+    tags: ['#REU', '#UndergraduateResearch', '#NSFREU', '#NCState', '#YinglingLab'],
+    url: 'https://www.linkedin.com/posts/yaroslava-yingling_reu-materialsscience-ai-activity-7357064475994144768-MRnp'
+  },
+  {
+    date: 'April 2025',
+    cat: 'publication',
+    catLabel: 'Publication',
+    barCls: 'bar-publication',
+    catCls: 'cat-publication',
+    title: 'New review: "The Role of AI in Water Quality Management" — a family research team',
+    excerpt: 'Our latest review paper is officially out! And here\'s the twist: it was written by a mother-daughter-niece research team — scientific curiosity runs in the family. We explore how AI is transforming water quality management, from advanced monitoring techniques to predictive models. Honored to have worked alongside my daughter Natalie Yingling (Oceanographer) and my niece Maria Petrova (Environmental Engineer). If you\'re into AI, water science, or multi-generational research teams, give it a read!',
+    tags: ['#AI', '#WaterQuality', '#MachineLearning'],
+    url: 'https://www.linkedin.com/posts/yaroslava-yingling_the-role-of-ai-in-water-quality-management-activity-7303545268115828737-J_c4'
+  },
+  {
+    date: 'February 2025',
+    cat: 'people',
+    catLabel: 'People',
+    barCls: 'bar-people',
+    catCls: 'cat-people',
+    title: 'Dr. Sabila Kader Pinky defends PhD — not even a snowstorm could stop her',
+    excerpt: 'Congratulations to Dr. Sabila Kader Pinky for successfully defending her PhD thesis on "Molecular Understanding of the Self-Assembly of Complex Functional Materials!" Not even a snowstorm shutting down the university could stop her! To celebrate, we\'re considering constructing a "micellar complex functional snowman." Congratulations, Dr. Pinky! Welcome to the club!',
+    tags: ['#YinglingResearchGroup', '#NCState', '#PhD'],
+    url: 'https://www.linkedin.com/posts/yaroslava-yingling_yinglingresearchgroup-ncstate-phd-activity-7298096622691864578-R8Ls'
+  }
+];
+
+/* ── RSS FEED AUTO-LOADER ─────────────────────────────────────
+   If the news feed div has a non-empty data-rss-url attribute,
+   posts are fetched from that RSS feed (e.g. from RSS.app for LinkedIn).
+   Otherwise falls back to the hardcoded POSTS array below.
+   
+   To enable: set data-rss-url on <div id="newsFeed"> to your RSS feed URL.
+   RSS.app setup: https://rss.app  →  LinkedIn profile feed → copy RSS URL
+   ─────────────────────────────────────────────────────────── */
+
+/* Category detection from RSS item text */
+function detectCat(title, content) {
+  const text = (title + ' ' + content).toLowerCase();
+  if (/award|honor|recogni|prize/.test(text))     return {cat:'award',    catLabel:'Award',       barCls:'bar-award',       catCls:'cat-award'};
+  if (/publish|paper|journal|article|review/.test(text)) return {cat:'publication',catLabel:'Publication', barCls:'bar-publication', catCls:'cat-publication'};
+  if (/conference|workshop|hackathon|grc|event/.test(text)) return {cat:'event',    catLabel:'Conference',  barCls:'bar-event',       catCls:'cat-event'};
+  if (/student|phd|graduat|reu|intern|postdoc/.test(text)) return {cat:'people',   catLabel:'People',      barCls:'bar-people',      catCls:'cat-people'};
+  if (/teach|course|class|educat/.test(text))     return {cat:'education', catLabel:'Education',   barCls:'bar-education',   catCls:'cat-education'};
+  return {cat:'news', catLabel:'News', barCls:'bar-news', catCls:'cat-news'};
+}
+
+function extractTags(text) {
+  return (text.match(/#[A-Za-z][A-Za-z0-9_]+/g) || []).slice(0, 5);
+}
+
+function formatDate(dateStr) {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('en-US', {month:'long', year:'numeric'});
+  } catch { return dateStr || ''; }
+}
+
+/* RSS fetch + parse via allOrigins CORS proxy */
+async function loadFromRSS(rssUrl) {
+  const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
+  const resp = await fetch(proxy, {signal: AbortSignal.timeout(8000)});
+  if (!resp.ok) throw new Error('RSS proxy error ' + resp.status);
+  const data = await resp.json();
+  const parser = new DOMParser();
+  const xml = parser.parseFromString(data.contents, 'text/xml');
+  const items = Array.from(xml.querySelectorAll('item'));
+  return items.slice(0, 20).map(item => {
+    const title   = item.querySelector('title')?.textContent?.trim() || '';
+    const link    = item.querySelector('link')?.textContent?.trim() || '';
+    const rawDate = item.querySelector('pubDate')?.textContent || item.querySelector('dc\:date')?.textContent || '';
+    const desc    = item.querySelector('description')?.textContent || item.querySelector('content\:encoded')?.textContent || '';
+    // Strip HTML tags from description
+    const excerpt = desc.replace(/<[^>]+>/g, ' ').replace(/\s+/g,' ').trim().slice(0, 320);
+    const {cat, catLabel, barCls, catCls} = detectCat(title, excerpt);
+    const tags = extractTags(title + ' ' + excerpt);
+    return { date: formatDate(rawDate), cat, catLabel, barCls, catCls,
+             title: title || excerpt.slice(0,80), excerpt, tags, url: link };
+  }).filter(p => p.title);
+}
+
+/* ── RENDER ─────────────────────────────────────────────────── */
+function renderPosts() {
+  const feed = document.getElementById('newsFeed');
+  feed.innerHTML = POSTS.map(p => `
+    <article class="li-card fade-in">
+      <div class="li-card-bar ${p.barCls}"></div>
+      <div class="li-card-body">
+        <div class="li-card-header">
+          <div class="li-author-chip">
+            <div class="li-avatar" aria-hidden="true">YY</div>
+            <div>
+              <div class="li-author-name">Yaroslava Yingling</div>
+              <div class="li-author-date">${p.date}</div>
+            </div>
+          </div>
+          <span class="li-cat-badge ${p.catCls}">${p.catLabel}</span>
+        </div>
+        <h2 class="li-card-title">${p.title}</h2>
+        <p class="li-card-excerpt">${p.excerpt}</p>
+        <div class="li-hashtags">
+          ${p.tags.map(t => `<a href="https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(t)}" target="_blank" rel="noopener" class="li-hashtag">${t}</a>`).join('')}
+        </div>
+      </div>
+      <div class="li-card-footer">
+        <a href="${p.url}" target="_blank" rel="noopener" class="li-view-link">
+          View on LinkedIn
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <span class="li-logo-small">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </span>
+      </div>
+    </article>
+  `).join('');
+}
+
+renderPosts(); // initial render from hardcoded POSTS
+
+/* ── ASYNC RSS OVERRIDE ─────────────────────────────────────── */
+(async () => {
+  const feed = document.getElementById('newsFeed');
+  const rssUrl = feed?.dataset?.rssUrl?.trim();
+  if (!rssUrl) return; // no RSS configured — keep static posts
+
+  // Show loading state
+  feed.innerHTML = '<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--color-text-muted)">Loading latest posts from LinkedIn…</div>';
+
+  try {
+    const posts = await loadFromRSS(rssUrl);
+    if (!posts.length) throw new Error('empty feed');
+    feed.innerHTML = posts.map(p => `
+    <article class="li-card fade-in">
+      <div class="li-card-bar ${p.barCls}"></div>
+      <div class="li-card-body">
+        <div class="li-card-header">
+          <div class="li-author-chip">
+            <div class="li-avatar" aria-hidden="true">YY</div>
+            <div>
+              <div class="li-author-name">Yaroslava Yingling</div>
+              <div class="li-author-date">${p.date}</div>
+            </div>
+          </div>
+          <span class="li-cat-badge ${p.catCls}">${p.catLabel}</span>
+        </div>
+        <h2 class="li-card-title">${p.title}</h2>
+        <p class="li-card-excerpt">${p.excerpt}</p>
+        <div class="li-hashtags">
+          ${p.tags.map(t => `<a href="https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(t)}" target="_blank" rel="noopener" class="li-hashtag">${t}</a>`).join('')}
+        </div>
+      </div>
+      <div class="li-card-footer">
+        <a href="${p.url}" target="_blank" rel="noopener" class="li-view-link">
+          View on LinkedIn
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        </a>
+        <span class="li-logo-small">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </span>
+      </div>
+    </article>`).join('');
+  } catch (err) {
+    // RSS failed — fall back to static posts silently
+    console.warn('RSS feed unavailable, using static posts:', err.message);
+    renderPosts();
+  }
+})();
+</script>
+</body>
+</html>

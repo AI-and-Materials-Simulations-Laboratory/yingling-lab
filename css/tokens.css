@@ -1,0 +1,148 @@
+/* ============================================================
+   Y-AIMS LAB — Design Tokens
+   Official NC State University Brand Colors
+   Source: https://brand.ncsu.edu/designing-for-nc-state/colors/
+   Fonts: Univers + Glypha via https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css
+   ============================================================ */
+
+/* ─── NC STATE OFFICIAL COLORS ─────────────────────────────── */
+:root {
+  /* Primary */
+  --ncsu-red:          #CC0000;   /* NC State Red — primary brand color  */
+  --ncsu-red-dark:     #990000;   /* Reynolds Red — darker shade         */
+  --ncsu-red-deepest:  #5e0000;   /* Deepest red shade                   */
+  --ncsu-black:        #000000;
+  --ncsu-white:        #FFFFFF;
+
+  /* Secondary palette */
+  --ncsu-orange:       #D14905;   /* Pyromaniac                          */
+  --ncsu-yellow:       #FAC800;   /* Reebok                              */
+  --ncsu-green:        #6F7D1C;   /* Genomic (olive green)               */
+  --ncsu-teal:         #008473;   /* Lonnie (teal)                       */
+  --ncsu-blue-teal:    #427E93;   /* Hunt (light blue)                   */
+  --ncsu-blue:         #4156A1;   /* Centennial (indigo blue)            */
+
+  /* Neutrals */
+  --ncsu-gray-1:       #F2F2F2;
+  --ncsu-gray-2:       #CCCCCC;
+  --ncsu-gray-3:       #999999;
+  --ncsu-gray-4:       #666666;
+  --ncsu-gray-5:       #333333;
+
+  /* ─── SURFACES ─────────────────────────────────────────── */
+  --color-bg:              #F8F7F5;
+  --color-surface:         #FFFFFF;
+  --color-surface-2:       #F2F2F2;
+  --color-surface-offset:  #EBEBEB;
+  --color-surface-dynamic: #DEDEDE;
+  --color-divider:         #DCDCDC;
+  --color-border:          #D4D4D4;
+
+  /* ─── TEXT ──────────────────────────────────────────────── */
+  --color-text:         #1A1A1A;
+  --color-text-muted:   #4A4A4A;
+  --color-secondary:       #1a1a1a;
+  --color-text-faint:   #595959;
+  --color-text-inverse: #FFFFFF;
+
+  /* ─── BRAND ROLES ───────────────────────────────────────── */
+  --color-primary:           var(--ncsu-red);
+  --color-primary-hover:     var(--ncsu-red-dark);
+  --color-primary-active:    var(--ncsu-red-deepest);
+  --color-primary-highlight: rgba(204, 0, 0, 0.08);
+
+  --color-accent:            var(--ncsu-blue-teal);
+  --color-accent-hover:      #326070;
+  --color-accent-highlight:  rgba(66, 126, 147, 0.1);
+
+  /* ─── RADIUS ────────────────────────────────────────────── */
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   6px;
+  --radius-xl:   8px;
+  --radius-full: 9999px;
+
+  /* ─── SHADOWS ───────────────────────────────────────────── */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.09);
+  --shadow-lg: 0 12px 36px rgba(0,0,0,0.12);
+
+  /* ─── TRANSITIONS ───────────────────────────────────────── */
+  --ease-out:          cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in:           cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out:       cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ─── LAYOUT ────────────────────────────────────────────── */
+  --content-narrow:  640px;
+  --content-default: 960px;
+  --content-wide:   1200px;
+
+  /* ─── TYPE SCALE ────────────────────────────────────────── */
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.2vw,  0.875rem);
+  --text-sm:   clamp(0.875rem, 0.82rem + 0.3vw,  1rem);
+  --text-base: clamp(1rem,     0.96rem + 0.2vw,  1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.6vw,  1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.2vw,  2.25rem);
+  --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);
+  --text-hero: clamp(2.5rem,   1rem    + 4vw,    5.5rem);
+
+  /* ─── SPACING ───────────────────────────────────────────── */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* ─── FONTS ─────────────────────────────────────────────── */
+  /* Official NCSU fonts: Univers (display/body), Glypha (slab/serif) */
+  --font-display: 'Univers', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  --font-body:    'Univers', 'Roboto', Arial, sans-serif;
+  --font-serif:   'Glypha', 'Roboto Slab', Georgia, serif;
+  --font-mono:    'Roboto Mono', 'Courier New', monospace;
+}
+
+/* ─── DARK MODE ─────────────────────────────────────────────── */
+[data-theme='dark'] {
+  --color-secondary: #0d0d0d;
+  --color-bg:              #111111;
+  --color-surface:         #1A1A1A;
+  --color-surface-2:       #222222;
+  --color-surface-offset:  #2A2A2A;
+  --color-surface-dynamic: #333333;
+  --color-divider:         #2E2E2E;
+  --color-border:          #383838;
+  --color-text:            #EFEFEF;
+  --color-text-muted:      #AAAAAA;
+  --color-secondary:       #1a1a1a;
+  --color-text-faint:      #666666;
+  --ncsu-red:              #FF3333;
+  --color-primary:         #FF3333;
+  --color-primary-hover:   #FF5555;
+  --color-primary-highlight: rgba(255,51,51,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 36px rgba(0,0,0,0.5);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg: #111111;
+    --color-surface: #1A1A1A;
+    --color-surface-2: #222222;
+    --color-surface-offset: #2A2A2A;
+    --color-border: #383838;
+    --color-text: #EFEFEF;
+    --color-text-muted: #AAAAAA;
+    --ncsu-red: #FF3333;
+    --color-primary: #FF3333;
+    --color-primary-highlight: rgba(255,51,51,0.1);
+  }
+}

@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teaching & Education — Y-AIMS Lab | NC State</title>
+  <meta name="description" content="Courses taught by Prof. Yaroslava Yingling at NC State — Materials Informatics, Nanoscale Simulations, and Biomaterials." />
+
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <style>
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .teaching-hero {
+      background-color: #990000; /* fallback for axe contrast detection */
+      background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
+      padding: var(--space-20) var(--space-8) var(--space-16);
+      position: relative;
+      overflow: hidden;
+    }
+    .teaching-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.13) 100%);
+      pointer-events: none;
+    }
+    .teaching-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--content-wide);
+      margin: 0 auto;
+    }
+    .hero-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #FFD9D9; /* 6.87:1 on #990000 — replaces rgba */
+      margin-bottom: var(--space-3);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .hero-sub {
+      font-size: var(--text-base);
+      color: #FFC8C8; /* 5.81:1 on #990000 — replaces rgba */
+      max-width: 60ch;
+      line-height: 1.7;
+    }
+
+    /* ─── MAIN ───────────────────────────────────────────────── */
+    .teaching-main {
+      max-width: var(--content-wide);
+      margin: 0 auto;
+      padding: var(--space-14) var(--space-8) var(--space-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-10);
+    }
+
+    /* ─── COURSE CARD ────────────────────────────────────────── */
+    .course-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow 0.2s;
+    }
+    .course-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .course-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-5);
+      padding: var(--space-7) var(--space-8);
+      border-bottom: 1px solid var(--color-divider);
+    }
+    .course-num-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-width: 80px;
+      padding: var(--space-3) var(--space-4);
+      border-radius: var(--radius-md);
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .course-num-badge .dept {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      /* opacity removed — use solid color for WCAG contrast */
+    }
+    .course-num-badge .num {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    /* Per-course accent colors */
+    .badge-informatics {
+      background: rgba(65,86,161,0.1);
+      color: #4156A1;
+      border: 1px solid rgba(65,86,161,0.2);
+    }
+    .badge-simulations {
+      background: rgba(0,132,115,0.1);
+      color: #006454;
+      border: 1px solid rgba(0,132,115,0.2);
+    }
+    .badge-biomaterials {
+      background: rgba(209,73,5,0.1);
+      color: #b33e00;
+      border: 1px solid rgba(209,73,5,0.2);
+    }
+    [data-theme='dark'] .badge-informatics  { background: rgba(65,86,161,0.18); color: #8ca0f0; border-color: rgba(65,86,161,0.3); }
+    [data-theme='dark'] .badge-simulations  { background: rgba(0,132,115,0.18); color: #4cc9b8; border-color: rgba(0,132,115,0.3); }
+    [data-theme='dark'] .badge-biomaterials { background: rgba(209,73,5,0.18);  color: #ff8a55; border-color: rgba(209,73,5,0.3); }
+
+    .course-header-text {
+      flex: 1;
+    }
+    .course-title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.2;
+      margin-bottom: var(--space-2);
+    }
+    .course-meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+    }
+    .course-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+      letter-spacing: 0.03em;
+    }
+    .course-tag svg { opacity: 0.6; }
+
+    /* ─── COURSE BODY ────────────────────────────────────────── */
+    .course-body {
+      padding: var(--space-7) var(--space-8);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .course-section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-primary);
+      margin-bottom: var(--space-3);
+    }
+
+    .course-goals-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.75;
+    }
+    .course-goals-text strong {
+      color: var(--color-text);
+    }
+
+    /* Outcomes list */
+    .outcomes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-3);
+    }
+    .outcome-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-divider);
+    }
+    .outcome-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+    .outcome-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    /* Publication callout */
+    .pub-callout {
+      display: flex;
+      gap: var(--space-4);
+      padding: var(--space-4) var(--space-5);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-left: 3px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      align-items: flex-start;
+    }
+    .pub-callout-icon {
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--color-primary);
+      opacity: 0.7;
+    }
+    .pub-callout-text {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+    .pub-callout-text strong {
+      color: var(--color-text);
+      font-weight: 700;
+    }
+    .pub-callout-text a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .pub-callout-text a:hover { text-decoration: underline; }
+    .pub-callout-note {
+      margin-top: var(--space-2);
+      font-style: italic;
+      color: var(--color-text-faint);
+      font-size: var(--text-xs);
+      line-height: 1.6;
+    }
+
+    /* ─── BOTTOM CTA ─────────────────────────────────────────── */
+    .teaching-cta {
+      background: linear-gradient(135deg, rgba(204,0,0,0.04) 0%, rgba(65,86,161,0.06) 100%);
+      border: 1px solid var(--color-border);
+      border-radius: 14px;
+      padding: var(--space-8) var(--space-10);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-6);
+      flex-wrap: wrap;
+    }
+    .teaching-cta-text strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-1);
+    }
+    .teaching-cta-text p {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.65;
+      max-width: 52ch;
+    }
+    .cta-btns {
+      display: flex;
+      gap: var(--space-3);
+      flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: 10px 22px;
+      background: var(--color-primary);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .btn-primary:hover { background: var(--ncsu-red-dark); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      padding: 10px 22px;
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      text-decoration: none;
+      transition: border-color 0.18s, color 0.18s;
+    }
+    .btn-outline:hover { border-color: var(--color-primary); color: var(--color-primary); }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .teaching-main { padding: var(--space-10) var(--space-4) var(--space-16); }
+      .course-header { flex-direction: column; gap: var(--space-4); padding: var(--space-6); }
+      .course-body { padding: var(--space-5) var(--space-6); }
+      .outcomes-grid { grid-template-columns: 1fr; }
+      .teaching-cta { flex-direction: column; padding: var(--space-6); }
+    }
+    @media (max-width: 480px) {
+      .course-num-badge { flex-direction: row; gap: var(--space-2); align-items: center; padding: var(--space-2) var(--space-3); }
+      .course-num-badge .num { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State University circle wolf mark"
+           width="36" height="36" class="nav-wolf-img" loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="teaching.html" class="active" aria-current="page">Teaching</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" role="list">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="team.html">Team</a>
+    <a href="publications.html">Publications</a>
+    <a href="teaching.html" class="active" aria-current="page">Teaching</a>
+    <a href="software.html">Software</a>
+    <a href="news.html">News</a>
+    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
+      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Dark Mode</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="teaching-hero">
+  <div class="teaching-hero-inner">
+    <div class="hero-label" aria-hidden="true">Education</div>
+    <h1 class="hero-title">Teaching &amp; Education</h1>
+    <p class="hero-sub">Graduate and undergraduate courses in materials informatics, nanoscale simulation, and biomaterials — offered in person and via distance education at NC State University.</p>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main-content" tabindex="-1" class="teaching-main">
+
+  <!-- ─── COURSE 1: MSE 723 ─────────────────────────────────── -->
+  <article class="course-card fade-in">
+    <div class="course-header">
+      <div class="course-num-badge badge-informatics">
+        <span class="dept">MSE</span>
+        <span class="num">723</span>
+      </div>
+      <div class="course-header-text">
+        <h2 class="course-title">Materials Informatics</h2>
+        <div class="course-meta-row">
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Graduate
+          </span>
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Distance Ed &amp; In Person
+          </span>
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+            Machine Learning · Data Science
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="course-body">
+      <div>
+        <div class="course-section-label">Course Goals</div>
+        <p class="course-goals-text">
+          This course introduces the emergent field of <strong>materials informatics</strong> and current approaches that employ machine learning and experimental and computational data to accelerate the process of materials optimization, discovery, and development. An emphasis is placed on the practical implementation of machine learning techniques to various materials science problems.
+        </p>
+      </div>
+      <div>
+        <div class="course-section-label">Student Learning Outcomes</div>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><div class="outcome-dot"></div><span class="outcome-text">Demonstrate an understanding of key materials informatics concepts and components</span></div>
+          <div class="outcome-item"><div class="outcome-dot"></div><span class="outcome-text">Explain the relationship between materials and data-driven techniques</span></div>
+          <div class="outcome-item"><div class="outcome-dot"></div><span class="outcome-text">Interpret the informatics problems and capabilities associated with different types of materials</span></div>
+          <div class="outcome-item"><div class="outcome-dot"></div><span class="outcome-text">Describe available machine learning techniques and materials databases</span></div>
+          <div class="outcome-item"><div class="outcome-dot"></div><span class="outcome-text">Identify a machine learning algorithm with the desired properties for a given materials problem</span></div>
+          <div class="outcome-item"><div class="outcome-dot"></div><span class="outcome-text">Evaluate existing and emerging ML technologies and analyze trends in data-driven techniques</span></div>
+        </div>
+      </div>
+      <div class="pub-callout">
+        <div class="pub-callout-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="pub-callout-text">
+          <strong>Related Publication</strong><br>
+          Thomas J. Oweida, Akhlak Ul-Mahmood, Matthew D. Manning, Sergei Rigin, Yaroslava G. Yingling.
+          <a href="https://doi.org/10.1557/adv.2020.171" target="_blank" rel="noopener"><em>MRS Advances</em> 5 (2020) 1–18</a>
+          <div class="pub-callout-note">
+            Discusses the growing use of materials informatics in academia and industry, highlights the need for educational advances in materials informatics, and describes the implementation of a materials informatics course to equip students with the skills required to succeed in informatics projects.
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── COURSE 2: MSE 721 ─────────────────────────────────── -->
+  <article class="course-card fade-in">
+    <div class="course-header">
+      <div class="course-num-badge badge-simulations">
+        <span class="dept">MSE</span>
+        <span class="num">721</span>
+      </div>
+      <div class="course-header-text">
+        <h2 class="course-title">Nanoscale Simulations and Modeling</h2>
+        <div class="course-meta-row">
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Graduate
+          </span>
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Distance Ed &amp; In Person
+          </span>
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+            Nanotechnology · Multiscale Methods
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="course-body">
+      <div>
+        <div class="course-section-label">Course Goals</div>
+        <p class="course-goals-text">
+          This course is designed to assist engineering students in learning the fundamentals and cutting-edge nature of various <strong>simulation methods and their application to nanostructures and nanotechnology</strong>. Modeling tools range from accurate first-principles quantum-based methods to multi-scale approaches that combine atomic and continuum modeling. An emphasis is placed on using computational methods for data-driven approaches for the design of new materials.
+        </p>
+      </div>
+      <div>
+        <div class="course-section-label">Student Learning Objectives</div>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><div class="outcome-dot" style="background:var(--ncsu-teal)"></div><span class="outcome-text">Identify and explain the advantages and limitations of various computational techniques</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:var(--ncsu-teal)"></div><span class="outcome-text">Explain the properties of various nanomaterials and nanosystems</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:var(--ncsu-teal)"></div><span class="outcome-text">Select appropriate computational methods for specific materials, properties and processing challenges</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:var(--ncsu-teal)"></div><span class="outcome-text">Evaluate literature based on the use of computational techniques</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:var(--ncsu-teal)"></div><span class="outcome-text">Design research problems with the use of computational techniques</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── COURSE 3: MSE 485/791 ─────────────────────────────── -->
+  <article class="course-card fade-in">
+    <div class="course-header">
+      <div class="course-num-badge badge-biomaterials">
+        <span class="dept">MSE</span>
+        <span class="num">485</span>
+      </div>
+      <div class="course-header-text">
+        <h2 class="course-title">Biomaterials <span style="font-size:var(--text-sm);font-weight:600;color:var(--color-text-muted)">/ MSE 791</span></h2>
+        <div class="course-meta-row">
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Undergrad &amp; Graduate
+          </span>
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Distance Ed &amp; In Person
+          </span>
+          <span class="course-tag">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Biosystems · Drug Delivery · Energy
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="course-body">
+      <div>
+        <div class="course-section-label">Course Goals</div>
+        <p class="course-goals-text">
+          This course introduces fundamental aspects associated with the <strong>synthesis, properties, processing, and application of materials derived from or associated with bio-entities</strong>. The course focuses on biomaterials with broad applications beyond medical or clinical uses, emphasizing biological systems' unique machinery and function in the context of desired material outcomes. Topics include:
+        </p>
+        <ul style="list-style:none;padding:var(--space-4) 0 0;display:flex;flex-direction:column;gap:var(--space-2);">
+          <li style="font-size:var(--text-sm);color:var(--color-text-muted);display:flex;gap:var(--space-3);align-items:baseline"><span style="color:var(--color-primary);font-weight:700;flex-shrink:0">→</span> Differences among classes of biomaterials; toxicity vs. biocompatibility</li>
+          <li style="font-size:var(--text-sm);color:var(--color-text-muted);display:flex;gap:var(--space-3);align-items:baseline"><span style="color:var(--color-primary);font-weight:700;flex-shrink:0">→</span> Bulk vs. surface properties; interactions with different environments</li>
+          <li style="font-size:var(--text-sm);color:var(--color-text-muted);display:flex;gap:var(--space-3);align-items:baseline"><span style="color:var(--color-primary);font-weight:700;flex-shrink:0">→</span> Biomaterials stability and degradation</li>
+          <li style="font-size:var(--text-sm);color:var(--color-text-muted);display:flex;gap:var(--space-3);align-items:baseline"><span style="color:var(--color-primary);font-weight:700;flex-shrink:0">→</span> Sensing and bioelectronics applications</li>
+          <li style="font-size:var(--text-sm);color:var(--color-text-muted);display:flex;gap:var(--space-3);align-items:baseline"><span style="color:var(--color-primary);font-weight:700;flex-shrink:0">→</span> Energy, soft robotics, and responsive materials applications</li>
+          <li style="font-size:var(--text-sm);color:var(--color-text-muted);display:flex;gap:var(--space-3);align-items:baseline"><span style="color:var(--color-primary);font-weight:700;flex-shrink:0">→</span> Drug delivery, multiplexing, and theranostic applications</li>
+        </ul>
+      </div>
+      <div>
+        <div class="course-section-label">Student Learning Objectives</div>
+        <div class="outcomes-grid">
+          <div class="outcome-item"><div class="outcome-dot" style="background:#b33e00"></div><span class="outcome-text">Explain the properties of various biomaterials</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:#b33e00"></div><span class="outcome-text">Select appropriate methods to address specific materials, properties and processing challenges</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:#b33e00"></div><span class="outcome-text">Apply chemistry and engineering knowledge to solve challenges in biomaterials</span></div>
+          <div class="outcome-item"><div class="outcome-dot" style="background:#b33e00"></div><span class="outcome-text">Critically review scientific literature and identify areas of research opportunity</span></div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ─── BOTTOM CTA ────────────────────────────────────────── -->
+  <div class="teaching-cta fade-in">
+    <div class="teaching-cta-text">
+      <strong>Graduate Certificate in Materials Informatics</strong>
+      <p>Prof. Yingling serves as Director of the NC State Graduate Certificate in Materials Informatics. Prospective students interested in AI-driven materials research are encouraged to reach out.</p>
+    </div>
+    <div class="cta-btns">
+      <a href="https://mse.ncsu.edu/academics/graduate-programs/materials-informatics/" target="_blank" rel="noopener" class="btn-primary">Learn More</a>
+      <a href="team.html" class="btn-outline">Meet the Team</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <div class="footer-ncsu-inner">
+      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University"
+           class="footer-brick-logo" loading="lazy" />
+    </div>
+  </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Y-AIMS Laboratory</div>
+      <p>Y-AIMS Laboratory at North Carolina State University. Integrating molecular modeling, data science, and AI to accelerate materials discovery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Courses</h4>
+      <ul role="list">
+        <li><a href="teaching.html">MSE 723 — Materials Informatics</a></li>
+        <li><a href="teaching.html">MSE 721 — Nanoscale Simulations</a></li>
+        <li><a href="teaching.html">MSE 485/791 — Biomaterials</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul role="list">
+        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

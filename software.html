@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software & Data — Y-AIMS Lab | NC State</title>
+  <meta name="description" content="Open-source software, simulation methods, predicted 3D structures, databases, and patents from the Y-AIMS Laboratory at NC State University." />
+
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+
+  <style>
+    /* ─── HERO ───────────────────────────────────────────────── */
+    .sw-hero {
+      background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
+      padding: var(--space-20) var(--space-8) var(--space-16);
+      position: relative;
+      overflow: hidden;
+    }
+    .sw-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.13) 100%);
+      pointer-events: none;
+    }
+    .sw-hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--content-wide);
+      margin: 0 auto;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .sw-hero-text .hero-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: var(--space-3);
+    }
+    .sw-hero-text .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+    }
+    .sw-hero-text .hero-sub {
+      font-size: var(--text-base);
+      color: rgba(255,255,255,0.72);
+      max-width: 58ch;
+      line-height: 1.7;
+    }
+    .sw-github-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 11px 22px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.18s, transform 0.18s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .sw-github-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+
+    /* ─── MAIN ───────────────────────────────────────────────── */
+    .sw-main {
+      max-width: var(--content-wide);
+      margin: 0 auto;
+      padding: var(--space-14) var(--space-8) var(--space-20);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-14);
+    }
+
+    /* ─── SECTION HEADER ─────────────────────────────────────── */
+    .sw-section-head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-4);
+      margin-bottom: var(--space-7);
+    }
+    .sw-section-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #fff;
+    }
+    .icon-software  { background: linear-gradient(135deg, #4156A1, #2d3a7a); }
+    .icon-methods   { background: linear-gradient(135deg, #008473, #005a4e); }
+    .icon-structures{ background: linear-gradient(135deg, #D14905, #9a3400); }
+    .icon-database  { background: linear-gradient(135deg, #6F7D1C, #4a5512); }
+    .icon-patents   { background: linear-gradient(135deg, #427E93, #2a5f78); }
+
+    .sw-section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.2;
+    }
+    .sw-section-count {
+      margin-left: auto;
+      font-size: var(--text-sm);
+      color: var(--color-text-faint);
+      font-weight: 600;
+      font-family: var(--font-display);
+    }
+
+    /* ─── SOFTWARE CARDS ─────────────────────────────────────── */
+    .sw-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-5);
+    }
+    .sw-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .sw-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+    .sw-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+    .sw-card-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--color-text-muted);
+    }
+    .sw-card-name {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+    }
+    .sw-card-type {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      font-family: var(--font-display);
+    }
+    .sw-card-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+    .sw-card-ref {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      line-height: 1.6;
+      padding-top: var(--space-3);
+      border-top: 1px solid var(--color-divider);
+    }
+    .sw-card-ref a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .sw-card-ref a:hover { text-decoration: underline; }
+    .sw-card-actions {
+      display: flex;
+      gap: var(--space-2);
+      flex-wrap: wrap;
+    }
+    .sw-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 5px 12px;
+      border-radius: var(--radius-md);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      font-family: var(--font-display);
+      text-decoration: none;
+      transition: background 0.15s, color 0.15s;
+      letter-spacing: 0.03em;
+    }
+    .sw-btn-github {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-muted);
+    }
+    .sw-btn-github:hover { background: #24292e; color: #fff; border-color: #24292e; }
+    .sw-btn-doi {
+      background: rgba(204,0,0,0.07);
+      border: 1px solid rgba(204,0,0,0.18);
+      color: var(--color-primary);
+    }
+    .sw-btn-doi:hover { background: var(--color-primary); color: #fff; }
+
+    /* ─── METHODS LIST ───────────────────────────────────────── */
+    .methods-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+    .method-item {
+      display: grid;
+      grid-template-columns: 3px 1fr;
+      gap: var(--space-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.2s;
+    }
+    .method-item:hover { box-shadow: var(--shadow-sm); }
+    .method-accent { background: var(--ncsu-teal); }
+    .method-body {
+      padding: var(--space-5) var(--space-6) var(--space-5) 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .method-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+    }
+    .method-ref {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+    .method-ref a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .method-ref a:hover { text-decoration: underline; }
+
+    /* ─── STRUCTURES GRID ────────────────────────────────────── */
+    .structures-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+    .struct-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-4);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 10px;
+      padding: var(--space-4) var(--space-5);
+      transition: box-shadow 0.2s;
+    }
+    .struct-item:hover { box-shadow: var(--shadow-sm); }
+    .struct-num {
+      min-width: 28px;
+      height: 28px;
+      background: rgba(209,73,5,0.1);
+      border: 1px solid rgba(209,73,5,0.2);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 800;
+      color: #b33e00;
+      flex-shrink: 0;
+    }
+    [data-theme='dark'] .struct-num { background: rgba(209,73,5,0.18); color: #ff8a55; border-color: rgba(209,73,5,0.3); }
+    .struct-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .struct-name {
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+    .struct-ref {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      line-height: 1.6;
+    }
+    .struct-ref a {
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .struct-ref a:hover { text-decoration: underline; }
+
+    /* ─── DATABASE CARD ──────────────────────────────────────── */
+    .db-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: var(--space-6) var(--space-8);
+      display: flex;
+      gap: var(--space-6);
+      align-items: flex-start;
+    }
+    .db-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, rgba(111,125,28,0.15), rgba(111,125,28,0.08));
+      border: 1px solid rgba(111,125,28,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #4a5512;
+    }
+    [data-theme='dark'] .db-icon { background: rgba(111,125,28,0.18); color: #b8cc50; border-color: rgba(111,125,28,0.3); }
+    .db-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-3); }
+    .db-name {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--color-text);
+    }
+    .db-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+    .db-ref {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      line-height: 1.6;
+    }
+    .db-ref a { color: var(--color-primary); text-decoration: none; font-weight: 600; }
+    .db-ref a:hover { text-decoration: underline; }
+
+    /* ─── PATENTS ────────────────────────────────────────────── */
+    .patents-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+    .patent-item {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: 12px;
+      padding: var(--space-6);
+      display: flex;
+      gap: var(--space-5);
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+    .patent-item:hover { box-shadow: var(--shadow-sm); }
+    .patent-num {
+      min-width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--ncsu-blue), #2d3a7a);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: var(--text-sm);
+      font-weight: 800;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .patent-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); }
+    .patent-id {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      align-items: center;
+    }
+    .patent-number-badge {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      background: rgba(66,126,147,0.1);
+      border: 1px solid rgba(66,126,147,0.2);
+      border-radius: 4px;
+      color: #2a5f78;
+      letter-spacing: 0.04em;
+    }
+    [data-theme='dark'] .patent-number-badge { background: rgba(66,126,147,0.18); color: #7ec8df; border-color: rgba(66,126,147,0.3); }
+    .patent-title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.35;
+    }
+    .patent-inventors {
+      font-size: var(--text-xs);
+      color: var(--color-text-faint);
+      font-style: italic;
+    }
+    .patent-desc {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .sw-main { padding: var(--space-10) var(--space-4) var(--space-16); }
+      .sw-hero-inner { flex-direction: column; align-items: flex-start; gap: var(--space-5); }
+      .sw-cards { grid-template-columns: 1fr; }
+      .db-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<!-- NAV -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State University circle wolf mark"
+           width="36" height="36" class="nav-wolf-img" loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="teaching.html">Teaching</a></li>
+      <li><a href="software.html" class="active" aria-current="page">Software</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" role="list">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="team.html">Team</a>
+    <a href="publications.html">Publications</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="software.html" class="active" aria-current="page">Software</a>
+    <a href="news.html">News</a>
+    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
+      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Dark Mode</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="sw-hero">
+  <div class="sw-hero-inner">
+    <div class="sw-hero-text">
+      <div class="hero-label" aria-hidden="true">Open Science</div>
+      <h1 class="hero-title">Software &amp; Data</h1>
+      <p class="hero-sub">Open-source tools, simulation methods, predicted protein structures, curated databases, and patents from the Y-AIMS Laboratory.</p>
+    </div>
+    <a href="https://github.com/yingling-group" target="_blank" rel="noopener" class="sw-github-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+      github.com/yingling-group
+    </a>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main id="main-content" tabindex="-1" class="sw-main">
+
+  <!-- ══ 1. SOFTWARE ══════════════════════════════════════════ -->
+  <section>
+    <div class="sw-section-head">
+      <div class="sw-section-icon icon-software">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      </div>
+      <div class="sw-section-label">Software</div>
+      <span class="sw-section-count">4 packages</span>
+    </div>
+    <div class="sw-cards">
+
+      <!-- flory_fox_scraper -->
+      <div class="sw-card fade-in">
+        <div class="sw-card-top">
+          <div class="sw-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+          </div>
+          <div>
+            <div class="sw-card-name">flory_fox_scraper</div>
+            <div class="sw-card-type">Python · Machine Learning</div>
+          </div>
+        </div>
+        <p class="sw-card-desc">Scrapes glass transition temperature (T<sub>g</sub>) data for polymers and performs Flory-Fox fitting. Enables data-driven prediction of polymer thermal properties from literature.</p>
+        <div class="sw-card-ref">
+          J. S. Peerless, N. J. B. Milliken, M. D. Manning, T. J. Oweida, Y. G. Yingling<br>
+          <a href="https://doi.org/10.1002/adts.201800129" target="_blank" rel="noopener">Advanced Theory and Simulations (2018) · DOI: 10.1002/adts.201800129</a>
+        </div>
+        <div class="sw-card-actions">
+          <a href="https://github.com/yingling-group" target="_blank" rel="noopener" class="sw-btn sw-btn-github">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://doi.org/10.1002/adts.201800129" target="_blank" rel="noopener" class="sw-btn sw-btn-doi">DOI</a>
+        </div>
+      </div>
+
+      <!-- lammps-mspin -->
+      <div class="sw-card fade-in">
+        <div class="sw-card-top">
+          <div class="sw-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <div>
+            <div class="sw-card-name">lammps-mspin</div>
+            <div class="sw-card-type">C++ · LAMMPS Plugin</div>
+          </div>
+        </div>
+        <p class="sw-card-desc">LAMMPS plugin for atomistic-resolution simulation of magnetic nanoparticles. Implements Zeeman alignment and dipolar assembly physics for spin-active systems in molecular dynamics.</p>
+        <div class="sw-card-ref">
+          Akhlak U. Mahmood &amp; Yaroslava G. Yingling<br>
+          <a href="https://doi.org/10.1021/acs.jctc.1c01253" target="_blank" rel="noopener">ACS J. Chemical Theory &amp; Computation (2022) · DOI: 10.1021/acs.jctc.1c01253</a>
+        </div>
+        <div class="sw-card-actions">
+          <a href="https://github.com/yingling-group" target="_blank" rel="noopener" class="sw-btn sw-btn-github">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://doi.org/10.1021/acs.jctc.1c01253" target="_blank" rel="noopener" class="sw-btn sw-btn-doi">DOI</a>
+        </div>
+      </div>
+
+      <!-- X3DBio2 -->
+      <div class="sw-card fade-in">
+        <div class="sw-card-top">
+          <div class="sw-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <div class="sw-card-name">X3DBio2</div>
+            <div class="sw-card-type">Visualization · Analysis</div>
+          </div>
+        </div>
+        <p class="sw-card-desc">Visual analysis tool for <strong>biomolecular structure comparison</strong>. Enables interactive 3D comparison of molecular conformations, supporting structure-function analysis workflows.</p>
+        <div class="sw-card-ref">
+          H. Yi, S. Thakur, L. Sethaphong, Y. G. Yingling<br>
+          <a href="https://doi.org/10.1117/12.2002626" target="_blank" rel="noopener">Proc. SPIE 8654, VDA (2013) · DOI: 10.1117/12.2002626</a>
+        </div>
+        <div class="sw-card-actions">
+          <a href="https://github.com/yingling-group" target="_blank" rel="noopener" class="sw-btn sw-btn-github">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- X3DBio -->
+      <div class="sw-card fade-in">
+        <div class="sw-card-top">
+          <div class="sw-card-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <div class="sw-card-name">X3DBio</div>
+            <div class="sw-card-type">Visualization · Exploration</div>
+          </div>
+        </div>
+        <p class="sw-card-desc">Visual analysis tool for <strong>biomolecular structure exploration</strong>. Predecessor to X3DBio2, providing interactive 3D visualization and structural analysis of biological macromolecules.</p>
+        <div class="sw-card-ref">
+          H. Yi, A. Singh, Y. G. Yingling<br>
+          <a href="#" class="sw-btn-doi" style="text-decoration:none;color:var(--color-primary);font-weight:600">Proc. SPIE 8294 (2012) 82940S</a>
+        </div>
+        <div class="sw-card-actions">
+          <a href="https://github.com/yingling-group" target="_blank" rel="noopener" class="sw-btn sw-btn-github">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ 2. METHODS ═══════════════════════════════════════════ -->
+  <section>
+    <div class="sw-section-head">
+      <div class="sw-section-icon icon-methods">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <div class="sw-section-label">Simulation Methods</div>
+      <span class="sw-section-count">4 methods</span>
+    </div>
+    <div class="methods-list">
+      <div class="method-item fade-in">
+        <div class="method-accent"></div>
+        <div class="method-body">
+          <div class="method-title">All-Atom Simulation Method for Zeeman Alignment and Dipolar Assembly of Magnetic Nanoparticles</div>
+          <div class="method-ref">Akhlak U. Mahmood &amp; Yaroslava G. Yingling · <a href="https://doi.org/10.1021/acs.jctc.1c01253" target="_blank" rel="noopener">ACS J. Chemical Theory &amp; Computation (2022)</a></div>
+        </div>
+      </div>
+      <div class="method-item fade-in">
+        <div class="method-accent"></div>
+        <div class="method-body">
+          <div class="method-title">Implicit Solvent Ionic Strength (ISIS) Method for Polyelectrolyte Systems with Dissipative Particle Dynamics</div>
+          <div class="method-ref">N. K. Li, W. H. Fuss, Y. G. Yingling · <a href="#" target="_blank" rel="noopener">Macromolecular Theory and Simulations 24 (2015) 7–12</a></div>
+        </div>
+      </div>
+      <div class="method-item fade-in">
+        <div class="method-accent"></div>
+        <div class="method-body">
+          <div class="method-title">Coarse-Grained Model of the Interaction of Light with Polymeric Material: Onset of Ablation</div>
+          <div class="method-ref">Y. G. Yingling, B. J. Garrison · <a href="#" target="_blank" rel="noopener">Journal of Physical Chemistry B 109 (2005) 16482–16489</a></div>
+        </div>
+      </div>
+      <div class="method-item fade-in">
+        <div class="method-accent"></div>
+        <div class="method-body">
+          <div class="method-title">Coarse-Grained Chemical Reaction Model</div>
+          <div class="method-ref">Y. G. Yingling &amp; B. J. Garrison · <a href="#" target="_blank" rel="noopener">J. Phys. Chem. B 108 (2004) 1815</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 3. PREDICTED 3D STRUCTURES ══════════════════════════ -->
+  <section>
+    <div class="sw-section-head">
+      <div class="sw-section-icon icon-structures">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="sw-section-label">Predicted 3D Structures</div>
+      <span class="sw-section-count">8 structures</span>
+    </div>
+    <div class="structures-list">
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">1</div>
+        <div class="struct-body">
+          <div class="struct-name">Full-length cotton cellulose synthase protein (GhCESA1) and hierarchical complexes</div>
+          <div class="struct-ref">A. Singh, A. L. Kwansa, H. S. Kim et al., Y. G. Yingling · <a href="https://doi.org/10.1007/s10570-020-03194-7" target="_blank" rel="noopener">Cellulose 27 (2020) 5597–5616</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">2</div>
+        <div class="struct-body">
+          <div class="struct-name">Plant-specific regions of vascular plant cellulose synthases</div>
+          <div class="struct-ref">L. Sethaphong, J. K. Davis, E. Slabaugh, A. Singh, C. H. Haigler, Y. G. Yingling · <a href="https://doi.org/10.1007/s10570-015-0789-6" target="_blank" rel="noopener">Cellulose 23 (2016) 145–161</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">3</div>
+        <div class="struct-body">
+          <div class="struct-name">Barley Efflux Protein (Na⁺-dependent anion transport)</div>
+          <div class="struct-ref">Y. Nagarajan, J. Rongala, …, Y. G. Yingling, M. Hrmova · <a href="https://doi.org/10.1105/tpc.15.00625" target="_blank" rel="noopener">Plant Cell 28 (2016) 202–218</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">4</div>
+        <div class="struct-body">
+          <div class="struct-name">Cellulose synthase interactive 1 protein (CSI1, Arabidopsis)</div>
+          <div class="struct-ref">L. Lei, A. Singh, L. Bashline, S. Li, Y. G. Yingling, Y. Gu · <a href="https://doi.org/10.1105/tpc.15.00442" target="_blank" rel="noopener">Plant Cell (2015)</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">5</div>
+        <div class="struct-body">
+          <div class="struct-name">Tertiary model of a plant cellulose synthase</div>
+          <div class="struct-ref">L. Sethaphong, C. H. Haigler, J. D. Kubicki, J. Zimmer, D. Bonetta, S. DeBolt, Y. G. Yingling · <a href="https://doi.org/10.1073/pnas.1301027110" target="_blank" rel="noopener">PNAS 110 (2013) 7512–7517</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">6</div>
+        <div class="struct-body">
+          <div class="struct-name">3′ Proximal Translational Enhancer of Turnip Crinkle Virus (60S ribosomal binding)</div>
+          <div class="struct-ref">V. A. Stupina, A. Meskauskas, …, Y. G. Yingling, B. A. Shapiro, J. D. Dinman, A. E. Simon · <a href="#" target="_blank" rel="noopener">RNA 14 (2008) 2379–2393</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">7</div>
+        <div class="struct-body">
+          <div class="struct-name">Structural domains within the 3′ UTR of Turnip Crinkle Virus</div>
+          <div class="struct-ref">J. C. McCormack, X. Yuan, Y. G. Yingling, W. Kasprzak, R. E. Zamora, B. A. Shapiro, A. E. Simon · <a href="#" target="_blank" rel="noopener">Journal of Virology 82 (2008) 8706–8720</a></div>
+        </div>
+      </div>
+
+      <div class="struct-item fade-in">
+        <div class="struct-num">8</div>
+        <div class="struct-body">
+          <div class="struct-name">Computational design of an RNA hexagonal nano-ring and RNA nanotube</div>
+          <div class="struct-ref">Y. G. Yingling &amp; B. A. Shapiro · <a href="https://doi.org/10.1021/nl071226u" target="_blank" rel="noopener">Nano Letters 7 (2007) 2328–2334</a></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ 4. DATABASE ══════════════════════════════════════════ -->
+  <section>
+    <div class="sw-section-head">
+      <div class="sw-section-icon icon-database">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      </div>
+      <div class="sw-section-label">Database</div>
+    </div>
+    <div class="db-card fade-in">
+      <div class="db-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <div class="db-body">
+        <div class="db-name">RNAJunction</div>
+        <p class="db-desc">A curated database of <strong>RNA junctions and kissing loops</strong> for three-dimensional structural analysis and RNA nanodesign. Provides annotated structural data to support computational prediction of RNA tertiary structure and the design of RNA-based nanomaterials.</p>
+        <div class="db-ref">
+          E. Bindewald, R. Hayes, Y. G. Yingling, W. Kasprzak, B. A. Shapiro ·
+          <a href="https://doi.org/10.1093/nar/gkm842" target="_blank" rel="noopener">Nucleic Acids Research 36 (2008) D392–D397</a>
+        </div>
+        <div style="margin-top:var(--space-3)">
+          <a href="http://rnajunction.abcc.ncifcrf.gov/" target="_blank" rel="noopener" class="sw-btn sw-btn-doi" style="display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:var(--radius-md);font-size:var(--text-sm)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Access RNAJunction Database
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 5. PATENTS ═══════════════════════════════════════════ -->
+  <section>
+    <div class="sw-section-head">
+      <div class="sw-section-icon icon-patents">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <div class="sw-section-label">Patents</div>
+      <span class="sw-section-count">3 patents</span>
+    </div>
+    <div class="patents-list">
+
+      <div class="patent-item fade-in">
+        <div class="patent-num">1</div>
+        <div class="patent-body">
+          <div class="patent-id">
+            <span class="patent-number-badge">US010035995 B2</span>
+            <span class="patent-number-badge">WO2017100240 A1</span>
+            <span class="patent-number-badge">2018</span>
+          </div>
+          <div class="patent-title">CALB Variants — Lipase with Improved Synthesis Activity</div>
+          <div class="patent-inventors">K. Clendennen, Y. G. Yingling, H. Kim</div>
+          <p class="patent-desc">Amino acid sequence variants of a lipase with improved activity for catalyzing synthesis reactions. Methods include predicting amino acid sites for change based on computational models of protein structure in non-aqueous conditions. Described enzyme variants show a <strong>3- to 9-fold improvement in synthesis activity</strong> over the parent protein sequence.</p>
+        </div>
+      </div>
+
+      <div class="patent-item fade-in">
+        <div class="patent-num">2</div>
+        <div class="patent-body">
+          <div class="patent-id">
+            <span class="patent-number-badge">WO2010148085-A1</span>
+            <span class="patent-number-badge">US 20120263648 A1</span>
+            <span class="patent-number-badge">2010</span>
+          </div>
+          <div class="patent-title">RNA Nanoparticles and Methods of Use</div>
+          <div class="patent-inventors">A. Shapiro, Y. G. Yingling, E. Bindewald, W. Kasprzak, L. Jaeger, I. Severcan, C. Geary, K. Afonin</div>
+          <p class="patent-desc">Artificial RNA nanostructures and methods of use, covering RNA nanoparticles and RNA dendrimers. Includes methods for disease diagnosis and treatment using RNA nanostructure and RNA dendrimer delivery systems.</p>
+        </div>
+      </div>
+
+      <div class="patent-item fade-in">
+        <div class="patent-num">3</div>
+        <div class="patent-body">
+          <div class="patent-id">
+            <span class="patent-number-badge">EP2035043-A2</span>
+            <span class="patent-number-badge">US2010016409-A1</span>
+            <span class="patent-number-badge">2007</span>
+          </div>
+          <div class="patent-title">RNA Nanoparticles and Nanotubes</div>
+          <div class="patent-inventors">Y. G. Yingling, B. A. Shapiro (also AU2007300734-A1; CA2654174-A1)</div>
+          <p class="patent-desc">Polyvalent RNA nanoparticles comprising RNA motifs as building blocks that can form RNA nanotubes. The polyvalent RNA nanoparticles are suitable for therapeutic or diagnostic use in a number of diseases and disorders.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <div class="footer-ncsu-inner">
+      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University"
+           class="footer-brick-logo" loading="lazy" />
+    </div>
+  </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-text">Y-AIMS Laboratory</div>
+      <p>Y-AIMS Laboratory at North Carolina State University. Integrating molecular modeling, data science, and AI to accelerate materials discovery.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul role="list">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Software</h4>
+      <ul role="list">
+        <li><a href="https://github.com/yingling-group" target="_blank">GitHub Repository</a></li>
+        <li><a href="http://rnajunction.abcc.ncifcrf.gov/" target="_blank">RNAJunction Database</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul role="list">
+        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
