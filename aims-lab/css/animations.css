@@ -1,0 +1,230 @@
+/* ============================================================
+   Y-AIMS LAB — Logo & Hero Animations
+   ============================================================ */
+
+/* ===== ANIMATED LOGO ===== */
+
+.logo-animation-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Nav logo — compact animated icon */
+.nav-logo-animated {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+}
+
+.nav-logo-animated svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.5s ease;
+}
+
+/* === HERO ANIMATION STAGE === */
+.hero-logo-stage {
+  position: absolute;
+  right: 3%;
+  top: 46%;
+  transform: translateY(-50%);
+  width: min(420px, 38vw);
+  height: min(420px, 38vw);
+  pointer-events: none;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+@media (max-width: 900px) {
+  .hero-logo-stage {
+    position: static;
+    transform: none;
+    width: min(300px, 80vw);
+    height: min(300px, 80vw);
+    margin: 0 auto var(--space-8);
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-logo-stage { display: none; }
+}
+
+/* === WOLF SVG IN HERO === */
+#hero-wolf {
+  opacity: 0;
+  transform-origin: center;
+}
+
+#hero-ai-network {
+  opacity: 0;
+  transform-origin: center;
+}
+
+#hero-merged-ring {
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* === PULSING RING === */
+@keyframes pulse-ring {
+  0% { r: 180; opacity: 0.6; }
+  100% { r: 230; opacity: 0; }
+}
+
+@keyframes rotate-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes rotate-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+.ring-pulse {
+  transform-origin: 260px 260px;
+  animation: pulse-ring 2.5s cubic-bezier(0.4,0,0.6,1) infinite;
+}
+
+.ring-orbit {
+  transform-origin: 260px 260px;
+  animation: rotate-slow 12s linear infinite;
+}
+
+.ring-orbit-2 {
+  transform-origin: 260px 260px;
+  animation: rotate-reverse 8s linear infinite;
+}
+
+/* === NEURAL NODES === */
+@keyframes node-pulse {
+  0%, 100% { r: 5; opacity: 1; }
+  50% { r: 8; opacity: 0.7; }
+}
+
+.ai-node {
+  animation: node-pulse 2s ease-in-out infinite;
+}
+
+.ai-node:nth-child(2) { animation-delay: 0.3s; }
+.ai-node:nth-child(3) { animation-delay: 0.6s; }
+.ai-node:nth-child(4) { animation-delay: 0.9s; }
+.ai-node:nth-child(5) { animation-delay: 1.2s; }
+.ai-node:nth-child(6) { animation-delay: 1.5s; }
+
+/* === DATA FLOW LINES === */
+@keyframes flow-dash {
+  from { stroke-dashoffset: 200; }
+  to { stroke-dashoffset: 0; }
+}
+
+.flow-line {
+  stroke-dasharray: 6 4;
+  stroke-dashoffset: 200;
+  animation: flow-dash 2s linear infinite;
+}
+
+/* === GLOW EFFECT === */
+@keyframes glow-pulse {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(204,0,0,0.4)); }
+  50% { filter: drop-shadow(0 0 20px rgba(204,0,0,0.8)) drop-shadow(0 0 40px rgba(204,0,0,0.3)); }
+}
+
+#hero-wolf-group {
+  animation: glow-pulse 3s ease-in-out infinite;
+  animation-play-state: paused;
+}
+
+#hero-wolf-group.glowing {
+  animation-play-state: running;
+}
+
+/* === NAV LOGO PULSE === */
+@keyframes nav-glow {
+  0%, 100% { filter: drop-shadow(0 0 0px transparent); }
+  50% { filter: drop-shadow(0 0 4px rgba(204,0,0,0.6)); }
+}
+
+.nav-logo:hover .nav-logo-svg-wrapper {
+  animation: nav-glow 1.5s ease-in-out infinite;
+}
+
+/* === FLOATING PARTICLES === */
+@keyframes float-particle {
+  0% { transform: translateY(0) scale(1); opacity: 0.7; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 0.7; }
+}
+
+.particle {
+  animation: float-particle 4s ease-in-out infinite;
+}
+
+.particle:nth-child(2) { animation-delay: 0.8s; animation-duration: 3.2s; }
+.particle:nth-child(3) { animation-delay: 1.6s; animation-duration: 5s; }
+.particle:nth-child(4) { animation-delay: 2.4s; animation-duration: 3.8s; }
+
+/* === CIRCUIT TRACE ANIMATION === */
+@keyframes trace-on {
+  from { stroke-dashoffset: 1000; opacity: 0; }
+  to { stroke-dashoffset: 0; opacity: 0.6; }
+}
+
+.circuit-trace {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  opacity: 0;
+}
+
+.circuit-trace.traced {
+  animation: trace-on 2s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+/* === MERGED LOGO REVEAL === */
+@keyframes merge-flash {
+  0% { opacity: 0; transform: scale(0.8); }
+  30% { opacity: 1; transform: scale(1.05); }
+  60% { transform: scale(0.98); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+.merge-reveal {
+  animation: merge-flash 0.8s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+
+/* === SCROLL-DRIVEN FADE (JS IntersectionObserver) === */
+/* CSS: .fade-in elements are always visible by default (accessibility requirement).
+   JS (main.js) hides and animates off-screen elements after a 150ms delay,
+   ensuring screen readers and axe audits always see fully-visible content. */
+.fade-in {
+  opacity: 1; /* always visible unless JS sets inline style */
+}
+
+/* === STAGGER DELAYS === */
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+
+/* === PAGE TRANSITIONS === */
+@view-transition { navigation: auto; }
+::view-transition-old(root) {
+  animation: fade-out 0.2s cubic-bezier(0.4,0,1,1);
+}
+::view-transition-new(root) {
+  animation: fade-in-vt 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+@keyframes fade-in-vt {
+  from { opacity: 0; }
+}

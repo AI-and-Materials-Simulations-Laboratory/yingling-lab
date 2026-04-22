@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications — Y-AIMS Lab | NC State MSE</title>
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/publications.css" />
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+  <script src="https://cdn.ncsu.edu/brand-assets/2.5/scripts/utility-bar.js"></script>
+
+  <!-- NAV -->
+  <nav class="site-nav" aria-label="Main navigation" id="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/ncsu/circle-wolf-400.png" alt="NC State Wolf" class="nav-wolf-img" />
+        <span class="nav-brand-text">
+          <span class="nav-lab">Y-AIMS Lab</span>
+          <span class="nav-dept">NC State · MSE</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html" class="active" aria-current="page">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-hero-label">Publications</p>
+      <h1 class="page-hero-title">Publications</h1>
+      <p class="page-hero-subtitle">142 peer-reviewed publications in computational materials science, AI/ML, biopolymers, and nanomaterials. <br>Citations, covers, press releases, and featured articles noted.</p>
+    </div>
+  </header>
+
+  <!-- STATS BAR -->
+  <div class="pub-stats-bar">
+    <div class="pub-stats-inner">
+      <div class="pub-stat"><span class="pub-stat-num">142</span><span class="pub-stat-label">Publications</span></div>
+      <div class="pub-stat-div"></div>
+      <div class="pub-stat"><span class="pub-stat-num">30+</span><span class="pub-stat-label">Journal Covers</span></div>
+      <div class="pub-stat-div"></div>
+      <div class="pub-stat"><span class="pub-stat-num">10+</span><span class="pub-stat-label">Press Releases</span></div>
+      <div class="pub-stat-div"></div>
+      <div class="pub-stat"><span class="pub-stat-num">5</span><span class="pub-stat-label">Best Paper Awards</span></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <section class="pub-controls" id="pub-controls">
+    <div class="pub-controls-inner">
+      <div class="pub-search-wrap">
+        <svg class="pub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="pub-search" id="pubSearch" placeholder="Search by title, author, journal…" />
+      </div>
+      <div class="pub-filters">
+        <select id="filterYear" class="pub-select" aria-label="Filter by year">
+          <option value="">All Years</option>
+        </select>
+        <select id="filterTopic" class="pub-select" aria-label="Filter by topic">
+          <option value="">All Topics</option>
+          <option value="ai-ml">AI / Machine Learning</option>
+          <option value="nanoparticles">Nanoparticles</option>
+          <option value="dna-rna">DNA / RNA</option>
+          <option value="cellulose">Cellulose / Plant</option>
+          <option value="polymer">Polymers</option>
+          <option value="biomolecular">Biomolecular</option>
+          <option value="informatics">Materials Informatics</option>
+          <option value="water">Water / Environment</option>
+          <option value="laser">Laser / Ablation</option>
+        </select>
+        <select id="filterLabel" class="pub-select" aria-label="Filter by label type">
+          <option value="">All Labels</option>
+          <option value="cover">Journal Cover</option>
+          <option value="press-release">Press Release</option>
+          <option value="award">Award / Honor</option>
+          <option value="featured">Featured / Highlighted</option>
+          <option value="invited">Invited Review</option>
+        </select>
+        <button class="pub-reset-btn" id="pubResetBtn">Reset</button>
+      </div>
+    </div>
+    <div class="pub-count-bar">
+      <span id="pubCountText">Showing all 142 publications</span>
+      <div class="pub-view-toggle">
+        <button class="view-btn active" id="viewList" title="List view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+        <button class="view-btn" id="viewCard" title="Card view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS LIST -->
+  <main class="pub-main" id="main-content" tabindex="-1">
+    <div id="pubList" class="pub-list view-list">
+      <!-- Publications injected by JS -->
+    </div>
+    <div id="pubEmpty" class="pub-empty" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>No publications match your filters.</p>
+      <button onclick="document.getElementById('pubResetBtn').click()">Clear filters</button>
+    </div>
+  </main>
+
+  <!-- ADD / EDIT MODAL -->
+  <div id="pubModal" class="pub-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="pub-modal-backdrop" id="modalBackdrop"></div>
+    <div class="pub-modal-box">
+      <div class="pub-modal-header">
+        <h2 id="modalTitle">Add Extra Information</h2>
+        <button class="pub-modal-close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="pub-modal-body">
+        <p class="modal-pub-ref" id="modalPubRef"></p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="modalCoverImg">Journal Cover Image URL</label>
+            <input type="url" id="modalCoverImg" placeholder="https://…" />
+            <span class="form-hint">Paste the journal cover image URL</span>
+          </div>
+          <div class="form-group">
+            <label for="modalCoverCaption">Cover Caption</label>
+            <input type="text" id="modalCoverCaption" placeholder="e.g. Front Cover, ACS Nano, Vol. 17" />
+          </div>
+          <div class="form-group full">
+            <label>Press Releases / News Coverage</label>
+            <div id="pressReleaseList" class="press-list"></div>
+            <div class="press-add-row">
+              <input type="text" id="newPressLabel" placeholder="Label (e.g. NSF Press Release)" />
+              <input type="url" id="newPressUrl" placeholder="URL (optional)" />
+              <button id="addPressBtn" class="btn-add-press">+ Add</button>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label for="modalNote">Additional Notes / Awards</label>
+            <textarea id="modalNote" rows="3" placeholder="e.g. Editor's Pick, Top Downloaded Article 2018-2019…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="pub-modal-footer">
+        <button class="btn-cancel" id="modalCancel">Cancel</button>
+        <button class="btn-save" id="modalSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-ncsu-bar">
+      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" />
+    </div>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">Y-AIMS Laboratory</div>
+        <p class="footer-tagline">AI &amp; Materials Simulations Lab<br>Department of Materials Science &amp; Engineering<br>NC State University, Raleigh, NC</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+          <li><a href="news.html">News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-heading">External</div>
+        <ul class="footer-links">
+          <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+          <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+          <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Y-AIMS Laboratory, NC State University</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=3"></script>
+  <script src="js/publications.js?v=4"></script>
+</body>
+</html>TYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Publications — Y-AIMS Lab | NC State MSE</title>
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
+  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/publications.css" />
+</head>
+<body>
+  <script src="https://cdn.ncsu.edu/brand-assets/2.5/scripts/utility-bar.js"></script>
+
+  <!-- NAV -->
+  <div class="site-nav" aria-label="Main navigation" id="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/ncsu/circle-wolf-400.png" alt="NC State Wolf" class="nav-wolf-img" />
+        <span class="nav-brand-text">
+          <span class="nav-lab">Y-AIMS Lab</span>
+          <span class="nav-dept">NC State · MSE</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="research.html">Research</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="publications.html" class="active" aria-current="page">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+        <li><a href="news.html">News</a></li>
+      </ul>
+      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- PAGE HERO -->
+  <header class="page-hero">
+    <div class="page-hero-inner">
+      <p class="page-hero-label">Publications</p>
+      <h1 class="page-hero-title">Publications</h1>
+      <p class="page-hero-subtitle">142 peer-reviewed publications in computational materials science, AI/ML, biopolymers, and nanomaterials. <br>Citations, covers, press releases, and featured articles noted.</p>
+    </div>
+  </header>
+
+  <!-- STATS BAR -->
+  <div class="pub-stats-bar">
+    <div class="pub-stats-inner">
+      <div class="pub-stat"><span class="pub-stat-num">142</span><span class="pub-stat-label">Publications</span></div>
+      <div class="pub-stat-div"></div>
+      <div class="pub-stat"><span class="pub-stat-num">30+</span><span class="pub-stat-label">Journal Covers</span></div>
+      <div class="pub-stat-div"></div>
+      <div class="pub-stat"><span class="pub-stat-num">10+</span><span class="pub-stat-label">Press Releases</span></div>
+      <div class="pub-stat-div"></div>
+      <div class="pub-stat"><span class="pub-stat-num">5</span><span class="pub-stat-label">Best Paper Awards</span></div>
+    </div>
+  </div>
+
+  <!-- CONTROLS -->
+  <section class="pub-controls" id="pub-controls">
+    <div class="pub-controls-inner">
+      <div class="pub-search-wrap">
+        <svg class="pub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" class="pub-search" id="pubSearch" placeholder="Search by title, author, journal…" />
+      </div>
+      <div class="pub-filters">
+        <select id="filterYear" class="pub-select" aria-label="Filter by year">
+          <option value="">All Years</option>
+        </select>
+        <select id="filterTopic" class="pub-select" aria-label="Filter by topic">
+          <option value="">All Topics</option>
+          <option value="ai-ml">AI / Machine Learning</option>
+          <option value="nanoparticles">Nanoparticles</option>
+          <option value="dna-rna">DNA / RNA</option>
+          <option value="cellulose">Cellulose / Plant</option>
+          <option value="polymer">Polymers</option>
+          <option value="biomolecular">Biomolecular</option>
+          <option value="informatics">Materials Informatics</option>
+          <option value="water">Water / Environment</option>
+          <option value="laser">Laser / Ablation</option>
+        </select>
+        <select id="filterLabel" class="pub-select" aria-label="Filter by label type">
+          <option value="">All Labels</option>
+          <option value="cover">Journal Cover</option>
+          <option value="press-release">Press Release</option>
+          <option value="award">Award / Honor</option>
+          <option value="featured">Featured / Highlighted</option>
+          <option value="invited">Invited Review</option>
+        </select>
+        <button class="pub-reset-btn" id="pubResetBtn">Reset</button>
+      </div>
+    </div>
+    <div class="pub-count-bar">
+      <span id="pubCountText">Showing all 142 publications</span>
+      <div class="pub-view-toggle">
+        <button class="view-btn active" id="viewList" title="List view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+        </button>
+        <button class="view-btn" id="viewCard" title="Card view">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS LIST -->
+  <main class="pub-main" id="main-content" tabindex="-1">
+    <div id="pubList" class="pub-list view-list">
+      <!-- Publications injected by JS -->
+    </div>
+    <div id="pubEmpty" class="pub-empty" style="display:none">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <p>No publications match your filters.</p>
+      <button onclick="document.getElementById('pubResetBtn').click()">Clear filters</button>
+    </div>
+  </main>
+
+  <!-- ADD / EDIT MODAL -->
+  <div id="pubModal" class="pub-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="pub-modal-backdrop" id="modalBackdrop"></div>
+    <div class="pub-modal-box">
+      <div class="pub-modal-header">
+        <h2 id="modalTitle">Add Extra Information</h2>
+        <button class="pub-modal-close" id="modalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="pub-modal-body">
+        <p class="modal-pub-ref" id="modalPubRef"></p>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="modalCoverImg">Journal Cover Image URL</label>
+            <input type="url" id="modalCoverImg" placeholder="https://…" />
+            <span class="form-hint">Paste the journal cover image URL</span>
+          </div>
+          <div class="form-group">
+            <label for="modalCoverCaption">Cover Caption</label>
+            <input type="text" id="modalCoverCaption" placeholder="e.g. Front Cover, ACS Nano, Vol. 17" />
+          </div>
+          <div class="form-group full">
+            <label>Press Releases / News Coverage</label>
+            <div id="pressReleaseList" class="press-list"></div>
+            <div class="press-add-row">
+              <input type="text" id="newPressLabel" placeholder="Label (e.g. NSF Press Release)" />
+              <input type="url" id="newPressUrl" placeholder="URL (optional)" />
+              <button id="addPressBtn" class="btn-add-press">+ Add</button>
+            </div>
+          </div>
+          <div class="form-group full">
+            <label for="modalNote">Additional Notes / Awards</label>
+            <textarea id="modalNote" rows="3" placeholder="e.g. Editor's Pick, Top Downloaded Article 2018-2019…"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="pub-modal-footer">
+        <button class="btn-cancel" id="modalCancel">Cancel</button>
+        <button class="btn-save" id="modalSave">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-ncsu-bar">
+      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" />
+    </div>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">Y-AIMS Laboratory</div>
+        <p class="footer-tagline">AI &amp; Materials Simulations Lab<br>Department of Materials Science &amp; Engineering<br>NC State University, Raleigh, NC</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-heading">Quick Links</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="research.html">Research</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="publications.html">Publications</a></li>
+        <li><a href="teaching.html">Teaching</a></li>
+        <li><a href="software.html">Software</a></li>
+          <li><a href="news.html">News</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-heading">External</div>
+        <ul class="footer-links">
+          <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+          <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+          <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2025 Y-AIMS Laboratory, NC State University</span>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=3"></script>
+  <script src="js/publications.js?v=4"></script>
+</body>
+</html>

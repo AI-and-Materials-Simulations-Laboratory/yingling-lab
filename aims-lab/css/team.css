@@ -1,0 +1,502 @@
+/* ============================================================
+   Y-AIMS LAB — Team Page Styles
+   Sections: PI card, member grid, undergrad grid, alumni
+   ============================================================ */
+
+/* ─── PAGE HERO ─────────────────────────────────────────────── */
+.page-hero {
+  position: relative;
+  background: var(--ncsu-red-dark);
+  color: var(--ncsu-white);
+  padding: var(--space-20) 0 var(--space-16);
+  overflow: hidden;
+}
+
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg,
+    rgba(0,0,0,0.35) 0%,
+    rgba(94, 0, 0, 0.4) 60%,
+    rgba(65, 86, 161, 0.15) 100%);
+  pointer-events: none;
+}
+
+.page-hero-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+.page-hero-label {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: var(--space-3);
+  max-width: none;
+}
+
+.page-hero-title {
+  font-family: var(--font-display);
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--ncsu-white);
+  margin-bottom: var(--space-4);
+}
+
+.page-hero-subtitle {
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.8);
+  max-width: 58ch;
+  line-height: 1.7;
+}
+
+/* ─── MAIN LAYOUT ────────────────────────────────────────────── */
+.team-main {
+  background: var(--color-bg);
+}
+
+/* ─── SECTION WRAPPER ────────────────────────────────────────── */
+.team-section {
+  padding: var(--space-16) 0;
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.team-section:last-child {
+  border-bottom: none;
+}
+
+.team-section-alt {
+  background: var(--color-surface-2);
+}
+
+.team-section-inner {
+  max-width: var(--content-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-8);
+}
+
+.team-section-title {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-bottom: var(--space-4);
+  margin-bottom: var(--space-8);
+  border-bottom: 2px solid var(--color-primary);
+  display: inline-block;
+}
+
+/* ─── PI CARD ────────────────────────────────────────────────── */
+.pi-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--space-10);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  box-shadow: var(--shadow-md);
+}
+
+@media (max-width: 720px) {
+  .pi-card {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+}
+
+.pi-avatar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.pi-avatar-initials {
+  width: 160px;
+  height: 160px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.9);
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+
+.pi-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.pi-name {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.2;
+}
+
+.pi-titles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.pi-title-badge {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-highlight);
+  color: var(--color-primary);
+  border: 1px solid rgba(204,0,0,0.2);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+[data-theme='dark'] .pi-title-badge {
+  background: rgba(255,51,51,0.12);
+  border-color: rgba(255,51,51,0.25);
+}
+
+.pi-bio {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  max-width: 68ch;
+}
+
+.pi-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.pi-contact-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-interactive);
+}
+
+a.pi-contact-item:hover {
+  color: var(--color-primary);
+}
+
+.pi-links {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.pi-link-btn {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background var(--transition-interactive),
+              border-color var(--transition-interactive),
+              color var(--transition-interactive);
+}
+
+.pi-link-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+/* ─── MEMBER GRID ────────────────────────────────────────────── */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-6);
+}
+
+.member-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-interactive),
+              transform var(--transition-interactive);
+}
+
+.member-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.member-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.92;
+}
+
+.member-avatar span {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  flex: 1;
+}
+
+.member-name {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.25;
+}
+
+.member-role {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  line-height: 1.4;
+}
+
+.member-bio-short,
+.member-research {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+}
+
+.member-bio-short {
+  font-style: italic;
+  color: var(--color-text-faint);
+}
+
+.member-email {
+  display: inline-block;
+  font-size: var(--text-xs);
+  color: var(--color-accent);
+  text-decoration: none;
+  margin-top: auto;
+  padding-top: var(--space-2);
+  transition: color var(--transition-interactive);
+}
+
+.member-email:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+/* ─── UNDERGRAD GRID ─────────────────────────────────────────── */
+.undergrad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.undergrad-card {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4) var(--space-5);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-interactive);
+}
+
+.undergrad-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.undergrad-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--ncsu-blue) 0%, var(--ncsu-blue-teal) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.undergrad-avatar span {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+.undergrad-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.undergrad-name {
+  font-family: var(--font-display);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.undergrad-role {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.undergrad-project {
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ─── ALUMNI SECTION ─────────────────────────────────────────── */
+.alumni-group {
+  margin-bottom: var(--space-10);
+}
+
+.alumni-group:last-child {
+  margin-bottom: 0;
+}
+
+.alumni-group-title {
+  font-family: var(--font-display);
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-divider);
+}
+
+.alumni-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.alumni-list li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background var(--transition-interactive);
+}
+
+.alumni-list li:hover {
+  background: var(--color-surface);
+}
+
+.alumni-year {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-faint);
+  min-width: 60px;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+.alumni-list li strong {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+/* ─── DARK MODE ADJUSTMENTS ──────────────────────────────────── */
+[data-theme='dark'] .member-card,
+[data-theme='dark'] .undergrad-card {
+  border-color: var(--color-border);
+}
+
+[data-theme='dark'] .pi-card {
+  border-color: var(--color-border);
+  border-left-color: var(--color-primary);
+}
+
+[data-theme='dark'] .alumni-list li:hover {
+  background: var(--color-surface-offset);
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .team-section-inner {
+    padding: 0 var(--space-4);
+  }
+
+  .team-section {
+    padding: var(--space-10) 0;
+  }
+
+  .pi-avatar-initials {
+    width: 120px;
+    height: 120px;
+    font-size: 2.2rem;
+  }
+
+  .member-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .undergrad-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 400px) {
+  .undergrad-grid {
+    grid-template-columns: 1fr;
+  }
+}
