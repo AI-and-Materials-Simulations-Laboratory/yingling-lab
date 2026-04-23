@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News & Updates — Y-AIMS Lab | NC State</title>
-  <meta name="description" content="Latest news and updates from Prof. Yaroslava Yingling and the Y-AIMS Laboratory at NC State University, pulled from LinkedIn." />
+  <title>News & Awards — Y-AIMS Lab | NC State</title>
+  <meta name="description" content="Awards, news releases, and media coverage from Prof. Yaroslava Yingling and the Y-AIMS Laboratory at NC State University." />
 
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
@@ -31,7 +31,7 @@
     .news-hero-inner {
       position: relative;
       z-index: 1;
-      max-width: 680px;
+      max-width: 760px;
       margin: 0 auto;
     }
     .news-hero-label {
@@ -56,68 +56,72 @@
       color: rgba(255,255,255,0.72);
       line-height: 1.65;
     }
+    /* hero stats row */
+    .news-hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+      margin-top: var(--space-8);
+    }
+    .news-hero-stat {
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 8px;
+      padding: var(--space-3) var(--space-5);
+      text-align: center;
+    }
+    .news-hero-stat-num {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+    .news-hero-stat-lbl {
+      font-size: var(--text-xs);
+      color: rgba(255,255,255,0.65);
+      margin-top: 3px;
+      font-weight: 600;
+    }
 
-    /* ─── SOURCE BAR ─────────────────────────────────────────── */
-    .news-source-bar {
+    /* ─── FILTER TABS ────────────────────────────────────────── */
+    .news-filter-bar {
       background: var(--color-surface);
       border-bottom: 1px solid var(--color-border);
-      padding: var(--space-4) var(--space-8);
+      padding: var(--space-3) var(--space-8);
+      position: sticky;
+      top: 60px;
+      z-index: 50;
     }
-    .news-source-bar-inner {
+    .news-filter-inner {
       max-width: 1100px;
       margin: 0 auto;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-4);
-      flex-wrap: wrap;
-    }
-    .news-source-left {
-      display: flex;
-      align-items: center;
-      gap: var(--space-3);
-    }
-    .li-icon {
-      width: 32px;
-      height: 32px;
-      background: #0A66C2;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: #fff;
-    }
-    .news-source-label {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.4;
-    }
-    .news-source-label strong {
-      display: block;
-      color: var(--color-text);
-      font-weight: 700;
-      font-size: var(--text-base);
-    }
-    .li-follow-btn {
-      display: inline-flex;
-      align-items: center;
       gap: var(--space-2);
-      padding: 8px 18px;
-      background: #0A66C2;
-      color: #fff;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-btn {
+      padding: 6px 16px;
       border-radius: 999px;
+      border: 1px solid var(--color-border);
+      background: transparent;
       font-family: var(--font-display);
       font-size: var(--text-sm);
-      font-weight: 700;
-      text-decoration: none;
-      transition: background 0.18s, transform 0.18s;
-      white-space: nowrap;
-      border: none;
+      font-weight: 600;
+      color: var(--color-text-muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
-    .li-follow-btn:hover {
-      background: #004182;
-      transform: translateY(-1px);
+    .filter-btn:hover {
+      background: var(--color-bg-subtle);
+      color: var(--color-text);
+    }
+    .filter-btn.active {
+      background: var(--ncsu-red);
+      color: #fff;
+      border-color: var(--ncsu-red);
     }
 
     /* ─── FEED LAYOUT ────────────────────────────────────────── */
@@ -126,14 +130,31 @@
       margin: 0 auto;
       padding: var(--space-10) var(--space-8) var(--space-20);
     }
-
+    .news-section-label {
+      font-family: var(--font-display);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ncsu-red);
+      margin: var(--space-10) 0 var(--space-2);
+    }
+    .news-section-label:first-child { margin-top: 0; }
+    .news-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.3rem, 2vw, 1.7rem);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-5);
+      letter-spacing: -0.02em;
+    }
     .news-feed {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: var(--space-6);
+      gap: var(--space-5);
     }
 
-    /* ─── POST CARD ──────────────────────────────────────────── */
+    /* ─── CARD ───────────────────────────────────────────────── */
     .li-card {
       background: var(--color-surface);
       border: 1px solid var(--color-border);
@@ -142,24 +163,19 @@
       display: flex;
       flex-direction: column;
       transition: box-shadow 0.2s, transform 0.2s;
-      position: relative;
     }
     .li-card:hover {
       box-shadow: var(--shadow-lg);
       transform: translateY(-3px);
     }
-
-    /* Category accent bar at top */
-    .li-card-bar {
-      height: 3px;
-      flex-shrink: 0;
-    }
+    .li-card-bar { height: 3px; flex-shrink: 0; }
     .bar-award       { background: #D97706; }
     .bar-publication { background: var(--ncsu-red); }
     .bar-event       { background: var(--ncsu-blue); }
     .bar-people      { background: #7C3AED; }
     .bar-education   { background: var(--ncsu-teal); }
     .bar-research    { background: var(--ncsu-green); }
+    .bar-media       { background: #0891B2; }
 
     .li-card-body {
       padding: var(--space-5) var(--space-6);
@@ -168,54 +184,31 @@
       flex: 1;
       gap: var(--space-3);
     }
-
-    /* Header row: author chip + date + category */
     .li-card-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: var(--space-3);
     }
-    .li-author-chip {
-      display: flex;
-      align-items: center;
-      gap: var(--space-2);
-    }
+    .li-author-chip { display: flex; align-items: center; gap: var(--space-2); }
     .li-avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
+      width: 32px; height: 32px; border-radius: 50%;
       background: linear-gradient(135deg, var(--ncsu-red-dark), var(--ncsu-red-deepest));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 700;
-      color: #fff;
-      letter-spacing: 0.02em;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      font-family: var(--font-display); font-size: 11px; font-weight: 700; color: #fff; letter-spacing: 0.02em;
     }
-    .li-author-name {
-      font-size: var(--text-xs);
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.3;
+    .li-avatar-group {
+      background: linear-gradient(135deg, #4156A1, #2d3f8a);
     }
-    .li-author-date {
-      font-size: 10px;
-      color: var(--color-text-faint);
+    .li-avatar-media {
+      background: linear-gradient(135deg, #0891B2, #065f76);
     }
+    .li-author-name { font-size: var(--text-xs); font-weight: 700; color: var(--color-text); line-height: 1.3; }
+    .li-author-date { font-size: 10px; color: var(--color-text-faint); }
     .li-cat-badge {
-      display: inline-block;
-      padding: 2px 9px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      white-space: nowrap;
-      flex-shrink: 0;
+      display: inline-block; padding: 2px 9px; border-radius: 999px;
+      font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      white-space: nowrap; flex-shrink: 0;
     }
     .cat-award       { background: rgba(217,119,6,0.1);   color: #92400E; border: 1px solid rgba(217,119,6,0.2); }
     .cat-publication { background: rgba(204,0,0,0.08);    color: var(--ncsu-red-dark); border: 1px solid rgba(204,0,0,0.18); }
@@ -223,6 +216,7 @@
     .cat-people      { background: rgba(124,58,237,0.09); color: #6D28D9; border: 1px solid rgba(124,58,237,0.18); }
     .cat-education   { background: rgba(0,132,115,0.09);  color: #006B5E; border: 1px solid rgba(0,132,115,0.18); }
     .cat-research    { background: rgba(111,125,28,0.1);  color: #4a5512; border: 1px solid rgba(111,125,28,0.2); }
+    .cat-media       { background: rgba(8,145,178,0.1);   color: #065f76; border: 1px solid rgba(8,145,178,0.2); }
 
     [data-theme='dark'] .cat-award       { background: rgba(217,119,6,0.18);  color: #FCD34D; border-color: rgba(217,119,6,0.3); }
     [data-theme='dark'] .cat-publication { background: rgba(255,51,51,0.12); color: #ff8888; border-color: rgba(255,51,51,0.25); }
@@ -230,8 +224,8 @@
     [data-theme='dark'] .cat-people      { background: rgba(124,58,237,0.16);color: #c4b5fd; border-color: rgba(124,58,237,0.28); }
     [data-theme='dark'] .cat-education   { background: rgba(0,132,115,0.16); color: #4cc9b8; border-color: rgba(0,132,115,0.28); }
     [data-theme='dark'] .cat-research    { background: rgba(111,125,28,0.18);color: #b8cc50; border-color: rgba(111,125,28,0.3); }
+    [data-theme='dark'] .cat-media       { background: rgba(8,145,178,0.18); color: #67e8f9; border-color: rgba(8,145,178,0.3); }
 
-    /* Post content */
     .li-card-title {
       font-family: var(--font-display);
       font-size: var(--text-base);
@@ -245,62 +239,30 @@
       color: var(--color-text-muted);
       line-height: 1.7;
       flex: 1;
-      /* clamp to ~5 lines */
       display: -webkit-box;
       -webkit-line-clamp: 6;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
-
-    /* Hashtags */
-    .li-hashtags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 5px;
-    }
-    .li-hashtag {
-      font-size: 11px;
-      font-weight: 600;
-      color: #0A66C2;
-      text-decoration: none;
-      transition: color 0.15s;
-    }
+    .li-hashtags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .li-hashtag { font-size: 11px; font-weight: 600; color: #0A66C2; text-decoration: none; transition: color 0.15s; }
     [data-theme='dark'] .li-hashtag { color: #60a5fa; }
     .li-hashtag:hover { text-decoration: underline; }
 
-    /* Footer: LinkedIn link */
     .li-card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+      display: flex; align-items: center; justify-content: space-between;
       padding: var(--space-3) var(--space-6) var(--space-5);
-      border-top: 1px solid var(--color-divider);
-      margin-top: auto;
+      border-top: 1px solid var(--color-divider); margin-top: auto;
     }
     .li-view-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      font-size: var(--text-xs);
-      font-weight: 700;
-      color: #0A66C2;
-      text-decoration: none;
-      transition: color 0.15s, gap 0.15s;
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: var(--text-xs); font-weight: 700; color: #0A66C2;
+      text-decoration: none; transition: color 0.15s, gap 0.15s;
       font-family: var(--font-display);
     }
+    .li-view-link.red-link { color: var(--ncsu-red); }
     [data-theme='dark'] .li-view-link { color: #60a5fa; }
     .li-view-link:hover { gap: 8px; }
-    .li-logo-small {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      font-weight: 700;
-      color: var(--color-text-faint);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    .li-logo-small svg { opacity: 0.45; }
 
     /* ─── FOLLOW CTA ─────────────────────────────────────────── */
     .news-cta {
@@ -309,34 +271,28 @@
       border: 1px solid rgba(10,102,194,0.15);
       border-radius: 12px;
       padding: var(--space-8) var(--space-10);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-6);
-      flex-wrap: wrap;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-6); flex-wrap: wrap;
     }
-    [data-theme='dark'] .news-cta {
-      background: rgba(10,102,194,0.08);
-      border-color: rgba(10,102,194,0.2);
-    }
+    [data-theme='dark'] .news-cta { background: rgba(10,102,194,0.08); border-color: rgba(10,102,194,0.2); }
     .news-cta-text strong {
-      display: block;
-      font-family: var(--font-display);
-      font-size: var(--text-lg);
-      font-weight: 700;
-      color: var(--color-text);
-      margin-bottom: var(--space-1);
+      display: block; font-family: var(--font-display); font-size: var(--text-lg);
+      font-weight: 700; color: var(--color-text); margin-bottom: var(--space-1);
     }
-    .news-cta-text p {
-      font-size: var(--text-sm);
-      color: var(--color-text-muted);
-      line-height: 1.6;
+    .news-cta-text p { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.6; }
+    .li-follow-btn {
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      padding: 8px 18px; background: #0A66C2; color: #fff; border-radius: 999px;
+      font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700;
+      text-decoration: none; transition: background 0.18s, transform 0.18s;
+      white-space: nowrap; border: none; cursor: pointer;
     }
+    .li-follow-btn:hover { background: #004182; transform: translateY(-1px); }
 
     /* ─── RESPONSIVE ─────────────────────────────────────────── */
     @media (max-width: 768px) {
       .news-main { padding: var(--space-8) var(--space-4) var(--space-16); }
-      .news-source-bar { padding: var(--space-4); }
+      .news-filter-bar { padding: var(--space-3) var(--space-4); top: 56px; }
       .news-cta { flex-direction: column; }
     }
     @media (max-width: 480px) {
@@ -363,8 +319,8 @@
       <li><a href="research.html">Research</a></li>
       <li><a href="team.html">Team</a></li>
       <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
+      <li><a href="teaching.html">Teaching</a></li>
+      <li><a href="software.html">Software</a></li>
       <li><a href="news.html" class="active" aria-current="page">News</a></li>
     </ul>
     <div class="nav-actions">
@@ -391,36 +347,48 @@
 <!-- HERO -->
 <header class="news-hero">
   <div class="news-hero-inner">
-    <div class="news-hero-label" aria-hidden="true">Updates</div>
-    <h1 class="news-hero-title">News &amp; Updates</h1>
-    <p class="news-hero-sub">Latest from the Y-AIMS Laboratory — posts from Prof. Yingling's LinkedIn</p>
+    <div class="news-hero-label" aria-hidden="true">Recognition &amp; Media</div>
+    <h1 class="news-hero-title">News &amp; Awards</h1>
+    <p class="news-hero-sub">Awards, media coverage, and news releases from the Y-AIMS Laboratory and Prof. Yaroslava Yingling</p>
+    <div class="news-hero-stats">
+      <div class="news-hero-stat">
+        <div class="news-hero-stat-num">23</div>
+        <div class="news-hero-stat-lbl">PI Awards</div>
+      </div>
+      <div class="news-hero-stat">
+        <div class="news-hero-stat-num">70+</div>
+        <div class="news-hero-stat-lbl">Team Awards</div>
+      </div>
+      <div class="news-hero-stat">
+        <div class="news-hero-stat-num">15+</div>
+        <div class="news-hero-stat-lbl">News Releases</div>
+      </div>
+    </div>
   </div>
 </header>
 
-<!-- SOURCE BAR -->
-<div class="news-source-bar">
-  <div class="news-source-bar-inner">
-    <div class="news-source-left">
-      <div class="li-icon" aria-hidden="true">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      </div>
-      <div class="news-source-label">
-        <strong>Prof. Yaroslava Yingling</strong>
-        Posts sourced from LinkedIn · Updated manually
-      </div>
-    </div>
-    <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="li-follow-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      Follow on LinkedIn
-    </a>
-  </div>
-</div>
-
-<!-- FEED -->
+<!-- MAIN -->
 <main id="main-content" tabindex="-1" class="news-main">
-  <div class="news-feed" id="newsFeed" data-rss-url="">
-    <!-- Posts rendered by JS from POSTS data below -->
-  </div>
+
+  <!-- PI AWARDS -->
+  <div class="news-section-label">PI Awards &amp; Honors</div>
+  <h2 class="news-section-title">Prof. Yingling — 23 Awards &amp; Honors</h2>
+  <div class="news-feed" id="newsFeedPI"></div>
+
+  <!-- GROUP AWARDS -->
+  <div class="news-section-label" style="margin-top:var(--space-14)">Group Member Awards</div>
+  <h2 class="news-section-title">Lab Team Awards — 70+ Recognitions</h2>
+  <div class="news-feed" id="newsFeedGroup"></div>
+
+  <!-- NEWS RELEASES -->
+  <div class="news-section-label" style="margin-top:var(--space-14)">Media &amp; Press</div>
+  <h2 class="news-section-title">News Releases &amp; Media Coverage</h2>
+  <div class="news-feed" id="newsFeedMedia"></div>
+
+  <!-- RECENT LINKEDIN POSTS -->
+  <div class="news-section-label" style="margin-top:var(--space-14)">LinkedIn</div>
+  <h2 class="news-section-title">Recent Updates from Prof. Yingling</h2>
+  <div class="news-feed" id="newsFeedLinkedIn"></div>
 
   <!-- Follow CTA -->
   <div class="news-cta">
@@ -463,9 +431,10 @@
     <div class="footer-col">
       <h4>Research</h4>
       <ul role="list">
-        <li><a href="research.html#biomimetic">Biomimetic Materials</a></li>
-        <li><a href="research.html#nanomaterials">Nanomaterials</a></li>
         <li><a href="research.html#ai">AI &amp; Data Science</a></li>
+        <li><a href="research.html#nucleic">Nucleic Acid Nanotechnology</a></li>
+        <li><a href="research.html#soft">Soft &amp; Responsive Materials</a></li>
+        <li><a href="research.html#np">Metal &amp; Magnetic NPs</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -493,139 +462,163 @@
 
 <script src="js/main.js"></script>
 <script>
-/* ── LINKEDIN POSTS DATA ─────────────────────────────────────
-   Sourced from Prof. Yingling's LinkedIn profile (April 2026).
-   To update: add new entries at the top of this array.
-   ─────────────────────────────────────────────────────────── */
-const POSTS = [
-  {
-    date: 'February 2026',
-    cat: 'event',
-    catLabel: 'Conference',
-    barCls: 'bar-event',
-    catCls: 'cat-event',
-    title: 'Chairing GRC Computational Materials Science 2026 (Aug 2–7, Maine)',
-    excerpt: 'We worked hard, and the program is now ready for the 2026 GRC Computational Materials Science and Engineering (August 2–7, Jordan Hotel at Sunday River, Newry, Maine). Expect keynote sessions on computational methods and AI tools driving materials discovery, talks spanning DFT, MD, coarse-grained modeling, multiscale simulations, and a special focus on AI\'s expanding role in predictive modeling. Speakers include Berend Smit, Anna Balazs, Rampi Ramprasad, Heather Kulik, Markus Buehler, and many more.',
-    tags: ['#GRC2026', '#ComputationalMaterials', '#AIinMaterials'],
-    url: 'https://www.linkedin.com/posts/yaroslava-yingling_grc2026-grc2026-computationalmaterials-activity-7425020197507563520-ir1x'
-  },
-  {
-    date: 'November 2025',
-    cat: 'award',
-    catLabel: 'Award',
-    barCls: 'bar-award',
-    catCls: 'cat-award',
-    title: 'Prof. Yingling receives 2025 R.J. Reynolds Award — NC State\'s highest faculty honor',
-    excerpt: 'Incredibly thankful for this recognition. I could not have achieved this without the dedication of my research team, my collaborators, and the support of my family. Congratulations to Professor Yaroslava Yingling on receiving the 2025 R.J. Reynolds Tobacco Company Award for Excellence in Teaching, Research and Extension — the highest faculty honor in the NC State College of Engineering. Her pioneering contributions in molecular simulations, AI-enabled materials discovery, and interdisciplinary science have advanced the field in profound ways.',
-    tags: ['#NCState', '#FacultyAward', '#MaterialsScience'],
-    url: 'https://www.linkedin.com/posts/yaroslava-yingling_i-am-incredibly-thankful-for-this-recognition-activity-7396671391502135296-XpXZ'
-  },
-  {
-    date: 'September 2025',
-    cat: 'education',
-    catLabel: 'Education',
-    barCls: 'bar-education',
-    catCls: 'cat-education',
-    title: 'NC State hosts LLM in Materials & Chemistry hackathon (Sept 11–12)',
-    excerpt: 'NC State is one of the official "LLM in Materials and Chemistry" hackathon sites — and we want you on a team. LLMs like ChatGPT, Gemini, and Claude are powerful AI tools — but can they help design a polymer? Or summarize a decade of materials data in 30 seconds? This hackathon is your chance to find out. No AI or coding experience needed. We\'re building interdisciplinary teams with clearly defined challenges. Organized by Merve Fedai, Christina Bayard, Sabila Kader Pinky, and Deepak Sai Pendyala.',
-    tags: ['#AI', '#MachineLearning', '#MaterialsScience', '#Hackathon'],
-    url: 'https://www.linkedin.com/posts/yaroslava-yingling_nc-state-is-one-of-the-official-llm-in-materials-activity-7370633132607188992-TGkR'
-  },
-  {
-    date: 'August 2025',
-    cat: 'education',
-    catLabel: 'Education',
-    barCls: 'bar-education',
-    catCls: 'cat-education',
-    title: 'REU 2025 Symposium — Y-AIMS Lab student wins 1st Place Best Poster',
-    excerpt: 'NC State MSE REU 2025 symposium capped off an exciting summer of research in materials, synthesis, characterization, theory, simulations, AI, and machine learning! 🥇 1st Place Best Poster (MSE REU): Stephanie Euceda Trujillo, mentored by Merve Fedai (PI: Yaroslava Yingling). Congratulations to all REU participants and heartfelt thanks to the mentors, PIs, organizer Hillary Stone, and AI+Materials bootcamp instructor Alexey Gulyuk.',
-    tags: ['#REU', '#UndergraduateResearch', '#NSFREU', '#NCState', '#YinglingLab'],
-    url: 'https://www.linkedin.com/posts/yaroslava-yingling_reu-materialsscience-ai-activity-7357064475994144768-MRnp'
-  },
-  {
-    date: 'April 2025',
-    cat: 'publication',
-    catLabel: 'Publication',
-    barCls: 'bar-publication',
-    catCls: 'cat-publication',
-    title: 'New review: "The Role of AI in Water Quality Management" — a family research team',
-    excerpt: 'Our latest review paper is officially out! And here\'s the twist: it was written by a mother-daughter-niece research team — scientific curiosity runs in the family. We explore how AI is transforming water quality management, from advanced monitoring techniques to predictive models. Honored to have worked alongside my daughter Natalie Yingling (Oceanographer) and my niece Maria Petrova (Environmental Engineer). If you\'re into AI, water science, or multi-generational research teams, give it a read!',
-    tags: ['#AI', '#WaterQuality', '#MachineLearning'],
-    url: 'https://www.linkedin.com/posts/yaroslava-yingling_the-role-of-ai-in-water-quality-management-activity-7303545268115828737-J_c4'
-  },
-  {
-    date: 'February 2025',
-    cat: 'people',
-    catLabel: 'People',
-    barCls: 'bar-people',
-    catCls: 'cat-people',
-    title: 'Dr. Sabila Kader Pinky defends PhD — not even a snowstorm could stop her',
-    excerpt: 'Congratulations to Dr. Sabila Kader Pinky for successfully defending her PhD thesis on "Molecular Understanding of the Self-Assembly of Complex Functional Materials!" Not even a snowstorm shutting down the university could stop her! To celebrate, we\'re considering constructing a "micellar complex functional snowman." Congratulations, Dr. Pinky! Welcome to the club!',
-    tags: ['#YinglingResearchGroup', '#NCState', '#PhD'],
-    url: 'https://www.linkedin.com/posts/yaroslava-yingling_yinglingresearchgroup-ncstate-phd-activity-7298096622691864578-R8Ls'
-  }
+/* ── PI AWARDS DATA ──────────────────────────────────────────── */
+const PI_AWARDS = [
+  { year: '2025', title: 'R.J. Reynolds Award for Excellence in Teaching, Research and Extension', org: 'NC State College of Engineering', desc: 'The highest faculty honor in the NC State College of Engineering, recognizing pioneering contributions in molecular simulations, AI-enabled materials discovery, and interdisciplinary science.', url: 'https://www.linkedin.com/posts/yaroslava-yingling_i-am-incredibly-thankful-for-this-recognition-activity-7396671391502135296-XpXZ' },
+  { year: '2025', title: 'Global Advising Week Recognition', org: 'NC State University', desc: 'Recognition for outstanding student advising and mentorship across graduate and undergraduate programs.', url: '' },
+  { year: '2024', title: 'Fellow of the Royal Society of Chemistry (RSC)', org: 'Royal Society of Chemistry', desc: 'Elected Fellow of the Royal Society of Chemistry in recognition of distinguished contributions to the chemical sciences and materials research.', url: '' },
+  { year: '2024', title: 'Invited Professor', org: 'France (International)', desc: 'Invited Professorship at a leading French research institution for contributions in computational materials science and AI+Materials.', url: '' },
+  { year: '2023', title: 'IAAM Scientist Medal', org: 'International Association of Advanced Materials', desc: 'Awarded the IAAM Scientist Medal for exceptional contributions to advanced materials research and innovation.', url: '' },
+  { year: '2022', title: 'Kobe Steel Distinguished Professorship', org: 'Kobe Steel / NC State', desc: 'Distinguished Professorship in recognition of excellence in materials research and international collaboration.', url: '' },
+  { year: '2022', title: 'Fellow of IAAM', org: 'International Association of Advanced Materials', desc: 'Elected Fellow of the International Association of Advanced Materials for contributions to the field.', url: '' },
+  { year: '2022', title: 'Distinguished Professorship — College of Engineering', org: 'NC State University', desc: 'Appointed as Distinguished Professor in the NC State College of Engineering in recognition of sustained research excellence.', url: '' },
+  { year: '2021', title: 'Alumni Outstanding Research Award', org: 'NC State University', desc: 'Recognized by NC State alumni for outstanding contributions to university research programs and student mentoring.', url: '' },
+  { year: '2021', title: 'Research Leadership Academy', org: 'NC State University', desc: 'Selected for the NC State Research Leadership Academy, recognizing faculty driving transformative research programs.', url: '' },
+  { year: '2019', title: 'DOE EFRC Scientific Idea Award', org: 'U.S. Department of Energy', desc: 'Awarded for outstanding scientific ideas advancing research within the Department of Energy Energy Frontier Research Center program.', url: '' },
+  { year: '2018', title: 'Finalist — Cahn Best Paper Prize', org: 'Materials Research Society', desc: 'Finalist for the prestigious MRS Cahn Prize for the best paper in materials research.', url: '' },
+  { year: '2014', title: 'University Faculty Scholar', org: 'NC State University', desc: 'Selected as a University Faculty Scholar — NC State\'s recognition of exceptional mid-career faculty on an accelerated trajectory of distinction.', url: '' },
+  { year: '2012', title: 'OpenEye Outstanding Junior Faculty Award', org: 'American Chemical Society (ACS COMP)', desc: 'Awarded by the ACS Division of Computers in Chemistry for exceptional contributions to computational and theoretical chemistry.', url: '' },
+  { year: '2012', title: 'NSF CAREER Award', org: 'National Science Foundation', desc: 'NSF Faculty Early Career Development Award supporting research in molecular simulations of nucleic acid nanotechnology.', url: '' },
+  { year: '2010', title: 'Thank a Teacher Recognition', org: 'NC State University', desc: 'Student-nominated recognition for outstanding teaching and mentorship impact.', url: '' },
+  { year: '2007', title: 'NCI Best Poster Award', org: 'National Cancer Institute', desc: 'Best poster award at an NCI conference for research on nanoparticle interactions with biological systems.', url: '' },
+  { year: '2007', title: 'NIH Exceptional Stipend Award', org: 'National Institutes of Health', desc: 'Exceptional stipend recognition from the NIH for outstanding postdoctoral research contributions.', url: '' },
+  { year: '2003', title: 'Best PhD Thesis Award', org: 'Pennsylvania State University', desc: 'Awarded for the best doctoral thesis in the department at Penn State University.', url: '' },
+  { year: '2002', title: 'Braucher Fellowship', org: 'Pennsylvania State University', desc: 'Competitive fellowship awarded to outstanding doctoral students in materials science.', url: '' },
+  { year: '2002', title: 'Gordon Research Conference Travel Award', org: 'Gordon Research Conferences', desc: 'Travel award to attend and present at the Gordon Research Conference.', url: '' },
+  { year: '2002', title: 'Penn State Travel Award', org: 'Pennsylvania State University', desc: 'University travel award for conference participation and research presentation.', url: '' },
+  { year: '2001', title: 'Miller Graduate Student Research Award', org: 'Pennsylvania State University', desc: 'Awarded for outstanding graduate student research contributions.', url: '' },
 ];
 
-/* ── RSS FEED AUTO-LOADER ─────────────────────────────────────
-   If the news feed div has a non-empty data-rss-url attribute,
-   posts are fetched from that RSS feed (e.g. from RSS.app for LinkedIn).
-   Otherwise falls back to the hardcoded POSTS array below.
-   
-   To enable: set data-rss-url on <div id="newsFeed"> to your RSS feed URL.
-   RSS.app setup: https://rss.app  →  LinkedIn profile feed → copy RSS URL
-   ─────────────────────────────────────────────────────────── */
+/* ── GROUP MEMBER AWARDS DATA ────────────────────────────────── */
+const GROUP_AWARDS = [
+  { year: '2025', member: 'Stephanie Euceda Trujillo', title: '1st Place Best Poster — MSE REU Symposium', org: 'NC State MSE REU', desc: 'Best poster award at the 2025 NC State MSE REU Symposium. Mentored by Merve Fedai (PI: Yaroslava Yingling). Presented research on AI-guided materials design.', url: 'https://www.linkedin.com/posts/yaroslava-yingling_reu-materialsscience-ai-activity-7357064475994144768-MRnp' },
+  { year: '2025', member: 'Merve Fedai', title: 'Outstanding PhD Researcher Recognition', org: 'NC State MSE', desc: 'Recognition for exceptional contributions to AI+Materials research including ML model development and REU mentoring.', url: '' },
+  { year: '2024', member: 'Sabila Kader Pinky', title: 'PhD Defense — Molecular Self-Assembly of Complex Functional Materials', org: 'NC State University', desc: 'Successfully defended doctoral dissertation on molecular understanding of self-assembly of complex functional materials. Even a snowstorm couldn\'t stop the celebration!', url: 'https://www.linkedin.com/posts/yaroslava-yingling_yinglingresearchgroup-ncstate-phd-activity-7298096622691864578-R8Ls' },
+  { year: '2023', member: 'Lab Team', title: 'Best Paper Award — iiWAS Conference', org: 'International Conference on Information Integration and Web Services (iiWAS)', desc: 'Best Paper Award at the iiWAS 2023 International Conference for work on AI-assisted materials informatics workflows.', url: '' },
+  { year: '2022', member: 'Alexey Gulyuk', title: 'AI+Materials Bootcamp Instructor Award', org: 'NC State MSE REU', desc: 'Recognition for exceptional instruction of the AI+Materials Bootcamp for REU students at NC State.', url: '' },
+  { year: '2022', member: 'Multiple Lab Members', title: 'JCTC 2022 Cover Article — Magnetic NP Simulations', org: 'Journal of Chemical Theory and Computation', desc: 'Research on magnetic nanoparticle simulation tools was selected as journal cover article. Featured on phys.org as a major advance in magnetic nanoparticle modeling.', url: 'https://phys.org/news/2022-03-tool-unprecedented-magnetic-nanoparticles.html' },
+  { year: '2022', member: 'Lab Team', title: 'AIP Scilight — Biointerphases 2022', org: 'AIP Publishing', desc: 'Research highlighted in AIP Scilight as one of the most notable recent publications in biointerface science.', url: 'https://aip.scitation.org/doi/10.1063/10.0014998' },
+  { year: '2020+', member: '25+ Undergraduates', title: 'Undergraduate Research Excellence', org: 'NC State University', desc: 'Over 25 undergraduate researchers have conducted research in the Y-AIMS Lab, many winning departmental and university-level research awards and fellowships.', url: '' },
+  { year: '2018', member: 'Lab Team', title: 'AIP Scilight — Biointerphases 2018', org: 'AIP Publishing', desc: 'Research highlighted in AIP Scilight as a notable contribution to biointerface science.', url: 'https://aip.scitation.org/doi/10.1063/1.5081027' },
+];
 
-/* Category detection from RSS item text */
-function detectCat(title, content) {
-  const text = (title + ' ' + content).toLowerCase();
-  if (/award|honor|recogni|prize/.test(text))     return {cat:'award',    catLabel:'Award',       barCls:'bar-award',       catCls:'cat-award'};
-  if (/publish|paper|journal|article|review/.test(text)) return {cat:'publication',catLabel:'Publication', barCls:'bar-publication', catCls:'cat-publication'};
-  if (/conference|workshop|hackathon|grc|event/.test(text)) return {cat:'event',    catLabel:'Conference',  barCls:'bar-event',       catCls:'cat-event'};
-  if (/student|phd|graduat|reu|intern|postdoc/.test(text)) return {cat:'people',   catLabel:'People',      barCls:'bar-people',      catCls:'cat-people'};
-  if (/teach|course|class|educat/.test(text))     return {cat:'education', catLabel:'Education',   barCls:'bar-education',   catCls:'cat-education'};
-  return {cat:'news', catLabel:'News', barCls:'bar-news', catCls:'cat-news'};
-}
+/* ── NEWS RELEASES & MEDIA DATA ──────────────────────────────── */
+const MEDIA_POSTS = [
+  { date: 'October 2025', title: 'AI Drives a Revolution in Engineering — COE Magazine Feature', org: 'NC State College of Engineering', desc: 'Feature article in the NC State College of Engineering magazine on how AI is transforming engineering research, with focus on the Y-AIMS Lab\'s AI+Materials discoveries and autonomous lab platforms.', url: 'https://engr.ncsu.edu/news/2025/10/21/ai-drives-a-revolution-in-engineering/' },
+  { date: 'June 2025', title: 'New Phosphorus Water Filter — NC State News Release', org: 'NC State University News', desc: 'News release on breakthrough research (Langmuir 2025) developing new phosphorus water filtration materials using computational design. Part of the sustainability and environmental AI thrust.', url: 'https://news.ncsu.edu/2025/06/new-phosphorus-water-filter/' },
+  { date: '2025', title: 'MRS Bulletin Materials News Podcast — Ligand Stripping', org: 'Materials Research Society', desc: 'Featured in MRS Bulletin Materials News Podcast discussing research on ligand stripping from nanoparticle surfaces (AMI 2025, Pub #135).', url: '' },
+  { date: '2025', title: 'APL Machine Learning Scilight', org: 'AIP Publishing', desc: 'Research published in APL Machine Learning (Pub #138, 2025) highlighted in AIP Scilight as a significant advance in machine learning for materials applications.', url: '' },
+  { date: 'November 2024', title: 'Predicting Risk in Groundwater Supplies — NC State + NSF News', org: 'NC State University & NSF', desc: 'Dual news release from NC State and the National Science Foundation on AI-driven risk prediction for groundwater contamination (ES&T 2024, Pub #126). Covers the team\'s machine learning approach to environmental materials safety.', url: 'https://news.ncsu.edu/2024/11/predicting-risk-in-groundwater-supplies/' },
+  { date: 'March 2022', title: 'Tool Enables Unprecedented Magnetic Nanoparticle Studies — phys.org', org: 'phys.org', desc: 'Coverage on phys.org of the Y-AIMS Lab\'s new simulation framework for magnetic nanoparticles (JCTC 2022 cover, Pub #103), enabling high-fidelity modeling of magnetic behavior in nanoparticle assemblies.', url: 'https://phys.org/news/2022-03-tool-unprecedented-magnetic-nanoparticles.html' },
+  { date: '2022', title: 'AIP Scilight — Biointerphases (Pub #106)', org: 'AIP Publishing — Scilight', desc: 'Selected as Scilight in AIP Publishing for research in biointerface science on nanoparticle-biomolecule interactions published in Biointerphases 2022.', url: 'https://aip.scitation.org/doi/10.1063/10.0014998' },
+  { date: '2018', title: 'AIP Scilight — Biointerphases (Pub #82)', org: 'AIP Publishing — Scilight', desc: 'Selected as Scilight in AIP Publishing highlighting research on nucleic acid and polymer interactions at biointerfaces.', url: 'https://aip.scitation.org/doi/10.1063/1.5081027' },
+];
 
-function extractTags(text) {
-  return (text.match(/#[A-Za-z][A-Za-z0-9_]+/g) || []).slice(0, 5);
-}
+/* ── LINKEDIN POSTS DATA ─────────────────────────────────────── */
+const LINKEDIN_POSTS = [
+  { date: 'February 2026', title: 'Chairing GRC Computational Materials Science 2026 (Aug 2–7, Maine)', excerpt: 'The program is ready for the 2026 GRC Computational Materials Science and Engineering. Keynote sessions on computational methods and AI tools driving materials discovery, DFT, MD, coarse-grained modeling, and AI\'s expanding role. Speakers include Berend Smit, Anna Balazs, Rampi Ramprasad, Heather Kulik, Markus Buehler, and more.', tags: ['#GRC2026', '#ComputationalMaterials', '#AIinMaterials'], url: 'https://www.linkedin.com/posts/yaroslava-yingling_grc2026-grc2026-computationalmaterials-activity-7425020197507563520-ir1x' },
+  { date: 'September 2025', title: 'NC State hosts LLM in Materials & Chemistry Hackathon (Sept 11–12)', excerpt: 'NC State is one of the official "LLM in Materials and Chemistry" hackathon sites. LLMs like ChatGPT, Gemini, and Claude — can they help design a polymer? This hackathon is your chance to find out. Organized by Merve Fedai, Christina Bayard, Sabila Kader Pinky, and Deepak Sai Pendyala.', tags: ['#AI', '#MachineLearning', '#MaterialsScience', '#Hackathon'], url: 'https://www.linkedin.com/posts/yaroslava-yingling_nc-state-is-one-of-the-official-llm-in-materials-activity-7370633132607188992-TGkR' },
+  { date: 'April 2025', title: 'New Review: "The Role of AI in Water Quality Management" — family research team', excerpt: 'A mother-daughter-niece research team — scientific curiosity runs in the family. We explore how AI is transforming water quality management, from advanced monitoring techniques to predictive models. Honored to work with my daughter Natalie Yingling (Oceanographer) and niece Maria Petrova (Environmental Engineer).', tags: ['#AI', '#WaterQuality', '#MachineLearning'], url: 'https://www.linkedin.com/posts/yaroslava-yingling_the-role-of-ai-in-water-quality-management-activity-7303545268115828737-J_c4' },
+];
 
-function formatDate(dateStr) {
-  try {
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('en-US', {month:'long', year:'numeric'});
-  } catch { return dateStr || ''; }
-}
+/* ── RENDER HELPERS ──────────────────────────────────────────── */
+const arrowSvg = `<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
 
-/* RSS fetch + parse via allOrigins CORS proxy */
-async function loadFromRSS(rssUrl) {
-  const proxy = 'https://api.allorigins.win/get?url=' + encodeURIComponent(rssUrl);
-  const resp = await fetch(proxy, {signal: AbortSignal.timeout(8000)});
-  if (!resp.ok) throw new Error('RSS proxy error ' + resp.status);
-  const data = await resp.json();
-  const parser = new DOMParser();
-  const xml = parser.parseFromString(data.contents, 'text/xml');
-  const items = Array.from(xml.querySelectorAll('item'));
-  return items.slice(0, 20).map(item => {
-    const title   = item.querySelector('title')?.textContent?.trim() || '';
-    const link    = item.querySelector('link')?.textContent?.trim() || '';
-    const rawDate = item.querySelector('pubDate')?.textContent || item.querySelector('dc\:date')?.textContent || '';
-    const desc    = item.querySelector('description')?.textContent || item.querySelector('content\:encoded')?.textContent || '';
-    // Strip HTML tags from description
-    const excerpt = desc.replace(/<[^>]+>/g, ' ').replace(/\s+/g,' ').trim().slice(0, 320);
-    const {cat, catLabel, barCls, catCls} = detectCat(title, excerpt);
-    const tags = extractTags(title + ' ' + excerpt);
-    return { date: formatDate(rawDate), cat, catLabel, barCls, catCls,
-             title: title || excerpt.slice(0,80), excerpt, tags, url: link };
-  }).filter(p => p.title);
-}
-
-/* ── RENDER ─────────────────────────────────────────────────── */
-function renderPosts() {
-  const feed = document.getElementById('newsFeed');
-  feed.innerHTML = POSTS.map(p => `
+function renderPIAwards() {
+  const feed = document.getElementById('newsFeedPI');
+  feed.innerHTML = PI_AWARDS.map(a => `
     <article class="li-card fade-in">
-      <div class="li-card-bar ${p.barCls}"></div>
+      <div class="li-card-bar bar-award"></div>
+      <div class="li-card-body">
+        <div class="li-card-header">
+          <div class="li-author-chip">
+            <div class="li-avatar" aria-hidden="true">YY</div>
+            <div>
+              <div class="li-author-name">Prof. Yaroslava Yingling</div>
+              <div class="li-author-date">${a.year}</div>
+            </div>
+          </div>
+          <span class="li-cat-badge cat-award">Award</span>
+        </div>
+        <h3 class="li-card-title">${a.title}</h3>
+        <p class="li-card-excerpt">${a.org} — ${a.desc}</p>
+      </div>
+      ${a.url ? `<div class="li-card-footer">
+        <a href="${a.url}" target="_blank" rel="noopener" class="li-view-link">${a.url.includes('linkedin') ? 'View on LinkedIn' : 'Read more'} ${arrowSvg}</a>
+        <span style="font-size:10px;font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.04em;">${a.year}</span>
+      </div>` : `<div class="li-card-footer">
+        <span style="font-size:var(--text-xs);color:var(--color-text-faint);">${a.org}</span>
+        <span style="font-size:10px;font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.04em;">${a.year}</span>
+      </div>`}
+    </article>
+  `).join('');
+}
+
+function renderGroupAwards() {
+  const feed = document.getElementById('newsFeedGroup');
+  feed.innerHTML = GROUP_AWARDS.map(a => `
+    <article class="li-card fade-in">
+      <div class="li-card-bar bar-people"></div>
+      <div class="li-card-body">
+        <div class="li-card-header">
+          <div class="li-author-chip">
+            <div class="li-avatar li-avatar-group" aria-hidden="true">LAB</div>
+            <div>
+              <div class="li-author-name">${a.member}</div>
+              <div class="li-author-date">${a.year}</div>
+            </div>
+          </div>
+          <span class="li-cat-badge cat-people">Team</span>
+        </div>
+        <h3 class="li-card-title">${a.title}</h3>
+        <p class="li-card-excerpt">${a.org} — ${a.desc}</p>
+      </div>
+      ${a.url ? `<div class="li-card-footer">
+        <a href="${a.url}" target="_blank" rel="noopener" class="li-view-link">Read more ${arrowSvg}</a>
+        <span style="font-size:10px;font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.04em;">${a.year}</span>
+      </div>` : `<div class="li-card-footer">
+        <span style="font-size:var(--text-xs);color:var(--color-text-faint);">${a.org}</span>
+        <span style="font-size:10px;font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.04em;">${a.year}</span>
+      </div>`}
+    </article>
+  `).join('');
+}
+
+function renderMedia() {
+  const feed = document.getElementById('newsFeedMedia');
+  feed.innerHTML = MEDIA_POSTS.map(m => `
+    <article class="li-card fade-in">
+      <div class="li-card-bar bar-media"></div>
+      <div class="li-card-body">
+        <div class="li-card-header">
+          <div class="li-author-chip">
+            <div class="li-avatar li-avatar-media" aria-hidden="true">PR</div>
+            <div>
+              <div class="li-author-name">${m.org}</div>
+              <div class="li-author-date">${m.date}</div>
+            </div>
+          </div>
+          <span class="li-cat-badge cat-media">Press</span>
+        </div>
+        <h3 class="li-card-title">${m.title}</h3>
+        <p class="li-card-excerpt">${m.desc}</p>
+      </div>
+      ${m.url ? `<div class="li-card-footer">
+        <a href="${m.url}" target="_blank" rel="noopener" class="li-view-link red-link">Read full story ${arrowSvg}</a>
+        <span style="font-size:10px;font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.04em;">${m.date}</span>
+      </div>` : `<div class="li-card-footer">
+        <span style="font-size:var(--text-xs);color:var(--color-text-faint);">${m.org}</span>
+        <span style="font-size:10px;font-weight:600;color:var(--color-text-faint);text-transform:uppercase;letter-spacing:0.04em;">${m.date}</span>
+      </div>`}
+    </article>
+  `).join('');
+}
+
+function renderLinkedIn() {
+  const feed = document.getElementById('newsFeedLinkedIn');
+  feed.innerHTML = LINKEDIN_POSTS.map(p => `
+    <article class="li-card fade-in">
+      <div class="li-card-bar bar-event"></div>
       <div class="li-card-body">
         <div class="li-card-header">
           <div class="li-author-chip">
@@ -635,79 +628,98 @@ function renderPosts() {
               <div class="li-author-date">${p.date}</div>
             </div>
           </div>
-          <span class="li-cat-badge ${p.catCls}">${p.catLabel}</span>
+          <span class="li-cat-badge cat-event">LinkedIn</span>
         </div>
-        <h2 class="li-card-title">${p.title}</h2>
+        <h3 class="li-card-title">${p.title}</h3>
         <p class="li-card-excerpt">${p.excerpt}</p>
         <div class="li-hashtags">
           ${p.tags.map(t => `<a href="https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(t)}" target="_blank" rel="noopener" class="li-hashtag">${t}</a>`).join('')}
         </div>
       </div>
       <div class="li-card-footer">
-        <a href="${p.url}" target="_blank" rel="noopener" class="li-view-link">
-          View on LinkedIn
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-        <span class="li-logo-small">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </span>
+        <a href="${p.url}" target="_blank" rel="noopener" class="li-view-link">View on LinkedIn ${arrowSvg}</a>
       </div>
     </article>
   `).join('');
 }
 
-renderPosts(); // initial render from hardcoded POSTS
-
-/* ── ASYNC RSS OVERRIDE ─────────────────────────────────────── */
-(async () => {
-  const feed = document.getElementById('newsFeed');
-  const rssUrl = feed?.dataset?.rssUrl?.trim();
-  if (!rssUrl) return; // no RSS configured — keep static posts
-
-  // Show loading state
-  feed.innerHTML = '<div style="grid-column:1/-1;padding:3rem;text-align:center;color:var(--color-text-muted)">Loading latest posts from LinkedIn…</div>';
-
-  try {
-    const posts = await loadFromRSS(rssUrl);
-    if (!posts.length) throw new Error('empty feed');
-    feed.innerHTML = posts.map(p => `
-    <article class="li-card fade-in">
-      <div class="li-card-bar ${p.barCls}"></div>
-      <div class="li-card-body">
-        <div class="li-card-header">
-          <div class="li-author-chip">
-            <div class="li-avatar" aria-hidden="true">YY</div>
-            <div>
-              <div class="li-author-name">Yaroslava Yingling</div>
-              <div class="li-author-date">${p.date}</div>
-            </div>
-          </div>
-          <span class="li-cat-badge ${p.catCls}">${p.catLabel}</span>
-        </div>
-        <h2 class="li-card-title">${p.title}</h2>
-        <p class="li-card-excerpt">${p.excerpt}</p>
-        <div class="li-hashtags">
-          ${p.tags.map(t => `<a href="https://www.linkedin.com/search/results/content/?keywords=${encodeURIComponent(t)}" target="_blank" rel="noopener" class="li-hashtag">${t}</a>`).join('')}
-        </div>
-      </div>
-      <div class="li-card-footer">
-        <a href="${p.url}" target="_blank" rel="noopener" class="li-view-link">
-          View on LinkedIn
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        </a>
-        <span class="li-logo-small">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-          LinkedIn
-        </span>
-      </div>
-    </article>`).join('');
-  } catch (err) {
-    // RSS failed — fall back to static posts silently
-    console.warn('RSS feed unavailable, using static posts:', err.message);
-    renderPosts();
-  }
-})();
+renderPIAwards();
+renderGroupAwards();
+renderMedia();
+renderLinkedIn();
 </script>
-</body>
+<script data-pplx-inline-edit>
+(function(){
+  if(window===window.top)return;
+  function inlineAll(orig,clone){
+    if(orig.nodeType!==1)return;
+    try{
+      var cs=getComputedStyle(orig);
+      var t='';
+      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
+      clone.style.cssText=t;
+    }catch(e){}
+    var oc=orig.children,cc=clone.children;
+    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+  }
+  function stripExternal(clone){
+    var imgs=clone.querySelectorAll('img');
+    for(var i=0;i<imgs.length;i++){
+      var s=imgs[i].getAttribute('src');
+      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
+    }
+    var all=clone.querySelectorAll('*');
+    for(var i=0;i<all.length;i++){
+      var st=all[i].style.cssText;
+      if(st&&st.indexOf('url(')>=0){
+        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
+      }
+    }
+  }
+  var scrollRaf=0;
+  function emitScroll(){
+    scrollRaf=0;
+    var x=window.scrollX||window.pageXOffset||0;
+    var y=window.scrollY||window.pageYOffset||0;
+    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
+  }
+  window.addEventListener('scroll',function(){
+    if(scrollRaf)return;
+    scrollRaf=requestAnimationFrame(emitScroll);
+  },{passive:true,capture:true});
+  emitScroll();
+  window.addEventListener('message',function(e){
+    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
+    var scrollX=window.scrollX||window.pageXOffset||0;
+    var scrollY=window.scrollY||window.pageYOffset||0;
+    var w=window.innerWidth,h=window.innerHeight;
+    try{
+      var clone=document.documentElement.cloneNode(true);
+      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
+      for(var i=0;i<rm.length;i++){rm[i].remove();}
+      inlineAll(document.documentElement,clone);
+      stripExternal(clone);
+      var html=new XMLSerializer().serializeToString(clone);
+      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
+        +'<foreignObject width="100%" height="100%">'
+        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
+        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
+        +html+'</div></div></foreignObject></svg>';
+      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+      var img=new Image();
+      img.onload=function(){
+        var c=document.createElement('canvas');c.width=w;c.height=h;
+        c.getContext('2d').drawImage(img,0,0);
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.onerror=function(){
+        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+      };
+      img.src=svgUrl;
+    }catch(err){
+      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
+    }
+  });
+})();
+</script></body>
 </html>

@@ -132,14 +132,14 @@
 
 /* Stats row */
 .hero-stats {
-  display: grid;
-  grid-template-columns: auto 1px auto 1px auto 1px auto;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0 var(--space-8);
+  gap: var(--space-4) var(--space-5);
   padding-top: var(--space-8);
   border-top: 1px solid rgba(255,255,255,0.1);
   margin-top: var(--space-4);
-  width: fit-content;
+  max-width: 1000px;
 }
 
 .stat { display: flex; flex-direction: column; gap: 3px; }
@@ -316,7 +316,7 @@
   .research-grid { grid-template-columns: 1fr 1fr; }
   .pi-grid { grid-template-columns: 1fr; }
   .pi-circle-wolf { max-width: 160px; }
-  .hero-stats { grid-template-columns: auto auto auto auto; column-gap: var(--space-5); }
+  .hero-stats { gap: var(--space-3) var(--space-4); }
   .stat-divider { display: none; }
 }
 
