@@ -131,18 +131,3 @@
   --shadow-md: 0 4px 14px rgba(0,0,0,0.4);
   --shadow-lg: 0 12px 36px rgba(0,0,0,0.5);
 }
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme]) {
-    --color-bg: #111111;
-    --color-surface: #1A1A1A;
-    --color-surface-2: #222222;
-    --color-surface-offset: #2A2A2A;
-    --color-border: #383838;
-    --color-text: #EFEFEF;
-    --color-text-muted: #AAAAAA;
-    --ncsu-red: #FF3333;
-    --color-primary: #FF3333;
-    --color-primary-highlight: rgba(255,51,51,0.1);
-  }
-}

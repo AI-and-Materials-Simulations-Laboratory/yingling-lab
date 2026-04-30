@@ -170,97 +170,133 @@
 .pub-list.view-list { display: flex; flex-direction: column; gap: 0; }
 .view-list .pub-item {
   display: grid;
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: 56px 1fr;
   gap: 0 var(--space-5);
-  padding: var(--space-5) 0;
+  padding: var(--space-6) 0;
   border-bottom: 1px solid var(--color-border);
   position: relative;
 }
 .view-list .pub-item:first-child { border-top: 1px solid var(--color-border); }
+.view-list .pub-item:hover .pub-add-btn { opacity: 1; }
 
 .pub-num {
-  font-family: var(--font-display);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  color: var(--ncsu-red);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-text-faint);
   text-align: right;
-  padding-top: 3px;
+  letter-spacing: 0.06em;
+  padding-top: 5px;
   line-height: 1.4;
 }
-.pub-body { min-width: 0; }
+.pub-body { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+
 .pub-title {
-  font-size: var(--text-base);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--color-text);
-  line-height: 1.45;
-  margin-bottom: var(--space-1);
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  margin: 0;
 }
 .pub-title a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s;
+  transition: color 0.18s;
 }
 .pub-title a:hover { color: var(--ncsu-red); }
+
 .pub-authors {
-  font-size: var(--text-sm);
+  font-size: 0.86rem;
   color: var(--color-text-muted);
-  line-height: 1.5;
-  margin-bottom: var(--space-1);
+  line-height: 1.6;
 }
 .pub-authors strong { color: var(--color-text); font-weight: 600; }
+
 .pub-meta {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  font-style: italic;
-  line-height: 1.5;
-  margin-bottom: var(--space-2);
-}
-.pub-meta .pub-journal { color: var(--color-text-faint); font-style: italic; }
-.pub-meta .pub-year { font-style: normal; font-weight: 600; color: var(--ncsu-red); }
-.pub-meta .pub-doi a {
-  font-style: normal;
-  font-size: var(--text-xs);
-  color: var(--color-text-muted);
-  text-decoration: underline;
-}
-.pub-meta .pub-doi a:hover { color: var(--ncsu-red); }
-
-/* LABELS */
-.pub-labels { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-2); }
-.pub-label {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  line-height: 1.4;
-}
-.label-cover     { background: rgba(65,86,161,0.12); color: #4156A1; border: 1px solid rgba(65,86,161,0.25); }
-.label-press     { background: rgba(209,73,5,0.12);  color: #a83804; border: 1px solid rgba(209,73,5,0.25); }
-.label-award     { background: rgba(250,200,0,0.15); color: #7a5b00; border: 1px solid rgba(250,200,0,0.4); }
-.label-featured  { background: rgba(0,132,115,0.12); color: #006b60; border: 1px solid rgba(0,132,115,0.25); }
-.label-invited   { background: rgba(111,125,28,0.12); color: #5b6617; border: 1px solid rgba(111,125,28,0.25); }
-.label-book      { background: rgba(94,0,0,0.1);   color: #5e0000; border: 1px solid rgba(94,0,0,0.25); }
-
-/* EXTRA INFO (press releases, covers etc attached to publication) */
-.pub-extras { margin-top: var(--space-2); }
-.pub-extra-item {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: var(--space-2);
-  font-size: var(--text-sm);
+  gap: 0.5rem;
+  font-size: 0.84rem;
   color: var(--color-text-muted);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+.pub-meta .pub-journal { color: var(--color-text); font-style: italic; font-weight: 500; }
+.pub-meta .pub-year { font-weight: 600; color: var(--ncsu-red); }
+.pub-meta-sep { color: var(--color-border); user-select: none; }
+.pub-meta .pub-doi {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--ncsu-red);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.pub-meta .pub-doi:hover { text-decoration: underline; }
+
+/* TAG ROW (labels + topics combined) */
+.pub-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
   margin-bottom: 4px;
 }
-.pub-extra-item::before { content: '→'; color: var(--ncsu-red); font-size: 11px; flex-shrink: 0; }
-.pub-extra-item a { color: var(--ncsu-red); text-decoration: none; }
-.pub-extra-item a:hover { text-decoration: underline; }
+.pub-label, .pub-topic {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* Label colors */
+.label-cover     { background: rgba(65,86,161,0.10); color: #4156A1; border-color: rgba(65,86,161,0.25); }
+.label-press     { background: rgba(209,73,5,0.10);  color: #a83804; border-color: rgba(209,73,5,0.25); }
+.label-award     { background: rgba(250,200,0,0.14); color: #7a5b00; border-color: rgba(250,200,0,0.40); }
+.label-featured  { background: rgba(0,132,115,0.10); color: #006b60; border-color: rgba(0,132,115,0.25); }
+.label-invited   { background: rgba(111,125,28,0.10); color: #5b6617; border-color: rgba(111,125,28,0.25); }
+.label-book      { background: rgba(94,0,0,0.08);    color: #5e0000; border-color: rgba(94,0,0,0.25); }
+
+/* EXTRA INFO */
+.pub-note {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  padding: 8px 12px;
+  border-left: 2px solid var(--ncsu-red);
+  background: var(--color-surface);
+  border-radius: 0 6px 6px 0;
+  margin-top: 4px;
+}
+.pub-press-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 2px;
+}
+.press-icon {
+  font-size: 0.95rem;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: opacity 0.18s;
+}
+.press-icon:hover { opacity: 1; }
 
 /* COVER THUMB */
+.pub-cover-row {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  margin-bottom: var(--space-2);
+}
 .pub-cover-thumb {
   width: 60px;
   height: 80px;
@@ -271,23 +307,36 @@
   cursor: pointer;
 }
 
-/* ADD INFO BUTTON */
+/* ADD INFO BUTTON — subtle, only visible on hover */
 .pub-add-btn {
+  align-self: flex-start;
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  margin-top: var(--space-2);
-  padding: 4px 10px;
+  margin-top: 6px;
+  padding: 3px 10px;
   border: 1px dashed var(--color-border);
-  border-radius: 6px;
+  border-radius: 999px;
   background: transparent;
-  color: var(--color-text-muted);
-  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.18s;
+  opacity: 0;
 }
-.pub-add-btn:hover { border-color: var(--ncsu-red); color: var(--ncsu-red); }
-.pub-add-btn.has-extras { border-style: solid; border-color: rgba(204,0,0,0.3); color: var(--ncsu-red); }
+.pub-add-btn:hover { border-color: var(--ncsu-red); color: var(--ncsu-red); border-style: solid; }
+.pub-add-btn.has-extras {
+  border-style: solid;
+  border-color: rgba(204,0,0,0.3);
+  color: var(--ncsu-red);
+  opacity: 0.65;
+}
+.pub-add-btn.has-extras:hover { opacity: 1; background: rgba(204,0,0,0.06); }
+.pub-item:hover .pub-add-btn,
+.pub-add-btn:focus-visible { opacity: 1; }
 
 /* ── CARD VIEW ─────────────────────────────────────────────── */
 .pub-list.view-cards {
@@ -296,36 +345,31 @@
   gap: var(--space-5);
 }
 .view-cards .pub-item {
-  background: var(--color-surface-2);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   padding: var(--space-5);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 0 var(--space-3);
   position: relative;
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
 }
 .view-cards .pub-item:hover {
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   transform: translateY(-2px);
+  border-color: rgba(204,0,0,0.25);
 }
 .view-cards .pub-num {
-  font-family: var(--font-display);
-  font-size: var(--text-xs);
-  font-weight: 700;
-  color: var(--ncsu-red);
   text-align: left;
+  font-size: 0.68rem;
+  padding-top: 2px;
 }
-.view-cards .pub-cover-row {
-  display: flex;
-  gap: var(--space-3);
-  align-items: flex-start;
-}
+.view-cards .pub-body { display: flex; flex-direction: column; gap: 6px; }
+.view-cards .pub-title { font-size: 0.95rem; }
+.view-cards .pub-add-btn { margin-top: auto; opacity: 0.5; }
+.view-cards .pub-item:hover .pub-add-btn { opacity: 1; }
 .view-cards .pub-cover-thumb { width: 52px; height: 68px; }
-.view-cards .pub-title { font-size: var(--text-sm); }
-.view-cards .pub-body { flex: 1; }
-.view-cards .pub-add-btn { margin-top: auto; }
 
 /* EMPTY STATE */
 .pub-empty {
@@ -535,27 +579,8 @@
   .pub-stats-bar .pub-stat-div { display: none; }
 }
 
-/* ── TOPIC / SUBTYPE BADGES ──────────────────────────────────── */
-.pub-topics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  margin-top: var(--space-1);
-}
-
-.pub-topic {
-  display: inline-block;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  line-height: 1.6;
-  border: 1px solid transparent;
-}
-
-/* Topic colors — one per research area */
+/* ── TOPIC COLORS ────────────────────────────────────────────── */
+/* (.pub-topic base styling lives in the LIST VIEW section above) */
 .topic-ai-ml       { background: rgba(65,86,161,0.10); color: #4156A1; border-color: rgba(65,86,161,0.22); }
 .topic-nanoparticles { background: rgba(0,132,115,0.10); color: #006454; border-color: rgba(0,132,115,0.22); }
 .topic-cellulose   { background: rgba(111,125,28,0.12); color: #5a6616; border-color: rgba(111,125,28,0.25); }

@@ -3,360 +3,145 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Research — Y-AIMS Lab | NC State</title>
-  <meta name="description" content="AI and Materials Simulations Laboratory research — AI-driven materials discovery, molecular modeling, nucleic acid nanotechnology, soft & responsive materials, and sustainability science." />
-
-  <!-- Official NC State University fonts via NC State CDN -->
+  <title>Research — Y-AIMS Lab | NC State MSE</title>
+  <meta name="description" content="Research in biomimetic materials, nanomaterials, and AI-driven materials discovery at the AIMS Laboratory, NC State University." />
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/animations.css" />
-
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('yaimsTheme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
   <style>
-    /* ===== PAGE-LEVEL OVERRIDES ===== */
-    .page-hero {
-      padding-block: clamp(var(--space-16), 10vw, var(--space-24));
-      background: linear-gradient(135deg, #cc0000 0%, #8a0000 60%, #3a0000 100%);
-      color: #fff;
-      text-align: center;
-    }
-    .page-hero .section-label { color: rgba(255,255,255,0.75); }
-    .page-hero h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 900;
-      letter-spacing: -0.03em;
-      color: #fff;
-      margin-bottom: var(--space-4);
-    }
-    .page-hero p {
-      max-width: 700px;
-      margin: 0 auto;
-      font-size: clamp(1rem, 2.2vw, 1.2rem);
-      color: rgba(255,255,255,0.85);
-      line-height: 1.7;
-    }
+/* ================================================================
+   AIMS LAB - RESEARCH PAGE 2026
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-font-smoothing: antialiased; }
+body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+ul { list-style: none; }
 
-    /* ===== AI PILLARS BAND ===== */
-    .pillars-band {
-      background: var(--color-surface);
-      padding-block: clamp(var(--space-12), 6vw, var(--space-20));
-    }
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: var(--space-6);
-      margin-top: var(--space-10);
-    }
-    .pillar-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: var(--space-8) var(--space-6);
-      border-top: 4px solid var(--color-primary);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.07);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 32px rgba(0,0,0,0.13); }
-    .pillar-card .pillar-icon {
-      width: 48px; height: 48px;
-      background: linear-gradient(135deg, #cc0000 0%, #8a0000 100%);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pillar-card .pillar-icon svg { width: 26px; height: 26px; fill: #fff; }
-    .pillar-card h3 {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--color-text);
-      margin: 0;
-      line-height: 1.3;
-    }
-    .pillar-card p {
-      font-size: 0.84rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-      margin: 0;
-      flex: 1;
-    }
-    .pillar-number {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
+/* ── NAV ────────────────────────────────────────────────────── */
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 76px; display: flex; align-items: center; padding-inline: clamp(1rem,5vw,4rem); background: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--color-border); transition: box-shadow 0.3s; }
+.site-nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+.nav-inner { width: 100%; max-width: 1200px; margin-inline: auto; display: flex; align-items: center; gap: 2rem; }
+.nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
+.nav-wolf-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.lab-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; }
+.lab-dept { font-size: 0.78rem; color: var(--color-text-muted); }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin-left: auto; }
+.nav-links a { font-size: 0.95rem; font-weight: 500; color: var(--color-text-muted); padding: 0.55rem 0.95rem; border-radius: 4px; text-decoration: none; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+.nav-links a.active { font-weight: 600; }
+.btn-theme { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-muted); cursor: pointer; margin-left: 0.5rem; transition: all 0.2s; }
+.btn-theme:hover { color: var(--color-text); background: var(--color-surface-offset); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; cursor: pointer; margin-left: auto; }
+.nav-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--color-text-muted); border-radius: 2px; }
+.nav-mobile { display: none; flex-direction: column; gap: 0.25rem; padding: 1rem; border-top: 1px solid var(--color-border); background: var(--color-bg); }
+.nav-mobile a { font-size: 1rem; font-weight: 500; color: var(--color-text-muted); padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; }
+.nav-mobile a:hover, .nav-mobile a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-actions .btn-theme { display: none; } .nav-hamburger { display: flex; } .nav-mobile.open { display: flex; } }
 
-    /* ===== RESEARCH AREA SECTIONS ===== */
-    .research-area {
-      padding-block: clamp(var(--space-16), 8vw, var(--space-24));
-    }
-    .research-area:nth-child(odd) { background: #fff; }
-    .research-area:nth-child(even) { background: var(--color-surface); }
+/* ── PAGE HERO ───────────────────────────────────────────────── */
+.page-hero { padding-top: calc(76px + clamp(3rem,8vw,6rem)); padding-bottom: clamp(3rem,8vw,6rem); padding-inline: clamp(1rem,5vw,4rem); background: var(--color-secondary); position: relative; overflow: hidden; }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(204,0,0,0.18) 0%, transparent 55%); pointer-events: none; }
+.page-hero::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 44px 44px; pointer-events: none; }
+[data-theme='light'] .page-hero { background: #1a0000; }
+.page-hero-inner { max-width: 1200px; margin-inline: auto; position: relative; z-index: 1; }
+.mono-label { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ncsu-red); margin-bottom: 1rem; }
+.page-hero-title { font-family: var(--font-display); font-size: clamp(2.5rem,6vw,5rem); font-weight: 800; color: #fff; letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 1.25rem; }
+.page-hero-subtitle { font-size: clamp(0.95rem,1.5vw,1.1rem); color: rgba(255,255,255,0.6); max-width: 64ch; line-height: 1.75; }
 
-    .research-area-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(var(--space-12), 6vw, var(--space-20));
-      align-items: start;
-    }
-    .research-area:nth-child(even) .research-area-inner { direction: rtl; }
-    .research-area:nth-child(even) .research-area-inner > * { direction: ltr; }
+/* ── APPROACH BAND ───────────────────────────────────────────── */
+.approach-band { background: var(--color-surface); padding-block: clamp(3rem,6vw,5rem); border-bottom: 1px solid var(--color-border); }
+.band-inner { max-width: 1200px; margin-inline: auto; padding-inline: clamp(1rem,5vw,4rem); }
+.approach-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+.approach-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 10px; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem; transition: border-color 0.2s, box-shadow 0.2s; }
+.approach-card:hover { border-color: var(--color-text-muted); box-shadow: 0 4px 16px rgba(0,0,0,0.07); }
+.approach-icon { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.approach-num { font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-muted); font-weight: 500; }
+.approach-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--color-text); line-height: 1.3; }
+.approach-desc { font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.65; }
+@media (max-width: 900px) { .approach-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 540px) { .approach-grid { grid-template-columns: 1fr; } }
 
-    .research-area-text .area-number {
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--color-primary);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-bottom: var(--space-2);
-    }
-    .research-area-text h2 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin-bottom: var(--space-4);
-      color: var(--color-text);
-      line-height: 1.2;
-    }
-    .divider {
-      width: 48px; height: 4px;
-      background: var(--color-primary);
-      border-radius: 2px;
-      margin-bottom: var(--space-6);
-    }
-    .research-area-text p {
-      color: var(--color-text-muted);
-      line-height: 1.78;
-      margin-bottom: var(--space-4);
-      font-size: 0.97rem;
-    }
-    .research-topics {
-      list-style: none;
-      padding: 0;
-      margin: var(--space-6) 0 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    .research-topics li {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--space-3);
-      font-size: 0.9rem;
-      color: var(--color-text-muted);
-      line-height: 1.5;
-    }
-    .research-topics li::before {
-      content: '';
-      flex-shrink: 0;
-      width: 8px; height: 8px;
-      background: var(--color-primary);
-      border-radius: 50%;
-      margin-top: 6px;
-    }
-    .research-topics li strong { color: var(--color-text); }
+/* ── RESEARCH AREAS ──────────────────────────────────────────── */
+.areas-wrapper { max-width: 1200px; margin-inline: auto; padding-inline: clamp(1rem,5vw,4rem); }
+.research-area { padding-block: clamp(4rem,8vw,6rem); border-bottom: 1px solid var(--color-border); }
+.research-area:last-child { border-bottom: none; }
+.area-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(3rem,7vw,6rem); align-items: start; }
+.area-inner.reverse { direction: rtl; }
+.area-inner.reverse > * { direction: ltr; }
+.area-text .area-num { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--ncsu-red); margin-bottom: 0.75rem; }
+.area-text h2 { font-family: var(--font-display); font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-text); line-height: 1.1; margin-bottom: 0.75rem; }
+.area-rule { width: 36px; height: 2px; background: var(--ncsu-red); border-radius: 2px; margin-bottom: 1.25rem; }
+.area-text p { font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.85; }
+.area-text p + p { margin-top: 0.85rem; }
+.topic-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.topic-item { display: flex; align-items: flex-start; gap: 0.65rem; font-size: 0.88rem; color: var(--color-text-muted); line-height: 1.5; }
+.topic-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ncsu-red); flex-shrink: 0; margin-top: 6px; }
+.topic-item strong { color: var(--color-text); font-weight: 600; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+.tag-chip { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.03em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 99px; background: var(--color-surface-offset); border: 1px solid var(--color-border); color: var(--color-text-muted); }
 
-    /* ===== VISUAL PANEL ===== */
-    .research-visual {
-      border-radius: 16px;
-      overflow: hidden;
-      background: linear-gradient(135deg, #cc0000 0%, #6a0000 100%);
-      min-height: 320px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: var(--space-10) var(--space-8);
-      position: relative;
-    }
-    .research-visual .visual-label {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
-      margin-bottom: var(--space-6);
-    }
-    .research-visual .visual-stat-large {
-      font-size: clamp(3rem, 6vw, 5rem);
-      font-weight: 900;
-      color: #fff;
-      line-height: 1;
-      margin-bottom: var(--space-2);
-    }
-    .research-visual .visual-stat-desc {
-      font-size: 0.95rem;
-      color: rgba(255,255,255,0.8);
-      text-align: center;
-      line-height: 1.6;
-      max-width: 260px;
-    }
-    .visual-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--space-2);
-      justify-content: center;
-      margin-top: var(--space-6);
-    }
-    .visual-tag {
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 4px 12px;
-      border-radius: 100px;
-    }
-    .visual-diagram {
-      width: 100%;
-      max-width: 360px;
-    }
+/* Visual panel */
+.area-visual { border-radius: 12px; overflow: hidden; min-height: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2.5rem 2rem; position: relative; gap: 1.25rem; }
+.area-visual-label { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.area-visual-stat { font-family: var(--font-display); font-size: clamp(3rem,6vw,5rem); font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.04em; }
+.area-visual-desc { font-size: 0.9rem; color: rgba(255,255,255,0.75); text-align: center; line-height: 1.65; max-width: 28ch; }
+.visual-tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; justify-content: center; margin-top: 0.5rem; }
+.visual-chip { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 0.72rem; font-weight: 600; padding: 0.25rem 0.65rem; border-radius: 99px; }
+.area-pub-highlight { background: rgba(255,255,255,0.1); border-left: 3px solid rgba(255,255,255,0.45); padding: 1rem 1.1rem; border-radius: 0 8px 8px 0; width: 100%; max-width: 340px; }
+.pub-venue { font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+.pub-name { font-size: 0.83rem; color: #fff; line-height: 1.5; font-weight: 500; }
 
-    /* ===== PUBLICATION HIGHLIGHTS ===== */
-    .pub-highlight {
-      background: rgba(255,255,255,0.12);
-      border-left: 3px solid rgba(255,255,255,0.5);
-      padding: var(--space-4) var(--space-5);
-      border-radius: 0 8px 8px 0;
-      margin-top: var(--space-6);
-      width: 100%;
-      max-width: 340px;
-    }
-    .pub-highlight .pub-venue {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.65);
-      margin-bottom: 4px;
-    }
-    .pub-highlight .pub-title {
-      font-size: 0.85rem;
-      color: #fff;
-      line-height: 1.5;
-      font-weight: 500;
-    }
+@media (max-width: 800px) { .area-inner { grid-template-columns: 1fr; } .area-inner.reverse { direction: ltr; } .area-visual { min-height: 220px; } }
 
-    /* ===== FUNDING CENTERS SECTION ===== */
-    .funding-section {
-      padding-block: clamp(var(--space-16), 8vw, var(--space-20));
-      background: #111;
-      color: #fff;
-    }
-    .funding-section .section-label { color: rgba(255,255,255,0.5); }
-    .funding-section h2 { color: #fff; }
-    .funding-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: var(--space-6);
-      margin-top: var(--space-10);
-    }
-    .funding-card {
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 12px;
-      padding: var(--space-7) var(--space-6);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-    .funding-card .funder-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: var(--space-2);
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #cc0000;
-      background: rgba(204,0,0,0.12);
-      border: 1px solid rgba(204,0,0,0.25);
-      padding: 3px 10px;
-      border-radius: 100px;
-      width: fit-content;
-    }
-    .funding-card h3 {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: #fff;
-      margin: 0;
-      line-height: 1.3;
-    }
-    .funding-card p {
-      font-size: 0.85rem;
-      color: rgba(255,255,255,0.6);
-      line-height: 1.6;
-      margin: 0;
-      flex: 1;
-    }
-    .funding-card .funding-amount {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.4);
-      font-weight: 600;
-    }
+/* ── FUNDING SECTION ─────────────────────────────────────────── */
+.funding-section { background: var(--color-surface); padding-block: clamp(3.5rem,6vw,5rem); border-top: 1px solid var(--color-border); }
+.funding-inner { max-width: 1200px; margin-inline: auto; padding-inline: clamp(1rem,5vw,4rem); }
+.funding-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
+.funder-card { background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 10px; padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; transition: border-color 0.2s; }
+.funder-card:hover { border-color: var(--ncsu-red); }
+.funder-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ncsu-red); margin-bottom: 0.25rem; }
+.funder-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--color-text); line-height: 1.3; }
+.funder-desc { font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.6; }
 
-    /* ===== APPROACH SECTION ===== */
-    .approach-section {
-      padding-block: clamp(var(--space-16), 8vw, var(--space-20));
-      background: var(--color-surface);
-    }
-    .approach-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: var(--space-6);
-      margin-top: var(--space-10);
-    }
-    .approach-card {
-      background: #fff;
-      border-radius: 12px;
-      padding: var(--space-8) var(--space-6);
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-3);
-    }
-    .approach-card .step-num {
-      font-size: 2.5rem;
-      font-weight: 900;
-      color: #f0e0e0;
-      line-height: 1;
-    }
-    .approach-card h3 {
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--color-text);
-      margin: 0;
-    }
-    .approach-card p {
-      font-size: 0.87rem;
-      color: var(--color-text-muted);
-      line-height: 1.65;
-      margin: 0;
-    }
+/* ── REVEAL / UTILS ──────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-d1 { transition-delay: 0.1s; }
+.reveal-d2 { transition-delay: 0.2s; }
+.skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; padding: 0.75rem 1.25rem; background: var(--ncsu-red); color: #fff; font-weight: 700; border-radius: 0 0 6px 6px; text-decoration: none; transition: top 0.15s; }
+.skip-link:focus { top: 0; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .reveal { opacity: 1 !important; transform: none !important; } }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      .research-area-inner { grid-template-columns: 1fr; }
-      .research-area:nth-child(even) .research-area-inner { direction: ltr; }
-      .research-visual { min-height: 220px; }
-    }
+/* Section head utility */
+.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-bottom: 0; }
+.section-head-left .mono-label { margin-bottom: 0.5rem; }
+.section-head-left h2 { font-family: var(--font-display); font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-text); line-height: 1.1; }
   </style>
 </head>
 <body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
 
-<!-- ===== NAV ===== -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<!-- NAV -->
+<nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
-      <img src="assets/ncsu/circle-wolf-400.png"
-           alt="NC State University circle wolf mark"
-           width="36" height="36"
-           class="nav-wolf-img"
-           loading="eager" />
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab home">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State wolf mark" class="nav-wolf-img" width="34" height="34" loading="eager" />
       <div class="nav-logo-text">
         <span class="lab-name">Y-AIMS Lab</span>
         <span class="lab-dept">NC State · MSE</span>
@@ -371,14 +156,14 @@
       <li><a href="software.html">Software</a></li>
       <li><a href="news.html">News</a></li>
     </ul>
-    <div class="nav-actions">
+    <div class="nav-actions" style="display:flex;align-items:center;">
       <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
     </div>
     <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="nav-mobile" role="list">
+  <div class="nav-mobile" id="nav-mobile">
     <a href="index.html">Home</a>
     <a href="research.html" class="active" aria-current="page">Research</a>
     <a href="team.html">Team</a>
@@ -386,428 +171,353 @@
     <a href="teaching.html">Teaching</a>
     <a href="software.html">Software</a>
     <a href="news.html">News</a>
-    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
-      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Toggle theme</button>
-    </div>
   </div>
 </nav>
 
-<!-- ===== HERO ===== -->
-<section class="page-hero" data-animate>
-  <div class="container">
-    <p class="section-label">Y-AIMS Laboratory · NC State University</p>
-    <h1>AI + Materials Science</h1>
-    <p>We develop and apply <strong>artificial intelligence, multiscale molecular modeling, and data science</strong> to understand, design, and optimize complex materials — from nucleic acid nanostructures to sustainable systems — accelerating discovery across scales.</p>
+<!-- HERO -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="mono-label">AIMS Laboratory</p>
+    <h1 class="page-hero-title">Research</h1>
+    <p class="page-hero-subtitle">Five interconnected research thrusts spanning AI-driven discovery, nucleic acid nanotechnology, soft and biomimetic materials, metal and magnetic nanoparticles, and sustainability — connected by multiscale molecular modeling at every level.</p>
   </div>
-</section>
+</header>
 
-<!-- ===== 5 PILLARS OVERVIEW ===== -->
-<section class="pillars-band" data-animate>
-  <div class="container">
-    <p class="section-label">Research Pillars</p>
-    <h2 class="section-title" style="max-width:560px;">Six interconnected areas united by AI</h2>
-    <div class="pillars-grid">
+<main id="main-content" tabindex="-1">
 
-      <div class="pillar-card" style="border-top-color:#7a0000;">
-        <div class="pillar-number" style="color:#7a0000;">00</div>
-        <div class="pillar-icon" style="background: linear-gradient(135deg, #7a0000 0%, #3a0000 100%);">
-          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-        </div>
-        <h3>Molecular Simulation Methods</h3>
-        <p>Novel CGCR, DPD, and all-atom magnetic NP methods that enable simulation of materials systems previously intractable — the foundational toolkit underlying all Y-AIMS research.</p>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-number">01</div>
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 1 0 10A5 5 0 0 1 12 2zm0 12c5.33 0 8 2.67 8 4v2H4v-2c0-1.33 2.67-4 8-4z"/></svg>
-        </div>
-        <h3>AI &amp; Data Science for Materials</h3>
-        <p>Machine learning, knowledge graphs, LLMs, and data fusion workflows that enable discovery from small, sparse, heterogeneous materials datasets.</p>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-number">02</div>
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-        </div>
-        <h3>Nucleic Acid Nanotechnology</h3>
-        <p>Simulation and design of RNA/DNA nanostructures, nanoparticle interactions, and therapeutics including siRNA delivery systems and immune-modulating condensates.</p>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-number">03</div>
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-7v2h2v-2h-2zm0-8v6h2V7h-2z"/></svg>
-        </div>
-        <h3>Soft &amp; Responsive Materials</h3>
-        <p>Multiscale modeling of stimulus-responsive polymers, elastin-like polypeptides, reflectins, block copolymers, and cellulose-based biomaterials.</p>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-number">04</div>
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-        </div>
-        <h3>Metal &amp; Magnetic Nanoparticles</h3>
-        <p>All-atom simulation methods for ligand-functionalized gold, iron oxide, and magnetic nanoparticles, including self-assembly, ligand stripping, and field-driven alignment.</p>
-      </div>
-
-      <div class="pillar-card">
-        <div class="pillar-number">05</div>
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 8C8 10 5.9 16.17 3.82 19.5a1 1 0 0 0 1.71 1.04C7 18 8 17 12 17c4 0 4.5 2 7 2a1 1 0 0 0 1-1c0-3-1-10-3-10z"/></svg>
-        </div>
-        <h3>Sustainability &amp; Environmental AI</h3>
-        <p>AI tools for phosphorus sustainability (NSF STC STEPS Center), water quality prediction, knowledge hubs, and decision-support systems including the PASTOR platform.</p>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== AREA 0: MOLECULAR SIMULATION METHODS ===== -->
-<section class="research-area" data-animate>
-  <div class="container research-area-inner">
-    <div class="research-area-text">
-      <div class="area-number">Foundational Methods</div>
-      <h2>Molecular Simulation Methods Development</h2>
-      <div class="divider"></div>
-      <p>Before applying simulation to any material system, the Yingling group develops the <strong>underlying computational methods themselves</strong> — creating novel algorithms, force fields, and multiscale frameworks that make previously intractable problems solvable. Three landmark method families define this contribution:</p>
-
-      <h3 style="font-size:1rem; font-weight:800; color:var(--color-text); margin: var(--space-6) 0 var(--space-2);">Coarse-Grained Chemical Reaction (CGCR) Models</h3>
-      <p>Prof. Yingling developed several coarse-grained chemical reaction models for both equilibrium and non-equilibrium processes, enabling simulation of complex chemical transformations at dramatically reduced computational cost. CGCR models are particularly powerful for large systems where full atomistic resolution is prohibitive — applied to laser ablation of organic materials, polymer degradation, and nucleic-acid-based nanostructure assembly.</p>
-
-      <h3 style="font-size:1rem; font-weight:800; color:var(--color-text); margin: var(--space-6) 0 var(--space-2);">Dissipative Particle Dynamics (DPD) for Soft Matter</h3>
-      <p>The group developed multiscale DPD methodologies for predicting the stimulus-responsive behavior of soft and active materials. These methods enable accurate simulation of large-scale systems exhibiting stimuli-dependent behavior — covering polyelectrolytes, nucleic acids, elastin-like polypeptides (ELPs), reflectins, and block copolymer self-assembly in solution. DPD approaches correctly capture responsive transitions (LCST, coacervation, pH-response) that all-atom MD cannot access at relevant scales.</p>
-
-      <h3 style="font-size:1rem; font-weight:800; color:var(--color-text); margin: var(--space-6) 0 var(--space-2);">All-Atom Methods for Metal &amp; Magnetic Nanoparticles</h3>
-      <p>The Yingling group created and parameterized novel empirical force fields for ligand-functionalized metal and magnetic nanoparticles. This includes a force field that captures ligand affinity to nanoparticle surfaces, enables ligand stripping simulations, and — most distinctively — a new all-atom method to model <strong>magnetic nanoparticle alignment under external fields</strong>, enabling simulation of Zeeman alignment, dipolar assembly, helix formation, and rotational ordering in 2D and 3D structures.</p>
-
-      <ul class="research-topics">
-        <li><strong>CGCR:</strong> Applied to laser ablation (PMMA, organic solids), polymer space-environment degradation, RNA nanoparticle assembly</li>
-        <li><strong>DPD / multiscale:</strong> Block copolymer morphology (Angewandte Chemie 2022), ELP coacervates (JPCB 2021), polyelectrolyte self-assembly; <em>Foundations of Molecular Modeling</em> book chapter 2021</li>
-        <li><strong>Magnetic NP all-atom:</strong> Zeeman alignment &amp; dipolar assembly method (JCTC 2022 cover); ligand stripping force field (ACS Nano 2023 cover; AMI 2025); silica shell on gold nanorods (Chem. Materials 2024)</li>
-        <li><strong>Force field parameterization:</strong> Custom potentials for gold NPs, Fe₃O₄, graphene oxide (Data 2026), cellulose synthase, polyester/plasticizer systems for Eastman Chemical</li>
-      </ul>
-    </div>
-    <div class="research-visual" style="background: linear-gradient(135deg, #3a0000 0%, #1a0022 100%); gap: var(--space-5);">
-      <div class="visual-label">Methods Developed</div>
-
-      <div style="width:100%; max-width:340px;">
-        <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding: 14px 16px; margin-bottom:10px;">
-          <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:4px;">Method 1</div>
-          <div style="font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:4px;">CGCR Models</div>
-          <div style="font-size:0.78rem; color:rgba(255,255,255,0.65); line-height:1.5;">Coarse-grained chemical reactions for laser ablation, polymer degradation &amp; nucleic acid assembly</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding: 14px 16px; margin-bottom:10px;">
-          <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:4px;">Method 2</div>
-          <div style="font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:4px;">DPD Multiscale Methods</div>
-          <div style="font-size:0.78rem; color:rgba(255,255,255,0.65); line-height:1.5;">Dissipative particle dynamics for responsive polymers, ELPs, reflectins &amp; block copolymers at mesoscale</div>
-        </div>
-        <div style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15); border-radius:10px; padding: 14px 16px;">
-          <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:4px;">Method 3</div>
-          <div style="font-size:0.95rem; font-weight:800; color:#fff; margin-bottom:4px;">All-Atom Magnetic NP Method</div>
-          <div style="font-size:0.78rem; color:rgba(255,255,255,0.65); line-height:1.5;">Novel Zeeman alignment &amp; dipolar assembly — helix formation, 3D ordering under external magnetic fields</div>
-        </div>
-      </div>
-
-      <div class="pub-highlight">
-        <div class="pub-venue">ACS JCTC · 2022 · Front Cover</div>
-        <div class="pub-title">All-Atom Simulation Method for Zeeman Alignment and Dipolar Assembly of Magnetic Nanoparticles</div>
+<!-- APPROACH BAND -->
+<section class="approach-band" id="molecular-sims" aria-label="Our computational approach">
+  <div class="band-inner">
+    <div class="section-head reveal">
+      <div class="section-head-left">
+        <p class="mono-label">Our Approach</p>
+        <h2>Multiscale Methods</h2>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ===== AREA 1: AI & DATA SCIENCE ===== -->
-<section class="research-area" data-animate>
-  <div class="container research-area-inner">
-    <div class="research-area-text">
-      <div class="area-number">Research Area 01</div>
-      <h2>AI &amp; Data Science for Materials Discovery</h2>
-      <div class="divider"></div>
-      <p>A core challenge in AI-driven materials science is handling <strong>small, sparse, fragmented, and heterogeneous datasets</strong>. The Yingling group develops advanced data fusion and integration workflows that combine multi-characterization experimental, simulation, and theoretical data to accelerate discovery.</p>
-      <p>Our work spans machine learning models for structure–property prediction, knowledge graph construction (BUILD-KG, INTEGRATE-KG, RL-CURATE-KG), large language model applications in materials informatics, and self-driving lab integration — all designed to work with the messy, multimodal datasets that real materials research produces.</p>
-      <ul class="research-topics">
-        <li><strong>Knowledge graphs &amp; LLMs:</strong> BUILD-KG, INTEGRATE-KG, RL-CURATE-KG frameworks for heterogeneous data; Phosphorus Knowledge Hub (LLM-powered)</li>
-        <li><strong>Small-data ML:</strong> Bayesian methods, uncertainty quantification, imputation strategies for sparse groundwater and materials datasets</li>
-        <li><strong>ML + simulation fusion:</strong> Combining MD trajectories with scattering experiments and ML for structure resolution (ssDNA, nanoparticles)</li>
-        <li><strong>Self-driving labs:</strong> Data integration perspectives for closed-loop autonomous materials discovery (APL Machine Learning 2025)</li>
-        <li><strong>Materials informatics education:</strong> Graduate Certificate in Materials Informatics; DMSE723 course; MRS Advances perspective paper</li>
-      </ul>
-    </div>
-    <div class="research-visual">
-      <div class="visual-label">Featured Work</div>
-      <div class="visual-stat-large">Best Paper</div>
-      <div class="visual-stat-desc">IIWAS 2023 Award for provenance-aware knowledge graph integration</div>
-      <div class="visual-tags">
-        <span class="visual-tag">Machine Learning</span>
-        <span class="visual-tag">Knowledge Graphs</span>
-        <span class="visual-tag">LLMs</span>
-        <span class="visual-tag">Data Fusion</span>
-        <span class="visual-tag">Self-Driving Labs</span>
-      </div>
-      <div class="pub-highlight">
-        <div class="pub-venue">APL Machine Learning · 2025</div>
-        <div class="pub-title">Data Integration &amp; Fusion in Self-Driving Labs — Featured in Scilight</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== AREA 2: NUCLEIC ACID NANOTECHNOLOGY ===== -->
-<section class="research-area" data-animate>
-  <div class="container research-area-inner">
-    <div class="research-area-text">
-      <div class="area-number">Research Area 02</div>
-      <h2>Nucleic Acid Nanotechnology &amp; Nanoparticle Design</h2>
-      <div class="divider"></div>
-      <p>The Yingling group designs and characterizes RNA and DNA nanostructures using molecular modeling, enabling next-generation therapeutic applications. We developed models that accurately predict the structure and assembly of RNA/DNA-based nanostructures, overcoming major bottlenecks in gene delivery.</p>
-      <p>Our all-atom simulation techniques have transformed the study of nucleic acid–nanoparticle interactions, including a novel empirical force field capturing ligand affinity and allowing simulations of ligand stripping from gold and magnetic nanoparticle surfaces.</p>
-      <ul class="research-topics">
-        <li><strong>RNA nanoparticle design:</strong> Most stable siRNA-carrying RNA nanoparticles; DNA-driven condensates for immune modulation; dual-action nanoparticles targeting intracellular bacteria</li>
-        <li><strong>DNA–nanoparticle interfaces:</strong> Gold nanoparticle design for dsRNA compaction; ligand-functionalized NP force fields; nucleic acid–surface interactions</li>
-        <li><strong>Structure prediction:</strong> ssDNA structure resolution by ML + scattering fusion; computer-assisted RNA nanoparticle design workflows</li>
-        <li><strong>Therapeutic applications:</strong> siRNA delivery, innate immune activation, silver nanocluster-mediated antibacterial targeting</li>
-      </ul>
-    </div>
-    <div class="research-visual" style="background: linear-gradient(135deg, #8a0000 0%, #3a0050 100%);">
-      <div class="visual-label">Highlight</div>
-      <div class="visual-stat-large">~30</div>
-      <div class="visual-stat-desc">Publications in RNA/DNA nanotechnology and nucleic acid–nanoparticle systems</div>
-      <div class="visual-tags">
-        <span class="visual-tag">RNA Nanoparticles</span>
-        <span class="visual-tag">siRNA Delivery</span>
-        <span class="visual-tag">Gold NPs</span>
-        <span class="visual-tag">Biointerphases</span>
-      </div>
-      <div class="pub-highlight">
-        <div class="pub-venue">ACS Nano · 2026 (submitted)</div>
-        <div class="pub-title">Dual-Action Nucleic Acid Nanoparticles &amp; Silver Nanocluster-Mediated Bacterial Targeting</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== AREA 3: SOFT & RESPONSIVE MATERIALS ===== -->
-<section class="research-area" data-animate>
-  <div class="container research-area-inner">
-    <div class="research-area-text">
-      <div class="area-number">Research Area 03</div>
-      <h2>Soft, Responsive &amp; Biomimetic Materials</h2>
-      <div class="divider"></div>
-      <p>We develop multiscale molecular methodologies for predicting stimulus-responsive behavior in soft materials. Our methods enable accurate predictions of responsive properties in polyelectrolytes, nucleic acids, elastin-like polypeptides (ELPs), and the squid-inspired protein <em>reflectin</em>, resolving key debates about responsiveness mechanisms.</p>
-      <p>Our cellulose research — supported by the <strong>DOE EFRC Center for Lignocellulose Structure and Formation (CLSF)</strong> — has produced landmark structural models of plant cellulose synthase complexes combining cryo-EM, crystallography, and all-atom simulation.</p>
-      <ul class="research-topics">
-        <li><strong>Elastin-like polypeptides:</strong> Phase separation, LCST behavior, coacervate structure; Science Advances 2019; J. Phys. Chem. B 2021</li>
-        <li><strong>Reflectin proteins:</strong> Structure, self-assembly, and proton conduction; squid iridophore optics (Science 2026, under review); PNAS 2020</li>
-        <li><strong>Cellulose &amp; plant materials:</strong> Full-length CesA structure determination; Cellulose 2024 cover; Plant Direct 2021 top-cited</li>
-        <li><strong>Block copolymers &amp; amphiphiles:</strong> Morphology mapping for peptide-polymer amphiphiles; Angewandte Chemie 2022; ACS Nano 2024; Advanced Materials 2026</li>
-        <li><strong>Biomimetic CO₂ capture:</strong> Carbonic anhydrase strategies; Trends in Biotechnology 2025</li>
-      </ul>
-    </div>
-    <div class="research-visual" style="background: linear-gradient(135deg, #004080 0%, #001a3a 100%);">
-      <div class="visual-label">Key Achievement</div>
-      <div class="visual-stat-large">PNAS</div>
-      <div class="visual-stat-desc">Reflectin self-assembly structure featured in top-tier journals including Science, PNAS, and Nature Materials</div>
-      <div class="visual-tags">
-        <span class="visual-tag">ELPs</span>
-        <span class="visual-tag">Reflectin</span>
-        <span class="visual-tag">Cellulose</span>
-        <span class="visual-tag">Block Copolymers</span>
-        <span class="visual-tag">DOE EFRC</span>
-      </div>
-      <div class="pub-highlight">
-        <div class="pub-venue">Science · 2026 (under review)</div>
-        <div class="pub-title">Squid Ventral Mantle Iridophores Inspire Scalable, Tunable, Multispectral Optical Diffusers</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== AREA 4: METAL & MAGNETIC NANOPARTICLES ===== -->
-<section class="research-area" data-animate>
-  <div class="container research-area-inner">
-    <div class="research-area-text">
-      <div class="area-number">Research Area 04</div>
-      <h2>Metal &amp; Magnetic Nanoparticle Simulations</h2>
-      <div class="divider"></div>
-      <p>The Yingling group pioneered all-atom simulation techniques for ligand-functionalized metal and magnetic nanoparticles. We created and parameterized force fields for nanoparticle surfaces, enabling comprehensive atomic-level characterization of nucleic acid–nanoparticle and ligand–surface interactions.</p>
-      <p>We developed a novel method to model <strong>magnetic nanoparticle alignment under external fields</strong>, enabling simulation of 2D and 3D structures — helix formation, rotational alignment, dipolar assembly — in various solvent environments.</p>
-      <ul class="research-topics">
-        <li><strong>All-atom NP force fields:</strong> Novel empirical potentials for gold, silica-coated gold rods, iron oxide; ligand stripping simulations; JCTC 2022 cover</li>
-        <li><strong>Magnetic nanoparticle assembly:</strong> Zeeman alignment, dipolar assembly, 2D/3D structure formation under external fields; phys.org news release</li>
-        <li><strong>Ligand stripping:</strong> Solvent effects on colloidal nanoparticles; ACS Nano 2023 cover; Advanced Materials Interfaces 2025</li>
-        <li><strong>ML-guided NP optimization:</strong> Machine learning and small-data optimization of silica shell morphology on gold nanorods; Chemistry of Materials 2024</li>
-        <li><strong>Nanoparticle–bio interfaces:</strong> Biointerphases invited review; MRS Bulletin podcast feature</li>
-      </ul>
-    </div>
-    <div class="research-visual" style="background: linear-gradient(135deg, #005500 0%, #001a00 100%);">
-      <div class="visual-label">Impact</div>
-      <div class="visual-stat-large">3×</div>
-      <div class="visual-stat-desc">ACS journal covers for nanoparticle simulation papers (ACS Nano, JCTC, JCIM)</div>
-      <div class="visual-tags">
-        <span class="visual-tag">Gold NPs</span>
-        <span class="visual-tag">Fe₃O₄</span>
-        <span class="visual-tag">Force Fields</span>
-        <span class="visual-tag">Magnetic Assembly</span>
-      </div>
-      <div class="pub-highlight">
-        <div class="pub-venue">ACS JCTC · 2022</div>
-        <div class="pub-title">All-Atom Method for Zeeman Alignment &amp; Dipolar Assembly of Magnetic Nanoparticles — Front Cover</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== AREA 5: SUSTAINABILITY ===== -->
-<section class="research-area" data-animate>
-  <div class="container research-area-inner">
-    <div class="research-area-text">
-      <div class="area-number">Research Area 05</div>
-      <h2>AI for Sustainability &amp; Environmental Science</h2>
-      <div class="divider"></div>
-      <p>Prof. Yingling leads AI and computational research within the <strong>NSF STC STEPS Center</strong> (Sustainable Phosphorus through Engineering and Policy Solutions), a national center tackling phosphorus sustainability — a critical global resource challenge. This work integrates AI, molecular modeling, and data science to address real-world environmental problems.</p>
-      <p>The group develops the <strong>PASTOR platform</strong> (Phosphorus AI for Sustainability, Traceability, and Off-grid Reasoning), the <strong>P1M Database</strong> (Phosphorus One Million), and ML tools for groundwater risk prediction — with direct policy and industrial applications.</p>
-      <ul class="research-topics">
-        <li><strong>STEPS Center (NSF STC):</strong> Phosphorus-binding protein simulations; hydrogel design for P removal; enzymatic transformation of P compounds; ES&amp;T, Langmuir, Environ. Res. Comm. 2024–2026</li>
-        <li><strong>PASTOR &amp; P1M:</strong> AI decision-support for phosphorus sustainability; Phosphorus One Million database (Digital Discovery 2026 submitted)</li>
-        <li><strong>Groundwater ML:</strong> Multiple imputation + ML for co-occurring inorganic chemicals; ES&amp;T 2024; NSF press release; 8+ media outlets</li>
-        <li><strong>Phosphorus Knowledge Hub:</strong> LLM-powered knowledge graph for phosphorus science; J. Environmental Management 2026</li>
-        <li><strong>Water treatment:</strong> Nanoscale morphology effects in solvent-based desalination; ACS EST Water 2023; consulting for RTI International</li>
-      </ul>
-    </div>
-    <div class="research-visual" style="background: linear-gradient(135deg, #005555 0%, #001a1a 100%);">
-      <div class="visual-label">NSF STC Center</div>
-      <div class="visual-stat-large">STEPS</div>
-      <div class="visual-stat-desc">Sustainable Phosphorus through Engineering and Policy Solutions — one of five major centers led by PI or co-PI</div>
-      <div class="visual-tags">
-        <span class="visual-tag">NSF STC</span>
-        <span class="visual-tag">PASTOR</span>
-        <span class="visual-tag">P1M Database</span>
-        <span class="visual-tag">Groundwater ML</span>
-      </div>
-      <div class="pub-highlight">
-        <div class="pub-venue">ES&amp;T · 2024 + NSF Press Release</div>
-        <div class="pub-title">ML Predicts Highest-Risk Groundwater Sites — Covered by 8+ outlets incl. Science Daily, PhysOrg</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FUNDING CENTERS ===== -->
-<section class="funding-section" data-animate>
-  <div class="container">
-    <p class="section-label">Centers &amp; Funding</p>
-    <h2 class="section-title" style="color:#fff; max-width:560px;">$100M+ in research funding across five major centers</h2>
-
-    <div class="funding-grid">
-
-      <div class="funding-card">
-        <span class="funder-badge">NSF STC</span>
-        <h3>STEPS Center — Sustainable Phosphorus</h3>
-        <p>National Science Foundation Science and Technology Center for Sustainable Phosphorus through Engineering and Policy Solutions. Yingling leads AI and molecular modeling thrust.</p>
-        <div class="funding-amount">Multi-institution · $25M+</div>
-      </div>
-
-      <div class="funding-card">
-        <span class="funder-badge">DOE EFRC</span>
-        <h3>CLSF — Lignocellulose Structure &amp; Formation</h3>
-        <p>Department of Energy Energy Frontier Research Center for Lignocellulose Structure and Formation. Yingling group provides computational structure prediction for cellulose synthase.</p>
-        <div class="funding-amount">Multi-institution · DOE EFRC</div>
-      </div>
-
-      <div class="funding-card">
-        <span class="funder-badge">NNF</span>
-        <h3>BIG Center — Biocatalyst Interactions with Gases</h3>
-        <p>Novo Nordisk Foundation BIG Center. Molecular modeling of biocatalyst–gas transport, binding, and enzyme performance under industrial biogas conditions.</p>
-        <div class="funding-amount">2022–2026 · $300k direct</div>
-      </div>
-
-      <div class="funding-card">
-        <span class="funder-badge">NSF + DOD</span>
-        <h3>NSF Materials Research &amp; Army Research Office</h3>
-        <p>Ongoing NSF Engineering, NSF Materials Research, and Army Research Office grants supporting nanoparticle simulations, nucleic acid nanotechnology, and AI methods.</p>
-        <div class="funding-amount">Multiple active grants</div>
-      </div>
-
-      <div class="funding-card">
-        <span class="funder-badge">Industry</span>
-        <h3>Eastman Chemical &amp; Industry Partners</h3>
-        <p>Five research contracts with Eastman Chemical Company (2013–2025) spanning force field development, cellulose ester films, polymer simulations, and biocatalysis. RTI International, BenTech Inc.</p>
-        <div class="funding-amount">$1.4M+ combined · 2012–2025</div>
-      </div>
-
-      <div class="funding-card">
-        <span class="funder-badge">Startups</span>
-        <h3>MatterX &amp; SustainAI LLC</h3>
-        <p><strong>MatterX</strong> — autonomous platforms for AI-driven polymer design and synthesis using self-driving labs (robotics + ML + computational chemistry). <strong>SustainAI</strong> (2025) — local-first AI for agriculture and water utilities; offline-capable decision support powered by the PASTOR architecture. <a href="https://www.sustain-ai.net/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.6);">sustain-ai.net</a></p>
-        <div class="funding-amount">2 spinout companies · <a href="https://matterx.ai/" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.5);text-decoration:underline;">matterx.ai</a></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ===== OUR APPROACH ===== -->
-<section class="approach-section" data-animate>
-  <div class="container">
-    <p class="section-label">Methodology</p>
-    <h2 class="section-title" style="max-width:560px;">How we work: AI-augmented multiscale science</h2>
     <div class="approach-grid">
-      <div class="approach-card">
-        <div class="step-num">01</div>
-        <h3>Multiscale Molecular Modeling</h3>
-        <p>All-atom MD, coarse-grained models, DFT, and dissipative particle dynamics — choosing the right resolution for each scientific question, from electrons to microstructure.</p>
+      <div class="approach-card reveal reveal-d1">
+        <div class="approach-icon" style="background: color-mix(in srgb, var(--ncsu-red) 12%, transparent);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ncsu-red)" stroke-width="2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="1" fill="var(--ncsu-red)"/></svg>
+        </div>
+        <span class="approach-num">01</span>
+        <div class="approach-title">Density Functional Theory</div>
+        <div class="approach-desc">Electronic-structure calculations for ground-state properties, reaction energetics, and bonding analysis at the quantum level.</div>
       </div>
-      <div class="approach-card">
-        <div class="step-num">02</div>
-        <h3>AI &amp; Machine Learning Integration</h3>
-        <p>ML models trained on small, heterogeneous datasets; uncertainty quantification; Bayesian optimization; neural network potentials — embedded throughout the discovery pipeline.</p>
+      <div class="approach-card reveal reveal-d2">
+        <div class="approach-icon" style="background: color-mix(in srgb, var(--ncsu-blue-teal) 12%, transparent);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ncsu-blue-teal)" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/><path d="M3 6l3 6-3 6"/></svg>
+        </div>
+        <span class="approach-num">02</span>
+        <div class="approach-title">All-Atom Molecular Dynamics</div>
+        <div class="approach-desc">Full-resolution simulations capturing atomic motions, conformational dynamics, and detailed molecular interactions.</div>
       </div>
-      <div class="approach-card">
-        <div class="step-num">03</div>
-        <h3>Data Fusion &amp; Knowledge Graphs</h3>
-        <p>Combining experimental, simulation, and literature data via knowledge graph frameworks (BUILD-KG, INTEGRATE-KG) and LLM-powered pipelines to unlock hidden relationships.</p>
+      <div class="approach-card reveal reveal-d1">
+        <div class="approach-icon" style="background: color-mix(in srgb, var(--ncsu-green) 12%, transparent);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ncsu-green)" stroke-width="2"><rect x="2" y="8" width="4" height="8" rx="1"/><rect x="10" y="4" width="4" height="12" rx="1"/><rect x="18" y="6" width="4" height="10" rx="1"/><path d="M4 8V4M12 4V2M20 6V3"/></svg>
+        </div>
+        <span class="approach-num">03</span>
+        <div class="approach-title">Coarse-Grained and Mesoscale</div>
+        <div class="approach-desc">CGMD and DPD approaches that bridge atomistic detail with macroscale behavior, enabling longer time and length scales.</div>
       </div>
-      <div class="approach-card">
-        <div class="step-num">04</div>
-        <h3>Experiment-Simulation Synergy</h3>
-        <p>Tight coupling with experimentalists — crystallography, cryo-EM, scattering, spectroscopy — to validate models and translate computational insights into real materials breakthroughs.</p>
+      <div class="approach-card reveal reveal-d2">
+        <div class="approach-icon" style="background: color-mix(in srgb, var(--ncsu-blue) 12%, transparent);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--ncsu-blue)" stroke-width="2"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.44-4.04"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.44-4.04"/></svg>
+        </div>
+        <span class="approach-num">04</span>
+        <div class="approach-title">AI and Machine Learning</div>
+        <div class="approach-desc">Bayesian optimization, graph neural networks, and generative AI for data-efficient discovery and inverse design of materials.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== CTA ===== -->
-<section style="padding-block: clamp(var(--space-16), 8vw, var(--space-20)); background: #cc0000; text-align:center;" data-animate>
-  <div class="container" style="max-width:640px;">
-    <p class="section-label" style="color:rgba(255,255,255,0.65);">Interested in our work?</p>
-    <h2 style="color:#fff; font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight:900; margin-bottom: var(--space-4);">Join the Y-AIMS Lab</h2>
-    <p style="color:rgba(255,255,255,0.85); margin-bottom: var(--space-8); line-height:1.7;">We are always looking for motivated PhD students, postdocs, and undergraduate researchers interested in AI, materials simulation, and data-driven discovery.</p>
-    <a href="team.html" class="btn btn-white">Meet the Team</a>
-    <a href="publications.html" class="btn btn-outline-white" style="margin-left:var(--space-3);">View Publications</a>
+<!-- RESEARCH AREAS -->
+<div class="areas-wrapper">
+
+  <!-- 01: AI & Data Science for Materials -->
+  <section class="research-area" id="ai" aria-labelledby="area1-title">
+    <div class="area-inner reveal">
+      <div class="area-text">
+        <p class="area-num">Area 01</p>
+        <h2 id="area1-title">AI &amp; Data Science for Materials</h2>
+        <div class="area-rule"></div>
+        <p>We design AI-driven workflows for materials discovery and optimization, coupled with rigorous data integration and data-fusion methodologies grounded in statistics and computer science.</p>
+        <p>Our approaches are specifically aimed at extracting actionable insight from small, sparse, heterogeneous, and multimodal datasets, and are transferable across application domains — from materials science to water quality and phosphorus sustainability.</p>
+        <ul class="topic-list">
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Machine learning force fields</strong> for nucleic acids and nanoparticle systems</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Graph neural networks</strong> and Bayesian optimization for inverse materials design</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Generative AI</strong> for data retrieval and de novo materials design</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Self-driving laboratories</strong> and autonomous experimental design</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Materials data integration</strong> and knowledge-graph curation (RL-CURATE-KG, INTEGRATE-KG)</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span>Handling <strong>small &amp; heterogeneous data</strong>: imputation, augmentation, and multi-modal fusion</span></li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag-chip">Machine Learning</span>
+          <span class="tag-chip">Bayesian Optimization</span>
+          <span class="tag-chip">Graph Neural Networks</span>
+          <span class="tag-chip">Generative AI</span>
+          <span class="tag-chip">Self-Driving Labs</span>
+        </div>
+      </div>
+      <div class="area-visual" style="background: linear-gradient(135deg, #4156A1 0%, #1e2857 100%);">
+        <div class="area-visual-label">AI Research</div>
+        <div class="area-visual-stat">GNN</div>
+        <div class="area-visual-desc">Graph neural networks, Bayesian optimization, and generative models for data-efficient materials discovery</div>
+        <div class="visual-tag-row">
+          <span class="visual-chip">ML</span>
+          <span class="visual-chip">GNN</span>
+          <span class="visual-chip">Bayes</span>
+          <span class="visual-chip">Gen AI</span>
+        </div>
+        <div class="area-pub-highlight">
+          <div class="pub-venue">APL Machine Learning · 2025</div>
+          <div class="pub-name">Data Integration and Data Fusion Approaches in Self-Driving Labs: A Perspective</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02: Nucleic Acid Nanotechnology -->
+  <section class="research-area" id="nucleic-acid" aria-labelledby="area2-title">
+    <div class="area-inner reverse reveal">
+      <div class="area-text">
+        <p class="area-num">Area 02</p>
+        <h2 id="area2-title">Nucleic Acid Nanotechnology</h2>
+        <div class="area-rule"></div>
+        <p>We use multiscale molecular modeling to understand and design DNA- and RNA-based nanomaterials with programmable geometry, responsive properties, and tunable function.</p>
+        <p>Our work spans the self-assembly of nucleic acid nanoparticles, the dynamics and immunorecognition of DNA-driven condensates, and the development of machine-learning force fields that bridge atomistic accuracy with the time- and length-scales required for therapeutic delivery and supramolecular assembly.</p>
+        <ul class="topic-list">
+          <li class="topic-item"><span class="topic-dot"></span><span>Self-assembly and dynamics of <strong>DNA / RNA nanoparticles</strong></span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>DNA-driven condensates:</strong> topology, mechanical properties, and immunorecognition</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Plasmonic chirality</strong> from protein–nanoparticle assemblies (Nature Materials 2026)</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>ML force fields</strong> for RNA: bridging atomistic accuracy and CG efficiency</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span>Programmable supramolecular nucleic-acid assemblies for therapeutic delivery</span></li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag-chip">DNA</span>
+          <span class="tag-chip">RNA</span>
+          <span class="tag-chip">Self-Assembly</span>
+          <span class="tag-chip">Therapeutics</span>
+          <span class="tag-chip">ML Force Fields</span>
+        </div>
+      </div>
+      <div class="area-visual" style="background: linear-gradient(135deg, #cc0000 0%, #6a0000 100%);">
+        <div class="area-visual-label">Nucleic Acid Research</div>
+        <div class="area-visual-stat">RNA</div>
+        <div class="area-visual-desc">Self-assembling nucleic-acid nanoparticles with programmable geometry and immune-compatible function</div>
+        <div class="visual-tag-row">
+          <span class="visual-chip">DNA</span>
+          <span class="visual-chip">RNA</span>
+          <span class="visual-chip">Condensates</span>
+          <span class="visual-chip">Chirality</span>
+        </div>
+        <div class="area-pub-highlight">
+          <div class="pub-venue">Nature Materials · 2026</div>
+          <div class="pub-name">Efficient and reversible chirality induction between protein and achiral plasmonic assemblies</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03: Soft, Responsive & Biomimetic Materials -->
+  <section class="research-area" id="soft-responsive" aria-labelledby="area3-title">
+    <div class="area-inner reveal">
+      <div class="area-text">
+        <p class="area-num">Area 03</p>
+        <h2 id="area3-title">Soft, Responsive &amp; Biomimetic Materials</h2>
+        <div class="area-rule"></div>
+        <p>We develop multiscale methodologies — combining all-atom MD with coarse-grained (CG) and dissipative particle dynamics (DPD) approaches — to predict the stimulus-responsive behavior of soft and biomimetic materials at scales and timescales that all-atom simulation alone cannot reach.</p>
+        <p>Our coarse-grained simulations resolve LCST coacervation, pH-response, polymer brush conformations, and morphology mapping in block copolymers and peptide–polymer amphiphiles. Our cellulose research — supported by the <strong>DOE EFRC Center for Lignocellulose Structure and Formation (CLSF)</strong> — has produced landmark structural models of plant cellulose synthase complexes by combining cryo-EM, crystallography, and atomistic simulation.</p>
+        <ul class="topic-list">
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Reflectin proteins:</strong> structure, self-assembly, and proton conduction (PNAS 2020)</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Elastin-like polypeptides (ELPs):</strong> phase separation, LCST behavior, coacervate structure</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Cellulose &amp; plant materials:</strong> CesA structure determination, cellulose synthases, biomimetic CO₂ capture</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Block copolymers &amp; amphiphiles:</strong> morphology mapping for peptide-polymer amphiphiles</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>CG &amp; DPD simulations:</strong> mesoscale modeling of responsive polymers, ELPs, and reflectins where atomistic resolution is prohibitive</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Polymer brushes:</strong> nanoparticle-embedded brushes, chemically tailored coatings, and adsorptive composites</span></li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag-chip">Reflectins</span>
+          <span class="tag-chip">ELPs</span>
+          <span class="tag-chip">Cellulose</span>
+          <span class="tag-chip">Block Copolymers</span>
+          <span class="tag-chip">DPD</span>
+          <span class="tag-chip">CG</span>
+          <span class="tag-chip">DOE EFRC</span>
+        </div>
+      </div>
+      <div class="area-visual" style="background: linear-gradient(135deg, #004080 0%, #001a3a 100%);">
+        <div class="area-visual-label">Key Achievement</div>
+        <div class="area-visual-stat">PNAS</div>
+        <div class="area-visual-desc">Reflectin self-assembly structure featured in top-tier journals including PNAS, Science, and Nature Materials</div>
+        <div class="visual-tag-row">
+          <span class="visual-chip">Reflectins</span>
+          <span class="visual-chip">ELPs</span>
+          <span class="visual-chip">Cellulose</span>
+          <span class="visual-chip">DPD</span>
+        </div>
+        <div class="area-pub-highlight">
+          <div class="pub-venue">PNAS · 2020 · 117, 32891–32901</div>
+          <div class="pub-name">Structure, Self-Assembly, and Properties of a Truncated Reflectin Variant</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04: Metal & Magnetic Nanoparticles -->
+  <section class="research-area" id="nanoparticles" aria-labelledby="area4-title">
+    <div class="area-inner reverse reveal">
+      <div class="area-text">
+        <p class="area-num">Area 04</p>
+        <h2 id="area4-title">Metal &amp; Magnetic Nanoparticles</h2>
+        <div class="area-rule"></div>
+        <p>The Yingling group pioneered all-atom simulation techniques for ligand-functionalized metal and magnetic nanoparticles. We create and parameterize empirical force fields for nanoparticle surfaces — enabling atomic-level characterization of ligand–surface interactions, nucleic acid–nanoparticle binding, and ligand stripping under environmental conditions.</p>
+        <p>We developed a novel all-atom method to model <strong>magnetic nanoparticle alignment under external fields</strong>, capturing Zeeman alignment, dipolar assembly, helix formation, and 2D/3D rotational ordering in different solvent environments — distinguishing our framework from coarse-grained alternatives.</p>
+        <ul class="topic-list">
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>All-atom NP force fields:</strong> novel potentials for gold, silica-coated gold rods, iron oxide</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Zeeman alignment &amp; dipolar assembly</strong> simulation method (JCTC 2022 cover)</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Ligand stripping</strong> from nanoparticle surfaces (ACS Nano 2023; AMI 2025)</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Plasmonic / magnetic Ni–Au composites</strong> by femtosecond-laser fabrication</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Graphene-oxide</strong> models — large-scale, highly oxidized datasets and force fields</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span>Multiscale modeling from <strong>atomistic to mesoscale</strong> for nanocomposites</span></li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag-chip">Magnetic Nanoparticles</span>
+          <span class="tag-chip">Plasmonic</span>
+          <span class="tag-chip">Au / Ni / Fe₃O₄</span>
+          <span class="tag-chip">LAMMPS-mspin</span>
+          <span class="tag-chip">Force Fields</span>
+        </div>
+      </div>
+      <div class="area-visual" style="background: linear-gradient(135deg, #427E93 0%, #1a4a5e 100%);">
+        <div class="area-visual-label">Nanoparticle Research</div>
+        <div class="area-visual-stat">JCTC</div>
+        <div class="area-visual-desc">All-atom simulations of magnetic and metal nanoparticles, including Zeeman alignment and dipolar assembly under external fields</div>
+        <div class="visual-tag-row">
+          <span class="visual-chip">Au</span>
+          <span class="visual-chip">Fe₃O₄</span>
+          <span class="visual-chip">Zeeman</span>
+          <span class="visual-chip">Dipolar</span>
+        </div>
+        <div class="area-pub-highlight">
+          <div class="pub-venue">J. Chem. Theory Comput. · 2022 · Cover</div>
+          <div class="pub-name">All-Atom Simulation Method for Zeeman Alignment and Dipolar Assembly of Magnetic Nanoparticles</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05: Sustainability & Environmental AI -->
+  <section class="research-area" id="sustainability" aria-labelledby="area5-title">
+    <div class="area-inner reveal">
+      <div class="area-text">
+        <p class="area-num">Area 05</p>
+        <h2 id="area5-title">Sustainability &amp; Environmental AI</h2>
+        <div class="area-rule"></div>
+        <p>We apply convergence informatics, molecular modeling, and machine learning to challenges in environmental sustainability — from phosphorus sustainability and biomimetic carbon capture to AI-driven risk modeling for water quality.</p>
+        <p>This thrust is anchored by the Yingling group's role in the <strong>NSF STC STEPS Center</strong> for sustainable phosphorus, and by collaborations with NSF, NC State, and external partners across water, environment, and energy programs.</p>
+        <ul class="topic-list">
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Phosphate-binding peptides &amp; materials</strong> for sustainable phosphorus recovery</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Biomimetic CO₂ capture:</strong> carbonic anhydrase strategies and engineered enzyme–polymer composites</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Functional hydrogels</strong> for selective phosphate removal from water and release on demand</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>AI-driven groundwater risk modeling:</strong> imputation methods for co-occurring inorganic contaminants</span></li>
+          <li class="topic-item"><span class="topic-dot"></span><span><strong>Knowledge-graph curation</strong> for environmental data (RL-CURATE-KG, INTEGRATE-KG)</span></li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag-chip">Phosphorus</span>
+          <span class="tag-chip">Water Quality</span>
+          <span class="tag-chip">CO₂ Capture</span>
+          <span class="tag-chip">STEPS Center</span>
+          <span class="tag-chip">Knowledge Graphs</span>
+        </div>
+      </div>
+      <div class="area-visual" style="background: linear-gradient(135deg, #6F7D1C 0%, #2e3a08 100%);">
+        <div class="area-visual-label">Sustainability Research</div>
+        <div class="area-visual-stat">P</div>
+        <div class="area-visual-desc">AI for sustainable phosphorus, water-quality risk prediction, and biomimetic environmental remediation</div>
+        <div class="visual-tag-row">
+          <span class="visual-chip">P-Recovery</span>
+          <span class="visual-chip">Water</span>
+          <span class="visual-chip">CO₂</span>
+          <span class="visual-chip">Hydrogels</span>
+        </div>
+        <div class="area-pub-highlight">
+          <div class="pub-venue">Environ. Sci. Technol. · 2024</div>
+          <div class="pub-name">Multiple Data Imputation Methods Advance Risk Analysis and Treatability of Co-occurring Inorganic Chemicals in Groundwater</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- FUNDING SECTION -->
+<section class="funding-section" aria-labelledby="funding-title">
+  <div class="funding-inner">
+    <div class="section-head reveal">
+      <div class="section-head-left">
+        <p class="mono-label">Support and Affiliations</p>
+        <h2 id="funding-title">Funded By</h2>
+      </div>
+    </div>
+    <div class="funding-grid">
+      <div class="funder-card reveal reveal-d1">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> NSF</span>
+        <div class="funder-name">NSF STC STEPS Center</div>
+        <div class="funder-desc">Science and Technologies for Phosphorus Sustainability, a National Science Foundation Science and Technology Center.</div>
+      </div>
+      <div class="funder-card reveal reveal-d2">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> NNF</span>
+        <div class="funder-name">NNF BIG</div>
+        <div class="funder-desc">Novo Nordisk Foundation Bioinformatics and Genomics research initiative.</div>
+      </div>
+      <div class="funder-card reveal reveal-d1">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> DOE</span>
+        <div class="funder-name">DOE EFRC / CLSF</div>
+        <div class="funder-desc">Department of Energy Energy Frontier Research Center for Lignocellulose Structure and Formation.</div>
+      </div>
+      <div class="funder-card reveal reveal-d2">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> NCSU</span>
+        <div class="funder-name">NCSU CHiPS</div>
+        <div class="funder-desc">NC State Center for High Performance Simulations, providing HPC resources for large-scale molecular simulations.</div>
+      </div>
+      <div class="funder-card reveal reveal-d1">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> NSF</span>
+        <div class="funder-name">NSF Directorate of Engineering</div>
+        <div class="funder-desc">National Science Foundation Directorate for Engineering, supporting fundamental materials engineering research.</div>
+      </div>
+      <div class="funder-card reveal reveal-d2">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> NSF</span>
+        <div class="funder-name">NSF Division of Materials Research</div>
+        <div class="funder-desc">National Science Foundation Division of Materials Research supporting computational and experimental materials science.</div>
+      </div>
+      <div class="funder-card reveal reveal-d1">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> DOD</span>
+        <div class="funder-name">US Army Research Office</div>
+        <div class="funder-desc">Department of Defense Army Research Office supporting fundamental research in materials and computational science.</div>
+      </div>
+      <div class="funder-card reveal reveal-d2">
+        <span class="funder-badge"><svg width="10" height="10" viewBox="0 0 24 24" fill="var(--ncsu-red)"><circle cx="12" cy="12" r="10"/></svg> NCSU</span>
+        <div class="funder-name">Nano@NCSU</div>
+        <div class="funder-desc">NC State University nanoscience and nanotechnology faculty cluster and shared instrumentation program.</div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+</main>
+
 <footer class="site-footer" role="contentinfo">
   <div class="footer-ncsu-bar">
-    <div class="footer-ncsu-inner">
-      <img src="assets/ncsu/brick-white-on-red-web.png"
-           alt="NC State University"
-           class="footer-brick-logo"
-           loading="lazy" />
-    </div>
+    <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" loading="lazy" />
   </div>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-text">Y-AIMS Laboratory</div>
-      <p>Y-AIMS Laboratory · North Carolina State University · Department of Materials Science and Engineering</p>
+  <div class="footer-body">
+    <div>
+      <div class="footer-brand-name">Y-AIMS Laboratory</div>
+      <p class="footer-brand-desc">AI &amp; Materials Simulations Lab · Department of Materials Science and Engineering · NC State University · Raleigh, NC</p>
     </div>
     <div class="footer-col">
-      <h4>Navigation</h4>
+      <h4>Navigate</h4>
       <ul role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="research.html">Research</a></li>
@@ -821,11 +531,12 @@
     <div class="footer-col">
       <h4>Research</h4>
       <ul role="list">
-        <li><a href="research.html">AI &amp; Data Science</a></li>
-        <li><a href="research.html">Nucleic Acid Nanotechnology</a></li>
-        <li><a href="research.html">Soft &amp; Responsive Materials</a></li>
-        <li><a href="research.html">Nanoparticle Simulations</a></li>
-        <li><a href="research.html">Sustainability &amp; Environmental AI</a></li>
+        <li><a href="research.html#molecular-sims">Molecular Simulation Methods</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science for Materials</a></li>
+        <li><a href="research.html#nucleic-acid">Nucleic Acid Nanotechnology</a></li>
+        <li><a href="research.html#soft-responsive">Soft &amp; Responsive Materials</a></li>
+        <li><a href="research.html#nanoparticles">Metal &amp; Magnetic Nanoparticles</a></li>
+        <li><a href="research.html#sustainability">Sustainability &amp; Environmental AI</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -834,96 +545,69 @@
         <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
         <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
         <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+        <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>&copy; 2026 Yingling Research Group &middot; NC State University. All rights reserved.</p>
-    <div class="footer-social">
-      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    <p>© 2026 Y-AIMS Laboratory · NC State University. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
       </a>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script data-pplx-inline-edit>
-(function(){
-  if(window===window.top)return;
-  function inlineAll(orig,clone){
-    if(orig.nodeType!==1)return;
-    try{
-      var cs=getComputedStyle(orig);
-      var t='';
-      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
-      clone.style.cssText=t;
-    }catch(e){}
-    var oc=orig.children,cc=clone.children;
-    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+<script>
+(function () {
+  const nav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  const root = document.documentElement;
+  const toggles = document.querySelectorAll('[data-theme-toggle]');
+
+  function getAutoTheme() {
+    return 'light';
   }
-  function stripExternal(clone){
-    var imgs=clone.querySelectorAll('img');
-    for(var i=0;i<imgs.length;i++){
-      var s=imgs[i].getAttribute('src');
-      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
-    }
-    var all=clone.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-      var st=all[i].style.cssText;
-      if(st&&st.indexOf('url(')>=0){
-        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
-      }
-    }
+
+  let theme = localStorage.getItem('yaimsTheme') || getAutoTheme();
+
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    const sunSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+    const moonSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    toggles.forEach(btn => { btn.innerHTML = t === 'dark' ? sunSvg : moonSvg; });
   }
-  var scrollRaf=0;
-  function emitScroll(){
-    scrollRaf=0;
-    var x=window.scrollX||window.pageXOffset||0;
-    var y=window.scrollY||window.pageYOffset||0;
-    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
-  }
-  window.addEventListener('scroll',function(){
-    if(scrollRaf)return;
-    scrollRaf=requestAnimationFrame(emitScroll);
-  },{passive:true,capture:true});
-  emitScroll();
-  window.addEventListener('message',function(e){
-    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
-    var scrollX=window.scrollX||window.pageXOffset||0;
-    var scrollY=window.scrollY||window.pageYOffset||0;
-    var w=window.innerWidth,h=window.innerHeight;
-    try{
-      var clone=document.documentElement.cloneNode(true);
-      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
-      for(var i=0;i<rm.length;i++){rm[i].remove();}
-      inlineAll(document.documentElement,clone);
-      stripExternal(clone);
-      var html=new XMLSerializer().serializeToString(clone);
-      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
-        +'<foreignObject width="100%" height="100%">'
-        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
-        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
-        +html+'</div></div></foreignObject></svg>';
-      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0);
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.onerror=function(){
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.src=svgUrl;
-    }catch(err){
-      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-    }
+  applyTheme(theme);
+
+  toggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('yaimsTheme', theme);
+      applyTheme(theme);
+    });
   });
+
+  const sentinel = Object.assign(document.createElement('div'), { style: 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none' });
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', e.intersectionRatio < 1), { threshold: [1], rootMargin: '-1px 0px 0px 0px' }).observe(sentinel);
+
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
 })();
-</script></body>
+</script>
+</body>
 </html>

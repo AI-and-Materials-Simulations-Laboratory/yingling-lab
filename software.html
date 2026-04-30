@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Software & Data — Y-AIMS Lab | NC State</title>
+  <title>Software &amp; Data — Y-AIMS Lab | NC State MSE</title>
   <meta name="description" content="Open-source software, simulation methods, predicted 3D structures, databases, and patents from the Y-AIMS Laboratory at NC State University." />
 
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
@@ -11,20 +11,35 @@
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('yaimsTheme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
 
   <style>
     /* ─── HERO ───────────────────────────────────────────────── */
     .sw-hero {
-      background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
-      padding: var(--space-20) var(--space-8) var(--space-16);
+      padding: calc(76px + var(--space-16)) var(--space-8) var(--space-16) !important;
       position: relative;
       overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(65, 86, 161, 0.18) 0%, transparent 24%),
+        radial-gradient(circle at bottom left, rgba(0, 132, 115, 0.13) 0%, transparent 26%),
+        linear-gradient(135deg, #f4f8ff 0%, #eef7f6 56%, #fff5ea 100%);
+      border-bottom: 1px solid rgba(66, 126, 147, 0.12);
     }
     .sw-hero::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.13) 100%);
+      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.08) 100%);
       pointer-events: none;
     }
     .sw-hero-inner {
@@ -44,20 +59,20 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(65, 86, 161, 0.85);
       margin-bottom: var(--space-3);
     }
     .sw-hero-text .hero-title {
       font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 700;
-      color: #fff;
+      color: #172133;
       line-height: 1.1;
       margin-bottom: var(--space-4);
     }
     .sw-hero-text .hero-sub {
       font-size: var(--text-base);
-      color: rgba(255,255,255,0.72);
+      color: rgba(33, 49, 72, 0.8);
       max-width: 58ch;
       line-height: 1.7;
     }
@@ -66,19 +81,74 @@
       align-items: center;
       gap: var(--space-2);
       padding: 11px 22px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
+      background: rgba(255,255,255,0.78);
+      border: 1px solid rgba(65, 86, 161, 0.14);
+      color: #172133;
       border-radius: var(--radius-md);
       font-family: var(--font-display);
       font-size: var(--text-sm);
       font-weight: 700;
       text-decoration: none;
-      transition: background 0.18s, transform 0.18s;
+      transition: background 0.18s, transform 0.18s, color 0.18s, border-color 0.18s;
       white-space: nowrap;
       flex-shrink: 0;
+      box-shadow: 0 8px 20px rgba(35, 57, 95, 0.08);
     }
-    .sw-github-btn:hover { background: rgba(255,255,255,0.2); transform: translateY(-1px); }
+    .sw-github-btn:hover {
+      background: #24292e;
+      border-color: #24292e;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    /* ─── HERO STAT BAR ──────────────────────────────────────── */
+    .sw-stat-bar {
+      max-width: var(--content-wide);
+      margin: 0 auto;
+      padding: var(--space-6) var(--space-8);
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+    .sw-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      text-align: center;
+      padding: var(--space-2) var(--space-3);
+      border-right: 1px solid var(--color-divider);
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .sw-stat:hover { background: var(--color-primary-highlight); transform: translateY(-1px); }
+    .sw-stat:hover .sw-stat-num { color: var(--ncsu-red-dark); }
+    .sw-stat:last-child { border-right: none; }
+    .sw-stat-num {
+      font-family: var(--font-display);
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--ncsu-red);
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+    .sw-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+    }
+    @media (max-width: 760px) {
+      .sw-stat-bar { grid-template-columns: repeat(3, 1fr); gap: var(--space-4); padding: var(--space-5) var(--space-4); }
+      .sw-stat { border-right: none; padding: var(--space-2) 0; }
+      .sw-stat:nth-child(3n) { border-right: none; }
+    }
 
     /* ─── MAIN ───────────────────────────────────────────────── */
     .sw-main {
@@ -95,17 +165,21 @@
       display: flex;
       align-items: center;
       gap: var(--space-4);
-      margin-bottom: var(--space-7);
+      margin-bottom: var(--space-6);
+      padding-bottom: var(--space-4);
+      border-bottom: 1px solid var(--color-border);
+      scroll-margin-top: 96px;
     }
     .sw-section-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: var(--radius-md);
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
       color: #fff;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.10);
     }
     .icon-software  { background: linear-gradient(135deg, #4156A1, #2d3a7a); }
     .icon-methods   { background: linear-gradient(135deg, #008473, #005a4e); }
@@ -136,6 +210,7 @@
       gap: var(--space-5);
     }
     .sw-card {
+      position: relative;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 12px;
@@ -143,9 +218,24 @@
       display: flex;
       flex-direction: column;
       gap: var(--space-4);
-      transition: box-shadow 0.2s, transform 0.2s;
+      overflow: hidden;
+      transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;
     }
-    .sw-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .sw-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; bottom: 0;
+      width: 3px;
+      background: var(--ncsu-blue);
+      transform: scaleY(0); transform-origin: top;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .sw-card:hover {
+      box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+      transform: translateY(-3px);
+      border-color: rgba(65,86,161,0.25);
+    }
+    .sw-card:hover::before { transform: scaleY(1); }
 
     .sw-card-top {
       display: flex;
@@ -173,7 +263,7 @@
       font-family: 'Roboto Mono', 'Courier New', monospace;
     }
     .sw-card-type {
-      font-size: 10px;
+      font-size: 0.76rem;
       font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -234,32 +324,51 @@
     .methods-list {
       display: flex;
       flex-direction: column;
-      gap: var(--space-4);
+      gap: var(--space-3);
     }
     .method-item {
       display: grid;
-      grid-template-columns: 3px 1fr;
-      gap: var(--space-5);
+      grid-template-columns: 48px 1fr;
+      gap: var(--space-4);
+      align-items: center;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
-      border-radius: 12px;
-      overflow: hidden;
-      transition: box-shadow 0.2s;
+      border-radius: 10px;
+      padding: var(--space-4) var(--space-5);
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
     }
-    .method-item:hover { box-shadow: var(--shadow-sm); }
-    .method-accent { background: var(--ncsu-teal); }
+    .method-item:hover {
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      border-color: rgba(0,132,115,0.3);
+      transform: translateY(-1px);
+    }
+    .method-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: rgba(0,132,115,0.10);
+      border: 1px solid rgba(0,132,115,0.22);
+      color: #006454;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    [data-theme='dark'] .method-num { background: rgba(0,132,115,0.20); color: #4cc9b8; border-color: rgba(0,132,115,0.36); }
     .method-body {
-      padding: var(--space-5) var(--space-6) var(--space-5) 0;
       display: flex;
       flex-direction: column;
-      gap: var(--space-2);
+      gap: 4px;
     }
     .method-title {
       font-family: var(--font-display);
       font-size: var(--text-base);
       font-weight: 700;
       color: var(--color-text);
-      line-height: 1.35;
+      line-height: 1.4;
     }
     .method-ref {
       font-size: var(--text-sm);
@@ -280,28 +389,33 @@
       gap: var(--space-3);
     }
     .struct-item {
-      display: flex;
-      align-items: flex-start;
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      align-items: center;
       gap: var(--space-4);
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 10px;
       padding: var(--space-4) var(--space-5);
-      transition: box-shadow 0.2s;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
     }
-    .struct-item:hover { box-shadow: var(--shadow-sm); }
+    .struct-item:hover {
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+      border-color: rgba(209,73,5,0.30);
+      transform: translateY(-1px);
+    }
     .struct-num {
-      min-width: 28px;
-      height: 28px;
-      background: rgba(209,73,5,0.1);
-      border: 1px solid rgba(209,73,5,0.2);
-      border-radius: 6px;
+      width: 32px;
+      height: 32px;
+      background: rgba(209,73,5,0.10);
+      border: 1px solid rgba(209,73,5,0.22);
+      border-radius: 8px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: var(--font-display);
-      font-size: 11px;
-      font-weight: 800;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
       color: #b33e00;
       flex-shrink: 0;
     }
@@ -328,27 +442,33 @@
 
     /* ─── DATABASE CARD ──────────────────────────────────────── */
     .db-card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: 12px;
-      padding: var(--space-6) var(--space-8);
+      background: linear-gradient(135deg, var(--color-surface) 0%, color-mix(in srgb, #6F7D1C 5%, var(--color-surface)) 100%);
+      border: 1px solid rgba(111,125,28,0.18);
+      border-radius: 14px;
+      padding: var(--space-7) var(--space-8);
       display: flex;
       gap: var(--space-6);
       align-items: flex-start;
+      transition: box-shadow 0.25s, border-color 0.25s;
     }
+    .db-card:hover {
+      box-shadow: 0 12px 28px rgba(111,125,28,0.12);
+      border-color: rgba(111,125,28,0.32);
+    }
+    [data-theme='dark'] .db-card { background: linear-gradient(135deg, var(--color-surface) 0%, rgba(111,125,28,0.08) 100%); border-color: rgba(111,125,28,0.30); }
     .db-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius-md);
-      background: linear-gradient(135deg, rgba(111,125,28,0.15), rgba(111,125,28,0.08));
-      border: 1px solid rgba(111,125,28,0.2);
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #6F7D1C, #4a5512);
+      border: none;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: #4a5512;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(111,125,28,0.25);
     }
-    [data-theme='dark'] .db-icon { background: rgba(111,125,28,0.18); color: #b8cc50; border-color: rgba(111,125,28,0.3); }
     .db-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-3); }
     .db-name {
       font-family: var(--font-display);
@@ -376,47 +496,61 @@
       gap: var(--space-5);
     }
     .patent-item {
+      position: relative;
       background: var(--color-surface);
       border: 1px solid var(--color-border);
       border-radius: 12px;
-      padding: var(--space-6);
-      display: flex;
+      padding: var(--space-5) var(--space-6);
+      display: grid;
+      grid-template-columns: 56px 1fr;
       gap: var(--space-5);
       align-items: flex-start;
-      transition: box-shadow 0.2s;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.2s;
     }
-    .patent-item:hover { box-shadow: var(--shadow-sm); }
+    .patent-item:hover {
+      box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+      border-color: rgba(66,126,147,0.3);
+      transform: translateY(-1px);
+    }
     .patent-num {
-      min-width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--ncsu-blue), #2d3a7a);
-      border-radius: 8px;
+      width: 56px;
+      height: 56px;
+      background: linear-gradient(135deg, var(--ncsu-blue-teal), #2a5f78);
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: var(--font-display);
-      font-size: var(--text-sm);
+      font-size: 1.4rem;
       font-weight: 800;
       color: #fff;
       flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(42,95,120,0.25);
     }
-    .patent-body { flex: 1; display: flex; flex-direction: column; gap: var(--space-2); }
+    .patent-body { display: flex; flex-direction: column; gap: var(--space-2); min-width: 0; }
     .patent-id {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--space-2);
+      gap: 6px;
       align-items: center;
+      margin-bottom: 2px;
     }
     .patent-number-badge {
       font-family: 'Roboto Mono', monospace;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 8px;
-      background: rgba(66,126,147,0.1);
-      border: 1px solid rgba(66,126,147,0.2);
-      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 3px 9px;
+      background: rgba(66,126,147,0.10);
+      border: 1px solid rgba(66,126,147,0.25);
+      border-radius: 999px;
       color: #2a5f78;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.02em;
+    }
+    .patent-number-badge.year {
+      background: rgba(204,0,0,0.07);
+      border-color: rgba(204,0,0,0.20);
+      color: var(--ncsu-red);
+      font-weight: 700;
     }
     [data-theme='dark'] .patent-number-badge { background: rgba(66,126,147,0.18); color: #7ec8df; border-color: rgba(66,126,147,0.3); }
     .patent-title {
@@ -444,17 +578,59 @@
       .sw-cards { grid-template-columns: 1fr; }
       .db-card { flex-direction: column; }
     }
+
+/* ─── CONSISTENT NAV / FOOTER ────────────────────────────── */
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 76px; display: flex; align-items: center; padding-inline: clamp(1rem,5vw,4rem); background: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--color-border); transition: box-shadow 0.3s; }
+.site-nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+.nav-inner { width: 100%; max-width: 1200px; margin-inline: auto; display: flex; align-items: center; gap: 2rem; }
+.nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
+.nav-wolf-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.lab-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; }
+.lab-dept { font-size: 0.78rem; color: var(--color-text-muted); }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin-left: auto; }
+.nav-links a { font-size: 0.95rem; font-weight: 500; color: var(--color-text-muted); padding: 0.55rem 0.95rem; border-radius: 4px; text-decoration: none; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+.nav-links a.active { font-weight: 600; }
+.btn-theme { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-muted); cursor: pointer; margin-left: 0.5rem; transition: all 0.2s; }
+.btn-theme:hover { color: var(--color-text); background: var(--color-surface-offset); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; cursor: pointer; margin-left: auto; }
+.nav-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--color-text-muted); border-radius: 2px; }
+.nav-mobile { display: none; flex-direction: column; gap: 0.25rem; padding: 1rem; border-top: 1px solid var(--color-border); background: var(--color-bg); }
+.nav-mobile a { font-size: 1rem; font-weight: 500; color: var(--color-text-muted); padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; }
+.nav-mobile a:hover, .nav-mobile a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-actions .btn-theme { display: none; } .nav-hamburger { display: flex; } .nav-mobile.open { display: flex; } }
+.skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; padding: 0.75rem 1.25rem; background: var(--ncsu-red); color: #fff; font-weight: 700; border-radius: 0 0 6px 6px; text-decoration: none; transition: top 0.15s; }
+.skip-link:focus { top: 0; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .reveal { opacity: 1 !important; transform: none !important; } }
+
+
+    .startup-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+    .startup-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; transition: box-shadow 0.2s, transform 0.2s; }
+    .startup-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .startup-card-header { background: linear-gradient(135deg, #cc0000 0%, #7a0000 100%); padding: 1.5rem 1.75rem; }
+    .startup-name { font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-bottom: 0.25rem; }
+    .startup-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-bottom: 0.75rem; }
+    .startup-badge { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
+    .startup-card-body { padding: 1.5rem 1.75rem; display: flex; flex-direction: column; gap: 1rem; }
+    .startup-card-body p { font-size: 0.875rem; color: var(--color-text-muted); line-height: 1.75; }
+    .startup-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .startup-tag { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; padding: 0.25rem 0.6rem; border-radius: 99px; background: var(--color-surface-offset); border: 1px solid var(--color-border); color: var(--color-text-muted); }
+    .startup-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .startup-link { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.82rem; font-weight: 600; color: var(--ncsu-red); text-decoration: none; transition: color 0.2s; }
+    .startup-link:hover { color: var(--ncsu-red-dark); }
   </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- NAV -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
+<nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
-      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State University circle wolf mark"
-           width="36" height="36" class="nav-wolf-img" loading="eager" />
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab home">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State wolf mark" class="nav-wolf-img" width="34" height="34" loading="eager" />
       <div class="nav-logo-text">
         <span class="lab-name">Y-AIMS Lab</span>
         <span class="lab-dept">NC State · MSE</span>
@@ -469,24 +645,21 @@
       <li><a href="software.html" class="active" aria-current="page">Software</a></li>
       <li><a href="news.html">News</a></li>
     </ul>
-    <div class="nav-actions">
+    <div class="nav-actions" style="display:flex;align-items:center;">
       <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
     </div>
     <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="nav-mobile" role="list">
+  <div class="nav-mobile" id="nav-mobile">
     <a href="index.html">Home</a>
     <a href="research.html">Research</a>
     <a href="team.html">Team</a>
     <a href="publications.html">Publications</a>
     <a href="teaching.html">Teaching</a>
-    <a href="software.html" class="active" aria-current="page">Software</a>
+    <a href="software.html">Software</a>
     <a href="news.html">News</a>
-    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
-      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Dark Mode</button>
-    </div>
   </div>
 </nav>
 
@@ -505,11 +678,21 @@
   </div>
 </header>
 
+<!-- STAT BAR -->
+<section class="sw-stat-bar" aria-label="Software & Data overview">
+  <a href="#software" class="sw-stat"><span class="sw-stat-num">4</span><span class="sw-stat-label">Software</span></a>
+  <a href="#methods" class="sw-stat"><span class="sw-stat-num">4</span><span class="sw-stat-label">Methods</span></a>
+  <a href="#structures" class="sw-stat"><span class="sw-stat-num">8</span><span class="sw-stat-label">3D Structures</span></a>
+  <a href="#database" class="sw-stat"><span class="sw-stat-num">1</span><span class="sw-stat-label">Database</span></a>
+  <a href="#patents" class="sw-stat"><span class="sw-stat-num">3</span><span class="sw-stat-label">Patents</span></a>
+  <a href="#startups" class="sw-stat"><span class="sw-stat-num">2</span><span class="sw-stat-label">Startups</span></a>
+</section>
+
 <!-- MAIN -->
 <main id="main-content" tabindex="-1" class="sw-main">
 
   <!-- ══ 1. SOFTWARE ══════════════════════════════════════════ -->
-  <section>
+  <section id="software">
     <div class="sw-section-head">
       <div class="sw-section-icon icon-software">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
@@ -607,7 +790,7 @@
         <p class="sw-card-desc">Visual analysis tool for <strong>biomolecular structure exploration</strong>. Predecessor to X3DBio2, providing interactive 3D visualization and structural analysis of biological macromolecules.</p>
         <div class="sw-card-ref">
           H. Yi, A. Singh, Y. G. Yingling<br>
-          <a href="#" class="sw-btn-doi" style="text-decoration:none;color:var(--color-primary);font-weight:600">Proc. SPIE 8294 (2012) 82940S</a>
+          <span style="color: var(--color-text-muted); font-weight: 600;">Proc. SPIE 8294 (2012) 82940S</span>
         </div>
         <div class="sw-card-actions">
           <a href="https://github.com/yingling-group" target="_blank" rel="noopener" class="sw-btn sw-btn-github">
@@ -621,7 +804,7 @@
   </section>
 
   <!-- ══ 2. METHODS ═══════════════════════════════════════════ -->
-  <section>
+  <section id="methods">
     <div class="sw-section-head">
       <div class="sw-section-icon icon-methods">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
@@ -631,38 +814,38 @@
     </div>
     <div class="methods-list">
       <div class="method-item fade-in">
-        <div class="method-accent"></div>
+        <div class="method-num">01</div>
         <div class="method-body">
           <div class="method-title">All-Atom Simulation Method for Zeeman Alignment and Dipolar Assembly of Magnetic Nanoparticles</div>
           <div class="method-ref">Akhlak U. Mahmood &amp; Yaroslava G. Yingling · <a href="https://doi.org/10.1021/acs.jctc.1c01253" target="_blank" rel="noopener">ACS J. Chemical Theory &amp; Computation (2022)</a></div>
         </div>
       </div>
       <div class="method-item fade-in">
-        <div class="method-accent"></div>
+        <div class="method-num">02</div>
         <div class="method-body">
           <div class="method-title">Implicit Solvent Ionic Strength (ISIS) Method for Polyelectrolyte Systems with Dissipative Particle Dynamics</div>
-          <div class="method-ref">N. K. Li, W. H. Fuss, Y. G. Yingling · <a href="#" target="_blank" rel="noopener">Macromolecular Theory and Simulations 24 (2015) 7–12</a></div>
+          <div class="method-ref">N. K. Li, W. H. Fuss, Y. G. Yingling · Macromolecular Theory and Simulations 24 (2015) 7–12</div>
         </div>
       </div>
       <div class="method-item fade-in">
-        <div class="method-accent"></div>
+        <div class="method-num">03</div>
         <div class="method-body">
           <div class="method-title">Coarse-Grained Model of the Interaction of Light with Polymeric Material: Onset of Ablation</div>
-          <div class="method-ref">Y. G. Yingling, B. J. Garrison · <a href="#" target="_blank" rel="noopener">Journal of Physical Chemistry B 109 (2005) 16482–16489</a></div>
+          <div class="method-ref">Y. G. Yingling, B. J. Garrison · Journal of Physical Chemistry B 109 (2005) 16482–16489</div>
         </div>
       </div>
       <div class="method-item fade-in">
-        <div class="method-accent"></div>
+        <div class="method-num">04</div>
         <div class="method-body">
           <div class="method-title">Coarse-Grained Chemical Reaction Model</div>
-          <div class="method-ref">Y. G. Yingling &amp; B. J. Garrison · <a href="#" target="_blank" rel="noopener">J. Phys. Chem. B 108 (2004) 1815</a></div>
+          <div class="method-ref">Y. G. Yingling &amp; B. J. Garrison · J. Phys. Chem. B 108 (2004) 1815</div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ══ 3. PREDICTED 3D STRUCTURES ══════════════════════════ -->
-  <section>
+  <section id="structures">
     <div class="sw-section-head">
       <div class="sw-section-icon icon-structures">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
@@ -716,7 +899,7 @@
         <div class="struct-num">6</div>
         <div class="struct-body">
           <div class="struct-name">3′ Proximal Translational Enhancer of Turnip Crinkle Virus (60S ribosomal binding)</div>
-          <div class="struct-ref">V. A. Stupina, A. Meskauskas, …, Y. G. Yingling, B. A. Shapiro, J. D. Dinman, A. E. Simon · <a href="#" target="_blank" rel="noopener">RNA 14 (2008) 2379–2393</a></div>
+          <div class="struct-ref">V. A. Stupina, A. Meskauskas, …, Y. G. Yingling, B. A. Shapiro, J. D. Dinman, A. E. Simon · RNA 14 (2008) 2379–2393</div>
         </div>
       </div>
 
@@ -724,7 +907,7 @@
         <div class="struct-num">7</div>
         <div class="struct-body">
           <div class="struct-name">Structural domains within the 3′ UTR of Turnip Crinkle Virus</div>
-          <div class="struct-ref">J. C. McCormack, X. Yuan, Y. G. Yingling, W. Kasprzak, R. E. Zamora, B. A. Shapiro, A. E. Simon · <a href="#" target="_blank" rel="noopener">Journal of Virology 82 (2008) 8706–8720</a></div>
+          <div class="struct-ref">J. C. McCormack, X. Yuan, Y. G. Yingling, W. Kasprzak, R. E. Zamora, B. A. Shapiro, A. E. Simon · Journal of Virology 82 (2008) 8706–8720</div>
         </div>
       </div>
 
@@ -740,7 +923,7 @@
   </section>
 
   <!-- ══ 4. DATABASE ══════════════════════════════════════════ -->
-  <section>
+  <section id="database">
     <div class="sw-section-head">
       <div class="sw-section-icon icon-database">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
@@ -769,7 +952,7 @@
   </section>
 
   <!-- ══ 5. PATENTS ═══════════════════════════════════════════ -->
-  <section>
+  <section id="patents">
     <div class="sw-section-head">
       <div class="sw-section-icon icon-patents">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -785,7 +968,7 @@
           <div class="patent-id">
             <span class="patent-number-badge">US010035995 B2</span>
             <span class="patent-number-badge">WO2017100240 A1</span>
-            <span class="patent-number-badge">2018</span>
+            <span class="patent-number-badge year">2018</span>
           </div>
           <div class="patent-title">CALB Variants — Lipase with Improved Synthesis Activity</div>
           <div class="patent-inventors">K. Clendennen, Y. G. Yingling, H. Kim</div>
@@ -799,7 +982,7 @@
           <div class="patent-id">
             <span class="patent-number-badge">WO2010148085-A1</span>
             <span class="patent-number-badge">US 20120263648 A1</span>
-            <span class="patent-number-badge">2010</span>
+            <span class="patent-number-badge year">2010</span>
           </div>
           <div class="patent-title">RNA Nanoparticles and Methods of Use</div>
           <div class="patent-inventors">A. Shapiro, Y. G. Yingling, E. Bindewald, W. Kasprzak, L. Jaeger, I. Severcan, C. Geary, K. Afonin</div>
@@ -813,7 +996,7 @@
           <div class="patent-id">
             <span class="patent-number-badge">EP2035043-A2</span>
             <span class="patent-number-badge">US2010016409-A1</span>
-            <span class="patent-number-badge">2007</span>
+            <span class="patent-number-badge year">2007</span>
           </div>
           <div class="patent-title">RNA Nanoparticles and Nanotubes</div>
           <div class="patent-inventors">Y. G. Yingling, B. A. Shapiro (also AU2007300734-A1; CA2654174-A1)</div>
@@ -826,7 +1009,7 @@
 
 
   <!-- ══ 6. STARTUPS ═══════════════════════════════════════════ -->
-  <section>
+  <section id="startups">
     <div class="sw-section-head">
       <div class="sw-section-icon icon-startups">
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
@@ -905,21 +1088,17 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="site-footer" role="contentinfo">
   <div class="footer-ncsu-bar">
-    <div class="footer-ncsu-inner">
-      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University"
-           class="footer-brick-logo" loading="lazy" />
-    </div>
+    <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" loading="lazy" />
   </div>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-text">Y-AIMS Laboratory</div>
-      <p>Y-AIMS Laboratory at North Carolina State University. Integrating molecular modeling, data science, and AI to accelerate materials discovery.</p>
+  <div class="footer-body">
+    <div>
+      <div class="footer-brand-name">Y-AIMS Laboratory</div>
+      <p class="footer-brand-desc">AI &amp; Materials Simulations Lab · Department of Materials Science and Engineering · NC State University · Raleigh, NC</p>
     </div>
     <div class="footer-col">
-      <h4>Navigation</h4>
+      <h4>Navigate</h4>
       <ul role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="research.html">Research</a></li>
@@ -931,10 +1110,14 @@
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Software</h4>
+      <h4>Research</h4>
       <ul role="list">
-        <li><a href="https://github.com/yingling-group" target="_blank">GitHub Repository</a></li>
-        <li><a href="http://rnajunction.abcc.ncifcrf.gov/" target="_blank">RNAJunction Database</a></li>
+        <li><a href="research.html#molecular-sims">Molecular Simulation Methods</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science for Materials</a></li>
+        <li><a href="research.html#nucleic-acid">Nucleic Acid Nanotechnology</a></li>
+        <li><a href="research.html#soft-responsive">Soft &amp; Responsive Materials</a></li>
+        <li><a href="research.html#nanoparticles">Metal &amp; Magnetic Nanoparticles</a></li>
+        <li><a href="research.html#sustainability">Sustainability &amp; Environmental AI</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -943,423 +1126,53 @@
         <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
         <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
         <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+        <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
-    <div class="footer-social">
-      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    <p>© 2026 Y-AIMS Laboratory · NC State University. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
       </a>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script data-pplx-inline-edit>
+<script>
 (function () {
-  if (window === window.top) return;
-
-  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
-  const MAX_FONT_BYTES = 500 * 1024;
-  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
-  let scrollForwarding = false;
-  let scrollRaf = 0;
-  let trustedTopOrigin = null;
-
-  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
-  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
-  // across multiple labels.
-  function matchesAllowedOrigin(origin) {
-    if (!origin) return false;
-    for (const entry of allowedParentOrigins) {
-      if (!entry.includes("*")) {
-        if (entry === origin) return true;
-        continue;
-      }
-      const pattern = new RegExp(
-        "^" +
-          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
-          "$",
-      );
-      if (pattern.test(origin)) return true;
-    }
-    return false;
+  const nav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  const root = document.documentElement;
+  const toggles = document.querySelectorAll('[data-theme-toggle]');
+  function getAutoTheme() {
+    return 'light';
   }
-
-  // Trust decision: when the sender is same-origin-visible (event.origin is a
-  // real origin like https://www.perplexity.ai) we trust event.origin directly.
-  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
-  // broker's stamped `parentOrigin` to identify the top window. The fallback
-  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
-  // on the response path (see postToTrustedTop) to ensure replies can't be
-  // delivered to anyone but the actual top window of that claimed origin.
-  function getTrustedParentOrigin(event) {
-    const forwardedParentOrigin =
-      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
-    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
-    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  let theme = localStorage.getItem('yaimsTheme') || getAutoTheme();
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    toggles.forEach(btn => { btn.innerHTML = t === 'dark' ? sun : moon; btn.setAttribute('aria-label', 'Switch to ' + (t === 'dark' ? 'light' : 'dark') + ' mode'); });
   }
-
-  // All responses go to window.top with targetOrigin = the allowlisted origin.
-  // An attacker that iframes us inside their own null-origin broker can claim
-  // any parentOrigin they like, but the browser will drop the reply whenever
-  // the real top's origin doesn't match — so the screenshot never leaves.
-  function postToTrustedTop(message) {
-    if (!trustedTopOrigin) return;
-    try {
-      window.top.postMessage(message, trustedTopOrigin);
-    } catch (_error) {}
+  applyTheme(theme);
+  toggles.forEach(btn => { btn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('yaimsTheme', theme); applyTheme(theme); }); });
+  if (nav) {
+    const s = Object.assign(document.createElement('div'), {style:'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none'});
+    document.body.prepend(s);
+    new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', e.intersectionRatio < 1), {threshold:[1],rootMargin:'-1px 0px 0px 0px'}).observe(s);
   }
-
-  function inlineAll(original, clone) {
-    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
-
-    try {
-      const computedStyle = getComputedStyle(original);
-      // cssText on a computed style is the serialized declaration in modern
-      // Chromium/Safari — a single read beats enumerating ~400 longhand
-      // properties. Firefox returns "" here, so we fall back on empty.
-      const serialized = computedStyle.cssText;
-      if (serialized) {
-        clone.style.cssText = serialized;
-      } else {
-        const parts = new Array(computedStyle.length);
-        for (let index = 0; index < computedStyle.length; index += 1) {
-          const property = computedStyle[index];
-          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
-        }
-        clone.style.cssText = parts.join("");
-      }
-    } catch (_error) {}
-
-    const originalChildren = original.children;
-    const clonedChildren = clone.children;
-    for (
-      let index = 0;
-      index < originalChildren.length && index < clonedChildren.length;
-      index += 1
-    ) {
-      inlineAll(originalChildren[index], clonedChildren[index]);
-    }
+  if (hamburger) hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.setAttribute('aria-expanded', open); });
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, {threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+    document.querySelectorAll('.reveal, .fade-in').forEach(el => obs.observe(el));
   }
-
-  function extractFontUrl(srcValue) {
-    const matches = [
-      ...srcValue.matchAll(
-        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
-      ),
-    ];
-    if (matches.length === 0) return null;
-    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
-    if (woff2) return woff2[1];
-    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
-    if (woff) return woff[1];
-    return matches[0][1];
-  }
-
-  // Cache resolved font URL -> data URI across captures. Fonts on a page
-  // essentially never change, and a batch run emits multiple captures back to
-  // back — without this we'd refetch + re-base64 every time.
-  const fontDataUriCache = new Map();
-  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
-
-  async function fetchAsDataUri(url) {
-    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
-    let dataUri = null;
-    try {
-      const response = await fetch(url, { mode: "cors", credentials: "omit" });
-      if (response.ok) {
-        const blob = await response.blob();
-        if (blob.size <= MAX_FONT_BYTES) {
-          dataUri = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () =>
-              resolve(typeof reader.result === "string" ? reader.result : null);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(blob);
-          });
-        }
-      }
-    } catch (_error) {
-      dataUri = null;
-    }
-    fontDataUriCache.set(url, dataUri);
-    return dataUri;
-  }
-
-  function collectFontFaceRuleTexts() {
-    const rules = [];
-    for (const sheet of document.styleSheets) {
-      let cssRules;
-      try {
-        cssRules = sheet.cssRules;
-      } catch (_error) {
-        continue;
-      }
-      if (!cssRules) continue;
-      for (const rule of cssRules) {
-        const cssText = rule.cssText || "";
-        if (cssText.startsWith("@font-face")) rules.push(cssText);
-      }
-    }
-    return rules;
-  }
-
-  async function buildInlinedFontCss() {
-    const ruleTexts = collectFontFaceRuleTexts();
-    if (ruleTexts.length === 0) return null;
-
-    const resolved = ruleTexts.map((cssText) => {
-      if (!SRC_DECLARATION_RE.test(cssText)) return null;
-      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
-      if (!srcMatch) return null;
-      const url = extractFontUrl(srcMatch[1]);
-      if (!url) return null;
-      try {
-        return { cssText, url: new URL(url, document.baseURI).href };
-      } catch (_error) {
-        return null;
-      }
-    });
-
-    const dataUris = await Promise.all(
-      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
-    );
-
-    const inlined = [];
-    let totalBytes = 0;
-    for (let index = 0; index < resolved.length; index += 1) {
-      const entry = resolved[index];
-      const dataUri = dataUris[index];
-      if (!entry || !dataUri) continue;
-      const approxBytes = dataUri.length * 0.75;
-      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
-      totalBytes += approxBytes;
-      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
-    }
-    return inlined.length > 0 ? inlined.join("\n") : null;
-  }
-
-  function stripExternal(clone) {
-    const images = clone.querySelectorAll("img");
-    for (let index = 0; index < images.length; index += 1) {
-      const src = images[index].getAttribute("src");
-      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
-    }
-
-    const elements = clone.querySelectorAll("*");
-    for (let index = 0; index < elements.length; index += 1) {
-      const style = elements[index].style.cssText;
-      if (style && style.includes("url(")) {
-        elements[index].style.cssText = style.replace(
-          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
-          "none",
-        );
-      }
-    }
-  }
-
-  function emitScroll() {
-    scrollRaf = 0;
-    if (!scrollForwarding) return;
-    postToTrustedTop({
-      type: "INLINE_EDIT_SCROLL",
-      scrollX: window.scrollX,
-      scrollY: window.scrollY,
-    });
-  }
-
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!scrollForwarding || scrollRaf) return;
-      scrollRaf = requestAnimationFrame(emitScroll);
-    },
-    { passive: true, capture: true },
-  );
-
-  async function handleCaptureRequest(event) {
-    const requestId = event.data.requestId;
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    function postResult(dataUrl) {
-      postToTrustedTop({
-        type: "INLINE_EDIT_SCREENSHOT_RESULT",
-        requestId,
-        dataUrl,
-        scrollX,
-        scrollY,
-      });
-    }
-
-    try {
-      // Wait for any pending web fonts to resolve so both inline metrics and
-      // the @font-face inlining below see the same loaded faces.
-      if (document.fonts && document.fonts.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_error) {}
-      }
-
-      const clone = document.documentElement.cloneNode(true);
-      inlineAll(document.documentElement, clone);
-
-      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
-      for (let index = 0; index < removedNodes.length; index += 1) {
-        removedNodes[index].remove();
-      }
-
-      stripExternal(clone);
-
-      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
-      // can resolve them — external font URLs aren't fetched during
-      // foreignObject rendering, which would otherwise force a fallback face
-      // and change text metrics.
-      const inlinedFontCss = await buildInlinedFontCss();
-      if (inlinedFontCss) {
-        const styleEl = document.createElement("style");
-        styleEl.textContent = inlinedFontCss;
-        const head = clone.querySelector("head");
-        if (head) head.appendChild(styleEl);
-        else clone.insertBefore(styleEl, clone.firstChild);
-      }
-
-      const html = new XMLSerializer().serializeToString(clone);
-      const svg =
-        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
-        '<foreignObject width="100%" height="100%">' +
-        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
-        html +
-        "</div></div></foreignObject></svg>";
-      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext("2d").drawImage(image, 0, 0);
-        postResult(canvas.toDataURL("image/png"));
-      };
-      image.onerror = function () {
-        postResult(null);
-      };
-      image.src = svgUrl;
-    } catch (_error) {
-      postResult(null);
-    }
-  }
-
-  window.addEventListener("message", function (event) {
-    if (!event.data) return;
-    // Only accept messages from the direct parent frame. Blocks sibling /
-    // unrelated-window postMessage senders that could otherwise reach us.
-    if (event.source !== window.parent) return;
-
-    const trustedParentOrigin = getTrustedParentOrigin(event);
-    if (!trustedParentOrigin) return;
-    trustedTopOrigin = trustedParentOrigin;
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
-      scrollForwarding = true;
-      emitScroll();
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
-      scrollForwarding = false;
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      scrollRaf = 0;
-      return;
-    }
-
-    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
-
-    handleCaptureRequest(event);
-  });
 })();
-
-</script><script data-pplx-inline-edit>
-(function(){
-  if(window===window.top)return;
-  function inlineAll(orig,clone){
-    if(orig.nodeType!==1)return;
-    try{
-      var cs=getComputedStyle(orig);
-      var t='';
-      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
-      clone.style.cssText=t;
-    }catch(e){}
-    var oc=orig.children,cc=clone.children;
-    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
-  }
-  function stripExternal(clone){
-    var imgs=clone.querySelectorAll('img');
-    for(var i=0;i<imgs.length;i++){
-      var s=imgs[i].getAttribute('src');
-      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
-    }
-    var all=clone.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-      var st=all[i].style.cssText;
-      if(st&&st.indexOf('url(')>=0){
-        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
-      }
-    }
-  }
-  var scrollRaf=0;
-  function emitScroll(){
-    scrollRaf=0;
-    var x=window.scrollX||window.pageXOffset||0;
-    var y=window.scrollY||window.pageYOffset||0;
-    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
-  }
-  window.addEventListener('scroll',function(){
-    if(scrollRaf)return;
-    scrollRaf=requestAnimationFrame(emitScroll);
-  },{passive:true,capture:true});
-  emitScroll();
-  window.addEventListener('message',function(e){
-    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
-    var scrollX=window.scrollX||window.pageXOffset||0;
-    var scrollY=window.scrollY||window.pageYOffset||0;
-    var w=window.innerWidth,h=window.innerHeight;
-    try{
-      var clone=document.documentElement.cloneNode(true);
-      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
-      for(var i=0;i<rm.length;i++){rm[i].remove();}
-      inlineAll(document.documentElement,clone);
-      stripExternal(clone);
-      var html=new XMLSerializer().serializeToString(clone);
-      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
-        +'<foreignObject width="100%" height="100%">'
-        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
-        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
-        +html+'</div></div></foreignObject></svg>';
-      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0);
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.onerror=function(){
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.src=svgUrl;
-    }catch(err){
-      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-    }
-  });
-})();
-</script></body>
+</script>
+</body>
 </html>

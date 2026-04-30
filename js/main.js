@@ -6,7 +6,7 @@
 (function () {
   const toggles = document.querySelectorAll('[data-theme-toggle]');
   const root = document.documentElement;
-  let theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  let theme = 'light';
 
   // Apply initial theme
   root.setAttribute('data-theme', theme);

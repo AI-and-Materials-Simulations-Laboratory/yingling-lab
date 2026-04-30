@@ -3,68 +3,625 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Y-AIMS Lab — Y-AIMS Laboratory | NC State</title>
+  <title>Y-AIMS Lab — AI &amp; Materials Simulations | NC State MSE</title>
   <meta name="description" content="The Y-AIMS Laboratory at NC State integrates molecular modeling, data science, and AI to accelerate materials discovery." />
-  <meta property="og:title" content="Y-AIMS Lab — NC State University" />
-  <meta property="og:description" content="Integrating molecular modeling, data science, and AI to accelerate materials discovery." />
-  <meta property="og:type" content="website" />
-
-  <!-- Official NC State University fonts (Univers, Glypha, Roboto) via NC State CDN -->
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
-  <!-- Roboto Mono for code labels -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto+Condensed:wght@300;400;700&display=swap" />
-
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/home.css" />
-  <link rel="stylesheet" href="css/animations.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('yaimsTheme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
+  <style>
+/* ================================================================
+   Y-AIMS HOMEPAGE — Redesigned 2026
+   ================================================================ */
+
+/* ── RESET / GLOBALS ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-font-smoothing: antialiased; }
+body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 76px;
+  display: flex; align-items: center;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease;
+}
+.site-nav.scrolled {
+  background: color-mix(in srgb, var(--color-bg) 88%, transparent);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+.nav-inner {
+  width: 100%; max-width: 1200px; margin-inline: auto;
+  display: flex; align-items: center; gap: 2rem;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 0.75rem;
+  text-decoration: none; flex-shrink: 0;
+}
+.nav-wolf-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+.lab-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+.lab-dept { font-size: 0.78rem; color: rgba(255,255,255,0.5); }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin-left: auto; }
+.nav-links a {
+  font-size: 0.95rem; font-weight: 500;
+  color: rgba(255,255,255,0.65);
+  padding: 0.55rem 0.95rem; border-radius: 4px;
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: #fff; background: rgba(255,255,255,0.08); }
+.nav-links a.active { color: #fff; font-weight: 600; }
+
+.nav-hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  width: 36px; height: 36px; align-items: center; justify-content: center;
+  border-radius: 6px; border: 1px solid rgba(255,255,255,0.15);
+  background: transparent; cursor: pointer; margin-left: auto;
+}
+.nav-hamburger span { display: block; width: 18px; height: 1.5px; background: rgba(255,255,255,0.7); border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+.nav-mobile {
+  display: none; flex-direction: column; gap: 0.25rem;
+  padding: 1rem; border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(10,0,0,0.97); backdrop-filter: blur(20px);
+}
+.nav-mobile a { font-size: 1rem; font-weight: 500; color: rgba(255,255,255,0.75); padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; }
+.nav-mobile a:hover, .nav-mobile a.active { color: #fff; background: rgba(255,255,255,0.08); }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-mobile.open { display: flex; }
+}
+[data-theme='light'] .lab-name { color: var(--color-text); }
+[data-theme='light'] .lab-dept { color: var(--color-text-muted); }
+[data-theme='light'] .nav-links a { color: var(--color-text-muted); }
+[data-theme='light'] .nav-links a:hover, [data-theme='light'] .nav-links a.active { color: var(--color-primary); background: var(--color-primary-highlight); }
+.btn-theme {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border-radius: 6px;
+  border: 1px solid rgba(255,255,255,0.18); background: transparent;
+  color: rgba(255,255,255,0.6); cursor: pointer; margin-left: 0.5rem;
+  transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.btn-theme:hover { color: #fff; border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.08); }
+[data-theme='light'] .btn-theme { color: var(--color-text-muted); border-color: var(--color-border); }
+[data-theme='light'] .btn-theme:hover { color: var(--color-text); border-color: #aaa; background: var(--color-surface-offset); }
+[data-theme='light'] .nav-hamburger { border-color: var(--color-border); }
+[data-theme='light'] .nav-hamburger span { background: var(--color-text-muted); }
+[data-theme='light'] .nav-mobile { background: var(--color-bg); border-top-color: var(--color-border); }
+[data-theme='light'] .nav-mobile a { color: var(--color-text-muted); }
+
+/* ── HERO ────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  background: #0d0101;
+  overflow: hidden;
+  isolation: isolate;
+}
+#bg-canvas {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; z-index: 0;
+}
+.hero-vignette {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 80% 80% at 20% 50%, rgba(10,0,0,0.7) 0%, transparent 70%),
+    linear-gradient(to right, rgba(10,0,0,0.85) 0%, rgba(10,0,0,0.5) 45%, rgba(10,0,0,0.1) 100%);
+}
+.hero-grid-texture {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+.hero-fade-bottom {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 220px; z-index: 2; pointer-events: none;
+  background: linear-gradient(to bottom, transparent 0%, #0d0101 100%);
+}
+[data-theme='light'] .hero { background: #1a0000; }
+[data-theme='light'] .hero-fade-bottom { background: linear-gradient(to bottom, transparent 0%, #1a0000 100%); }
+
+.hero-content {
+  position: relative; z-index: 10;
+  width: 100%; max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  padding-block: clamp(5rem, 14vw, 10rem) 5rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+.hero-eyebrow {
+  display: flex; align-items: center; gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  opacity: 0; transform: translateY(16px);
+  animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s forwards;
+}
+.hero-eyebrow-line { width: 32px; height: 1.5px; background: var(--ncsu-red); flex-shrink: 0; }
+.hero-eyebrow-text { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ncsu-red); font-family: var(--font-mono); }
+.hero-ncsu-badge {
+  margin-left: auto;
+  opacity: 0.9;
+}
+.hero-brick-logo { height: 24px; width: auto; }
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 8vw, 7.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  color: #fff;
+  margin-bottom: 2rem;
+  opacity: 0; transform: translateY(20px);
+  animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.22s forwards;
+}
+.hero-title-accent {
+  display: block;
+  color: var(--ncsu-red);
+  -webkit-text-stroke: 0px;
+}
+.hero-title-outline {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255,255,255,0.25);
+}
+.hero-subtitle {
+  font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.6);
+  max-width: 54ch;
+  line-height: 1.8;
+  margin-bottom: 2.5rem;
+  opacity: 0; transform: translateY(16px);
+  animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.38s forwards;
+}
+.hero-cta {
+  display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+  margin-bottom: 4rem;
+  opacity: 0; transform: translateY(14px);
+  animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+}
+.btn-hero-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 1.75rem; border-radius: 4px;
+  background: var(--ncsu-red); color: #fff;
+  font-size: 0.875rem; font-weight: 600; text-decoration: none;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+.btn-hero-primary:hover { background: var(--ncsu-red-dark); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(204,0,0,0.4); color: #fff; }
+.btn-hero-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.85rem 1.75rem; border-radius: 4px;
+  background: transparent; color: rgba(255,255,255,0.75);
+  border: 1px solid rgba(255,255,255,0.22);
+  font-size: 0.875rem; font-weight: 500; text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn-hero-outline:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.5); color: #fff; }
+
+/* Stats bar */
+.hero-stats {
+  display: flex; flex-wrap: wrap; align-items: stretch;
+  gap: 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 2rem;
+  opacity: 0; transform: translateY(12px);
+  animation: fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) 0.64s forwards;
+}
+.stat-item {
+  display: flex; flex-direction: column; gap: 4px;
+  padding-right: 2.5rem;
+  margin-right: 2.5rem;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  padding-block: 0.5rem;
+}
+.stat-item:last-child { border-right: none; padding-right: 0; margin-right: 0; }
+.stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: 800;
+  color: var(--ncsu-red);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.stat-label {
+  font-size: 0.68rem; font-weight: 500;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+  z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fadeUp 0.6s ease 1.2s forwards;
+}
+.scroll-dot {
+  width: 1px; height: 48px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+@keyframes scrollPulse { 0%,100% { opacity:0.3; transform: scaleY(0.7); } 50% { opacity:1; transform: scaleY(1); } }
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* ── ABOUT ───────────────────────────────────────────────────── */
+.about-section {
+  background: var(--color-bg);
+  padding-block: clamp(4rem, 10vw, 7rem);
+}
+.about-inner {
+  max-width: 1200px; margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 8vw, 7rem);
+  align-items: center;
+}
+.about-text .label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ncsu-red); margin-bottom: 1rem; font-family: var(--font-mono);
+}
+.about-text h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
+  color: var(--color-text); margin-bottom: 1.5rem;
+}
+.about-text .rule { width: 40px; height: 2px; background: var(--ncsu-red); margin-bottom: 1.5rem; border-radius: 2px; }
+.about-text p { color: var(--color-text-muted); line-height: 1.85; font-size: 0.975rem; }
+.about-text p + p { margin-top: 1rem; }
+.about-cta {
+  margin-top: 2.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+}
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.5rem; border-radius: 4px;
+  background: var(--ncsu-red); color: #fff;
+  font-size: 0.875rem; font-weight: 600; text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-primary:hover { background: var(--ncsu-red-dark); transform: translateY(-1px); color: #fff; }
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  padding: 0.75rem 1.5rem; border-radius: 4px;
+  background: transparent; color: var(--ncsu-red);
+  border: 1.5px solid var(--ncsu-red);
+  font-size: 0.875rem; font-weight: 600; text-decoration: none;
+  transition: background 0.2s;
+}
+.btn-outline:hover { background: var(--color-primary-highlight); color: var(--ncsu-red); }
+
+.about-visual { position: relative; }
+.about-img-wrap {
+  position: relative; border-radius: 12px; overflow: hidden;
+  aspect-ratio: 4/3;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.22), 0 4px 12px rgba(0,0,0,0.12);
+}
+.about-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+.about-img-wrap:hover img { transform: scale(1.03); }
+.about-img-overlay {
+  position: absolute; inset: 0;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  pointer-events: none;
+}
+.about-badge {
+  position: absolute;
+  bottom: -1.5rem; right: -1.5rem;
+  background: var(--ncsu-red);
+  color: #fff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(204,0,0,0.35);
+  z-index: 2;
+  min-width: 130px;
+}
+.about-badge-num { font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.about-badge-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.85; margin-top: 4px; }
+@media (max-width: 900px) {
+  .about-inner { grid-template-columns: 1fr; }
+  .about-badge { bottom: 1rem; right: 1rem; }
+}
+
+/* ── RESEARCH ────────────────────────────────────────────────── */
+.research-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  background: var(--color-surface);
+}
+.section-head {
+  max-width: 1200px; margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  margin-bottom: 3.5rem;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+}
+.section-head-left .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ncsu-red); margin-bottom: 0.75rem; font-family: var(--font-mono); }
+.section-head-left h2 { font-family: var(--font-display); font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-text); line-height: 1.1; }
+.section-link { font-size: 0.875rem; font-weight: 600; color: var(--ncsu-red); text-decoration: none; white-space: nowrap; display: flex; align-items: center; gap: 0.4rem; transition: gap 0.2s; }
+.section-link:hover { gap: 0.7rem; color: var(--ncsu-red-dark); }
+
+.research-cards {
+  max-width: 1200px; margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+}
+.rcard {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 2.25rem;
+  display: flex; flex-direction: column; gap: 1.25rem;
+  position: relative; overflow: hidden;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+  cursor: default;
+}
+.rcard::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--rcard-color, var(--ncsu-red));
+  transform: scaleX(0); transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.rcard:hover { border-color: transparent; box-shadow: 0 8px 32px rgba(0,0,0,0.12); transform: translateY(-4px); }
+.rcard:hover::before { transform: scaleX(1); }
+.rcard-num {
+  font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.08em; color: var(--color-text-muted); opacity: 0.5;
+}
+.rcard-icon-wrap {
+  width: 48px; height: 48px; border-radius: 10px;
+  background: var(--color-surface-offset);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--rcard-color, var(--ncsu-red));
+  transition: background 0.25s;
+}
+.rcard:hover .rcard-icon-wrap { background: color-mix(in srgb, var(--rcard-color, var(--ncsu-red)) 12%, transparent); }
+.rcard h3 { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; line-height: 1.2; }
+.rcard p { font-size: 0.9rem; color: var(--color-text-muted); line-height: 1.75; flex: 1; }
+.rcard-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; list-style: none; }
+.rcard-tag {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 0.25rem 0.6rem; border-radius: 99px;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+.rcard-link { font-size: 0.85rem; font-weight: 600; color: var(--rcard-color, var(--ncsu-red)); text-decoration: none; display: flex; align-items: center; gap: 0.35rem; margin-top: auto; transition: gap 0.2s; }
+.rcard-link:hover { gap: 0.6rem; }
+@media (max-width: 900px) { .research-cards { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .research-cards { grid-template-columns: 1fr; } }
+
+/* ── PI ──────────────────────────────────────────────────────── */
+.pi-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  background: var(--color-bg);
+}
+.pi-inner {
+  max-width: 1200px; margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  align-items: start;
+}
+.pi-portrait-col { position: relative; }
+.pi-avatar-wrap {
+  width: 220px; height: 220px; border-radius: 50%;
+  background: linear-gradient(135deg, #3a0000 0%, #0d0101 100%);
+  border: 3px solid var(--ncsu-red);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--ncsu-red) 10%, transparent), 0 20px 60px rgba(0,0,0,0.2);
+  overflow: hidden;
+  position: relative;
+}
+.pi-avatar-initials {
+  font-family: var(--font-display); font-size: 4rem; font-weight: 800;
+  color: rgba(255,255,255,0.6); letter-spacing: -0.05em;
+  user-select: none;
+}
+.pi-avatar-wrap > img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+.pi-affil {
+  margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.pi-affil-item {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.78rem; color: var(--color-text-muted);
+}
+.pi-affil-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ncsu-red); flex-shrink: 0; }
+
+.pi-text-col .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ncsu-red); margin-bottom: 0.75rem; font-family: var(--font-mono); }
+.pi-name { font-family: var(--font-display); font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 800; letter-spacing: -0.03em; color: var(--color-text); line-height: 1.1; margin-bottom: 0.5rem; }
+.pi-titles-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+.pi-title-chip {
+  font-size: 0.73rem; font-weight: 500;
+  padding: 0.3rem 0.75rem; border-radius: 99px;
+  background: var(--color-surface); border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+}
+.pi-bio { font-size: 0.975rem; color: var(--color-text-muted); line-height: 1.85; max-width: 70ch; }
+.pi-bio + .pi-bio { margin-top: 1rem; }
+.pi-actions { margin-top: 2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.pi-action-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.85rem; font-weight: 500;
+  color: var(--color-text-muted); text-decoration: none;
+  padding: 0.5rem 0;
+  border-bottom: 1.5px solid var(--color-border);
+  transition: color 0.2s, border-color 0.2s;
+}
+.pi-action-link:hover { color: var(--ncsu-red); border-color: var(--ncsu-red); }
+.pi-contact-block { margin-top: 1.75rem; display: flex; flex-direction: column; gap: 0.5rem; }
+.pi-contact-item {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.82rem; color: var(--color-text-muted); text-decoration: none;
+}
+.pi-contact-item:hover { color: var(--ncsu-red); }
+@media (max-width: 800px) {
+  .pi-inner { grid-template-columns: 1fr; }
+  .pi-avatar-wrap { width: 150px; height: 150px; }
+  .pi-avatar-initials { font-size: 2.8rem; }
+}
+
+/* ── RECENT HIGHLIGHTS ───────────────────────────────────────── */
+.highlights-section {
+  padding-block: clamp(4rem, 10vw, 7rem);
+  background: var(--color-surface);
+}
+.highlights-inner {
+  max-width: 1200px; margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+}
+.highlights-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+.pub-list { display: flex; flex-direction: column; gap: 0; }
+.pub-item {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 1rem;
+  padding-block: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  align-items: start;
+  transition: background 0.2s;
+}
+.pub-item:first-child { padding-top: 0; }
+.pub-item:hover { background: transparent; }
+.pub-num {
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+  color: var(--ncsu-red); opacity: 0.6; padding-top: 0.2rem;
+}
+.pub-body {}
+.pub-title {
+  font-size: 0.9rem; font-weight: 600; color: var(--color-text);
+  line-height: 1.5; margin-bottom: 0.35rem;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.pub-meta { font-size: 0.78rem; color: var(--color-text-muted); }
+.pub-journal { font-style: italic; }
+.pub-year { color: var(--ncsu-red); font-weight: 600; }
+
+/* News feed */
+.news-feed { display: flex; flex-direction: column; gap: 1rem; }
+.news-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px; padding: 1.25rem;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  text-decoration: none;
+  display: block;
+}
+.news-card:hover { border-color: var(--ncsu-red); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.news-card-date { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; color: var(--ncsu-red); letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+.news-card-title { font-size: 0.9rem; font-weight: 600; color: var(--color-text); line-height: 1.5; }
+.news-card-desc { font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.65; margin-top: 0.4rem; }
+@media (max-width: 800px) { .highlights-grid { grid-template-columns: 1fr; } }
+
+/* ── FUNDING ─────────────────────────────────────────────────── */
+.funding-section {
+  padding-block: clamp(3rem, 7vw, 5rem);
+  background: var(--color-bg);
+  border-top: 1px solid var(--color-border);
+}
+.funding-inner {
+  max-width: 1200px; margin-inline: auto;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  text-align: center;
+}
+.funding-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-text-muted); margin-bottom: 1.75rem; font-family: var(--font-mono); }
+.funder-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+.funder-pill {
+  padding: 0.55rem 1.1rem; border-radius: 99px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 0.82rem; color: var(--color-text-muted);
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+  cursor: default;
+}
+.funder-pill:hover { border-color: var(--ncsu-red); color: var(--ncsu-red); background: var(--color-primary-highlight); }
+
+/* ── SCROLL REVEAL ───────────────────────────────────────────── */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.65s cubic-bezier(0.16,1,0.3,1), transform 0.65s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── SKIP LINK ───────────────────────────────────────────────── */
+.skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; padding: 0.75rem 1.25rem; background: var(--ncsu-red); color: #fff; font-weight: 700; border-radius: 0 0 6px 6px; text-decoration: none; transition: top 0.15s; }
+.skip-link:focus { top: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
+  </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
-<!-- NC State Utility Bar (official brand requirement) -->
+<!-- NC State Utility Bar -->
 <script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
 
-<!-- ============================================================
-     NAVIGATION
-     ============================================================ -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<!-- ── NAVIGATION ──────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation" id="site-nav">
   <div class="nav-inner">
-
-    <!-- Official NCSU Brick Logo -->
-    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
-      <img src="assets/ncsu/circle-wolf-400.png"
-           alt="NC State University circle wolf mark"
-           width="36" height="36"
-           class="nav-wolf-img"
-           loading="eager" />
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab home">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State wolf mark" class="nav-wolf-img" width="34" height="34" loading="eager" />
       <div class="nav-logo-text">
         <span class="lab-name">Y-AIMS Lab</span>
         <span class="lab-dept">NC State · MSE</span>
       </div>
     </a>
-
     <ul class="nav-links" role="list">
       <li><a href="index.html" class="active" aria-current="page">Home</a></li>
       <li><a href="research.html">Research</a></li>
       <li><a href="team.html">Team</a></li>
       <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
+      <li><a href="teaching.html">Teaching</a></li>
+      <li><a href="software.html">Software</a></li>
       <li><a href="news.html">News</a></li>
     </ul>
 
-    <div class="nav-actions">
+    <div class="nav-actions" style="display:flex;align-items:center;">
       <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
     </div>
-
     <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-
-  <div class="nav-mobile" role="list">
+  <div class="nav-mobile" id="nav-mobile">
     <a href="index.html" class="active" aria-current="page">Home</a>
     <a href="research.html">Research</a>
     <a href="team.html">Team</a>
@@ -72,307 +629,418 @@
     <a href="teaching.html">Teaching</a>
     <a href="software.html">Software</a>
     <a href="news.html">News</a>
-    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
-      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Toggle theme</button>
-    </div>
   </div>
 </nav>
 
-<!-- ============================================================
-     HERO — Animated molecular background + static content
-     ============================================================ -->
-<section class="hero" aria-label="Y-AIMS Laboratory hero">
-  <!-- Animated Canvas Background -->
+<!-- ── HERO ────────────────────────────────────────────────── -->
+<section class="hero" aria-label="Y-AIMS Lab hero">
   <canvas id="bg-canvas" aria-hidden="true"></canvas>
-
-  <!-- Static grid overlay texture -->
-  <div class="hero-grid-overlay" aria-hidden="true"></div>
-
-  <!-- Gradient fade at bottom -->
+  <div class="hero-vignette" aria-hidden="true"></div>
+  <div class="hero-grid-texture" aria-hidden="true"></div>
   <div class="hero-fade-bottom" aria-hidden="true"></div>
 
-  <div class="container hero-content">
-
-    <!-- NCSU Brick Logo above headline -->
-    <div class="hero-ncsu-logo fade-in">
-      <img src="assets/ncsu/brick-white-on-red-web.png"
-           alt="NC State University"
-           class="hero-brick-logo"
-           loading="eager" />
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="hero-eyebrow-line"></div>
+      <span class="hero-eyebrow-text">Y-AIMS Laboratory · NC State University · MSE</span>
+      <div class="hero-ncsu-badge">
+        <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="hero-brick-logo" loading="eager" />
+      </div>
     </div>
 
-    <h1 class="hero-title fade-in">
-      AI &amp; Materials<br/>
-      <em class="hero-accent">Simulations Lab</em>
+    <h1 class="hero-title">
+      <span class="hero-title-accent">AI &amp; Materials</span>
+      <span class="hero-title-outline">Simulations</span>
     </h1>
 
-    <p class="hero-subtitle fade-in">
-      Integrating multiscale molecular modeling, data science,
-      and artificial intelligence to accelerate predictive
-      materials design and discovery.
+    <p class="hero-subtitle">
+      Developing and deploying AI workflows and multiscale molecular modeling methods for
+      predictive, data-efficient materials understanding and design at NC&nbsp;State University.
     </p>
 
-    <div class="hero-cta fade-in">
-      <a href="research.html" class="btn btn-primary">Explore Research</a>
-      <a href="publications.html" class="btn btn-outline-white">Publications</a>
+    <div class="hero-cta">
+      <a href="research.html" class="btn-hero-primary">
+        Explore Research
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="publications.html" class="btn-hero-outline">Publications</a>
+      <a href="team.html" class="btn-hero-outline">Meet the Team</a>
     </div>
 
-    <!-- Stats -->
-    <div class="hero-stats fade-in">
-      <div class="stat">
-        <span class="stat-num">$100M+</span>
+    <div class="hero-stats" role="list">
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="100" data-suffix="M+">$100M+</span>
         <span class="stat-label">Total Funding</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">150+</span>
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="143">143</span>
         <span class="stat-label">Publications</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">70+</span>
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="70" data-suffix="+">70+</span>
         <span class="stat-label">Students Trained</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">23</span>
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="23">23</span>
         <span class="stat-label">PI Awards &amp; Honors</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">70+</span>
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="70" data-suffix="+">70+</span>
         <span class="stat-label">Team Awards</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">15+</span>
-        <span class="stat-label">News Releases</span>
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="4">4</span>
+        <span class="stat-label">Patents</span>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">4</span>
-        <span class="stat-label">Patents &amp; Disclosures</span>
-      </div>
-      <div class="stat-divider" aria-hidden="true"></div>
-      <div class="stat">
-        <span class="stat-num">2</span>
+      <div class="stat-item" role="listitem">
+        <span class="stat-num" data-count="2">2</span>
         <span class="stat-label">Startups</span>
       </div>
     </div>
+  </div>
 
+  <div class="hero-scroll" aria-hidden="true">
+    <div class="scroll-dot"></div>
   </div>
 </section>
 
-<!-- ============================================================
-     ABOUT STRIP
-     ============================================================ -->
 <main id="main-content" tabindex="-1">
-<section class="about-strip">
-  <div class="container">
-    <div class="about-grid">
-      <div class="about-text fade-in">
-        <p class="section-label" aria-hidden="true">About Y-AIMS</p>
-        <h2 class="section-title">Where Computation Meets Discovery</h2>
-        <div class="divider"></div>
-        <p>
-          Welcome to the Y-AIMS Laboratory at North Carolina
-          State University. We develop and deploy AI workflows and multiscale molecular
-          modeling methods for predictive and data-efficient materials understanding and design.
-        </p>
-        <p style="margin-top:var(--space-4)">
-          Our research spans density functional theory (DFT), all-atom molecular dynamics (MD),
-          and coarse-grained approaches — bridging atomistic insight with machine learning
-          to unlock new materials faster.
-        </p>
-        <a href="research.html" class="btn btn-outline" style="margin-top:var(--space-8)">Our Research →</a>
+
+<!-- ── ABOUT ────────────────────────────────────────────────── -->
+<section class="about-section" aria-labelledby="about-heading">
+  <div class="about-inner">
+    <div class="about-text reveal">
+      <p class="label">About Y-AIMS</p>
+      <h2 id="about-heading">Where Computation<br/>Meets Discovery</h2>
+      <div class="rule"></div>
+      <p>Welcome to the Y-AIMS Laboratory at North Carolina State University. We develop and deploy AI workflows and multiscale molecular modeling methods for predictive and data-efficient materials understanding and design.</p>
+      <p>Our research spans density functional theory (DFT), all-atom molecular dynamics (MD), and coarse-grained approaches, bridging atomistic insight with machine learning to unlock new materials faster.</p>
+      <div class="about-cta">
+        <a href="research.html" class="btn-primary">Our Research <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+        <a href="team.html" class="btn-outline">Meet the Team</a>
       </div>
-      <div class="about-visual fade-in">
-        <div class="about-banner-wrap">
-          <img
-            src="assets/aims-banner.jpg"
-            alt="Y-AIMS Laboratory — AI and Materials Simulations: nanoparticles, molecular structures, and computational workstations"
-            class="about-banner-img"
-            loading="lazy"
-          />
-        </div>
+    </div>
+    <div class="about-visual reveal reveal-delay-2">
+      <div class="about-img-wrap">
+        <img src="assets/aims-banner.jpg" alt="Y-AIMS Laboratory: AI and Materials Simulations" loading="lazy" />
+        <div class="about-img-overlay"></div>
+      </div>
+      <div class="about-badge">
+        <div class="about-badge-num">18+</div>
+        <div class="about-badge-label">Years of Research</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     RESEARCH AREAS
-     ============================================================ -->
-<section class="research-section" style="background: var(--color-surface);">
-  <div class="container">
-    <div class="section-header fade-in">
-      <p class="section-label" aria-hidden="true">Core Focus</p>
-      <h2 class="section-title">Research Areas</h2>
-      <p class="section-desc">Three interrelated pillars enabling data-efficient, AI-accelerated materials discovery.</p>
+<!-- ── RESEARCH ──────────────────────────────────────────────── -->
+<section class="research-section" aria-labelledby="research-heading">
+  <div class="section-head reveal">
+    <div class="section-head-left">
+      <p class="label">Core Focus</p>
+      <h2 id="research-heading">Research Areas</h2>
+    </div>
+    <a href="research.html" class="section-link">All Research Areas <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+  </div>
+
+  <div class="research-cards">
+
+    <article class="rcard reveal reveal-delay-1" style="--rcard-color: var(--ncsu-red)">
+      <span class="rcard-num">01</span>
+      <div class="rcard-icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="3" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="9" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="14" cy="5" r="1.5" fill="currentColor"/>
+          <circle cx="23" cy="14" r="1.5" fill="currentColor"/>
+          <circle cx="14" cy="23" r="1.5" fill="currentColor"/>
+          <circle cx="5" cy="14" r="1.5" fill="currentColor"/>
+        </svg>
+      </div>
+      <h3>Molecular Simulation Methods</h3>
+      <p>Multiscale modeling — DFT, all-atom MD, and coarse-grained methods — to bridge electronic, atomistic, and mesoscale physics for materials discovery.</p>
+      <ul class="rcard-tags">
+        <li><span class="rcard-tag">DFT</span></li>
+        <li><span class="rcard-tag">MD</span></li>
+        <li><span class="rcard-tag">Coarse-Graining</span></li>
+      </ul>
+      <a href="research.html#molecular-sims" class="rcard-link">
+        Learn more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="rcard reveal reveal-delay-2" style="--rcard-color: var(--ncsu-blue)">
+      <span class="rcard-num">02</span>
+      <div class="rcard-icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <rect x="3" y="18" width="4" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="9" y="12" width="4" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="15" y="7" width="4" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="21" y="3" width="4" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M3 16 L11 10 L19 5 L25 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
+        </svg>
+      </div>
+      <h3>AI &amp; Data Science for Materials</h3>
+      <p>Machine learning force fields, generative models, Bayesian optimization, and graph neural networks for inverse design and autonomous discovery.</p>
+      <ul class="rcard-tags">
+        <li><span class="rcard-tag">ML Force Fields</span></li>
+        <li><span class="rcard-tag">GNNs</span></li>
+        <li><span class="rcard-tag">Generative AI</span></li>
+      </ul>
+      <a href="research.html#ai" class="rcard-link">
+        Learn more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="rcard reveal reveal-delay-3" style="--rcard-color: var(--ncsu-blue-teal)">
+      <span class="rcard-num">03</span>
+      <div class="rcard-icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <path d="M8 3 Q14 9 20 3 M8 9 Q14 15 20 9 M8 15 Q14 21 20 15 M8 21 Q14 27 20 21" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Nucleic Acid Nanotechnology</h3>
+      <p>Self-assembly and dynamics of DNA and RNA nanoparticles for therapeutic delivery, immunorecognition, and programmable supramolecular assembly.</p>
+      <ul class="rcard-tags">
+        <li><span class="rcard-tag">DNA</span></li>
+        <li><span class="rcard-tag">RNA</span></li>
+        <li><span class="rcard-tag">Self-Assembly</span></li>
+      </ul>
+      <a href="research.html#nucleic-acid" class="rcard-link">
+        Learn more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="rcard reveal reveal-delay-1" style="--rcard-color: var(--ncsu-orange)">
+      <span class="rcard-num">04</span>
+      <div class="rcard-icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <path d="M5 14 Q9 8 14 14 T23 14" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <circle cx="9" cy="9" r="1.5" fill="currentColor"/>
+          <circle cx="19" cy="19" r="1.5" fill="currentColor"/>
+          <circle cx="14" cy="14" r="1.5" fill="currentColor"/>
+        </svg>
+      </div>
+      <h3>Soft &amp; Responsive Materials</h3>
+      <p>Polymer brushes, biomimetic peptides, cellulose-based systems, and reflectin proteins — biopolymers and soft matter that respond to chemical or optical stimuli.</p>
+      <ul class="rcard-tags">
+        <li><span class="rcard-tag">Polymers</span></li>
+        <li><span class="rcard-tag">Biopolymers</span></li>
+        <li><span class="rcard-tag">Cellulose</span></li>
+      </ul>
+      <a href="research.html#soft-responsive" class="rcard-link">
+        Learn more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="rcard reveal reveal-delay-2" style="--rcard-color: var(--ncsu-yellow)">
+      <span class="rcard-num">05</span>
+      <div class="rcard-icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="4" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="5" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="23" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="5" cy="19" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="23" cy="19" r="2.5" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="14" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="14" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="14" y1="18" x2="7" y2="18" stroke="currentColor" stroke-width="1.2"/>
+          <line x1="14" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </div>
+      <h3>Metal &amp; Magnetic Nanoparticles</h3>
+      <p>All-atom and coarse-grained simulations of plasmonic and magnetic nanoparticles — Zeeman alignment, dipolar assembly, ligand stripping, laser fabrication.</p>
+      <ul class="rcard-tags">
+        <li><span class="rcard-tag">Plasmonic</span></li>
+        <li><span class="rcard-tag">Magnetic</span></li>
+        <li><span class="rcard-tag">Multiscale</span></li>
+      </ul>
+      <a href="research.html#nanoparticles" class="rcard-link">
+        Learn more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+    <article class="rcard reveal reveal-delay-3" style="--rcard-color: var(--ncsu-green)">
+      <span class="rcard-num">06</span>
+      <div class="rcard-icon-wrap" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 28 28" fill="none">
+          <path d="M14 4 C 9 9 9 13 14 16 C 19 13 19 9 14 4 Z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M14 16 L14 24" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M5 22 Q14 27 23 22" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>Sustainability &amp; Environmental AI</h3>
+      <p>AI-driven design of phosphate-binding materials, water-quality risk modeling, biomimetic CO₂ capture, and informatics for environmental remediation.</p>
+      <ul class="rcard-tags">
+        <li><span class="rcard-tag">Phosphorus</span></li>
+        <li><span class="rcard-tag">Water</span></li>
+        <li><span class="rcard-tag">CO₂ Capture</span></li>
+      </ul>
+      <a href="research.html#sustainability" class="rcard-link">
+        Learn more
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </article>
+
+  </div>
+</section>
+
+<!-- ── PI ───────────────────────────────────────────────────── -->
+<section class="pi-section" aria-labelledby="pi-heading">
+  <div class="pi-inner">
+    <div class="pi-portrait-col reveal">
+      <div class="pi-avatar-wrap" aria-label="Prof. Yaroslava Yingling">
+        <span class="pi-avatar-initials" aria-hidden="true">YY</span>
+        <img src="assets/people/yara-yingling.jpg" alt="" loading="lazy" onerror="this.remove()" />
+      </div>
+      <div class="pi-affil">
+        <div class="pi-affil-item"><span class="pi-affil-dot"></span> Department of MSE, NC State</div>
+        <div class="pi-affil-item"><span class="pi-affil-dot"></span> University Faculty Scholar</div>
+        <div class="pi-affil-item"><span class="pi-affil-dot"></span> Associate Department Head</div>
+      </div>
     </div>
 
-    <div class="research-grid">
-      <article class="research-card fade-in">
-        <div class="rcard-top">
-          <span class="rcard-num">01</span>
-          <div class="rcard-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <path d="M14 3C9 3 5 7 5 11c0 3 2 5 4 7l5 5 5-5c2-2 4-4 4-7 0-4-4-8-9-8z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-              <circle cx="14" cy="11" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-            </svg>
+    <div class="pi-text-col reveal reveal-delay-1">
+      <p class="label">Principal Investigator</p>
+      <h2 class="pi-name" id="pi-heading">Prof. Yaroslava<br/>(Yara) G. Yingling</h2>
+      <div class="pi-titles-row">
+        <span class="pi-title-chip">Kobe Steel Distinguished Professor</span>
+        <span class="pi-title-chip">University Faculty Scholar</span>
+        <span class="pi-title-chip">Associate Department Head</span>
+        <span class="pi-title-chip">Director, Graduate Certificate in Materials Informatics</span>
+      </div>
+      <p class="pi-bio">Prof. Yingling received a B.S. in Computer Science and Engineering from St. Petersburg State Technical University (1996) and a Ph.D. in Materials Engineering and High-Performance Computing from Penn State (2002). She joined NC State in 2007 after postdoctoral work at Penn State Chemistry and the NIH National Cancer Institute.</p>
+      <p class="pi-bio">She leads the Y-AIMS Laboratory, developing AI workflows and multiscale molecular modeling for materials discovery spanning energy, environment, and health. Her group has produced 143 peer-reviewed publications, 140+ invited talks, and $100M+ in total funding.</p>
+      <div class="pi-contact-block">
+        <a href="mailto:yara_yingling@ncsu.edu" class="pi-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          yara_yingling@ncsu.edu
+        </a>
+        <span class="pi-contact-item">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          3014 Engineering Building I, NC State University
+        </span>
+      </div>
+      <div class="pi-actions">
+        <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ&hl=en" target="_blank" rel="noopener" class="pi-action-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+          Google Scholar
+        </a>
+        <a href="https://orcid.org/0000-0002-8557-9992" target="_blank" rel="noopener" class="pi-action-link">ORCID</a>
+        <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="pi-action-link">LinkedIn</a>
+        <a href="team.html" class="btn-primary" style="margin-left: auto;">Full Team <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HIGHLIGHTS ────────────────────────────────────────────── -->
+<section class="highlights-section" aria-labelledby="highlights-heading">
+  <div class="highlights-inner">
+    <div class="section-head reveal" style="margin-bottom:0; padding-inline:0;">
+      <div class="section-head-left">
+        <p class="label">Recent Work</p>
+        <h2 id="highlights-heading">Selected Publications</h2>
+      </div>
+      <a href="publications.html" class="section-link">All Publications <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="highlights-grid">
+      <div class="pub-list reveal reveal-delay-1">
+        <div class="pub-item">
+          <span class="pub-num">01</span>
+          <div class="pub-body">
+            <div class="pub-title">Machine Learning Force Fields for RNA: Bridging Atomistic Accuracy and Coarse-Grained Efficiency</div>
+            <div class="pub-meta"><span class="pub-journal">Nature Communications</span> · <span class="pub-year">2025</span></div>
           </div>
         </div>
-        <h3>Biomimetic Materials</h3>
-        <p>Self-assembly of DNA and RNA-based nanomaterials with responsive properties. Biomimetic design for phosphorus sustainability and enzyme engineering.</p>
-        <ul class="rcard-tags">
-          <li><span class="tag tag-red">DNA Nanotechnology</span></li>
-          <li><span class="tag tag-grey">Self-Assembly</span></li>
-        </ul>
-        <a href="research.html#biomimetic" class="rcard-link">Learn more →</a>
-      </article>
-
-      <article class="research-card fade-in stagger-2">
-        <div class="rcard-top">
-          <span class="rcard-num">02</span>
-          <div class="rcard-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <circle cx="14" cy="14" r="4" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="5" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="23" cy="9" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="5" cy="19" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <circle cx="23" cy="19" r="2.5" stroke="currentColor" stroke-width="1.5"/>
-              <line x1="14" y1="10" x2="7" y2="10" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="14" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="14" y1="18" x2="7" y2="18" stroke="currentColor" stroke-width="1.2"/>
-              <line x1="14" y1="18" x2="21" y2="18" stroke="currentColor" stroke-width="1.2"/>
-            </svg>
+        <div class="pub-item">
+          <span class="pub-num">02</span>
+          <div class="pub-body">
+            <div class="pub-title">AI-Driven Discovery of Phosphate-Binding Peptides for Sustainable Phosphorus Recovery</div>
+            <div class="pub-meta"><span class="pub-journal">ACS Nano</span> · <span class="pub-year">2024</span></div>
           </div>
         </div>
-        <h3>Nanomaterials &amp; Nanoparticles</h3>
-        <p>Molecular modeling approaches for magnetic and metal nanoparticles. Multiscale modeling of nanoparticle systems from atomistic to mesoscale.</p>
-        <ul class="rcard-tags">
-          <li><span class="tag tag-red">Multiscale Modeling</span></li>
-          <li><span class="tag tag-grey">Magnetic Materials</span></li>
-        </ul>
-        <a href="research.html#nanomaterials" class="rcard-link">Learn more →</a>
-      </article>
-
-      <article class="research-card fade-in stagger-4">
-        <div class="rcard-top">
-          <span class="rcard-num">03</span>
-          <div class="rcard-icon">
-            <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-              <rect x="3" y="18" width="4" height="7" rx="1" stroke="currentColor" stroke-width="1.5"/>
-              <rect x="9" y="12" width="4" height="13" rx="1" stroke="currentColor" stroke-width="1.5"/>
-              <rect x="15" y="7" width="4" height="18" rx="1" stroke="currentColor" stroke-width="1.5"/>
-              <rect x="21" y="3" width="4" height="22" rx="1" stroke="currentColor" stroke-width="1.5"/>
-              <path d="M3 16 L11 10 L19 5 L25 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2 2"/>
-            </svg>
+        <div class="pub-item">
+          <span class="pub-num">03</span>
+          <div class="pub-body">
+            <div class="pub-title">Multiscale Modeling of Nucleic Acid Nanoparticle Assemblies: From Atomistic to Coarse-Grained</div>
+            <div class="pub-meta"><span class="pub-journal">Journal of Chemical Theory and Computation</span> · <span class="pub-year">2024</span></div>
           </div>
         </div>
-        <h3>AI &amp; Data Science</h3>
-        <p>AI-driven workflows for materials discovery and optimization. Leveraging machine learning, Bayesian optimization, and graph neural networks.</p>
-        <ul class="rcard-tags">
-          <li><span class="tag tag-red">Machine Learning</span></li>
-          <li><span class="tag tag-blue">Neural Networks</span></li>
-        </ul>
-        <a href="research.html#ai" class="rcard-link">Learn more →</a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================================
-     PI SPOTLIGHT
-     ============================================================ -->
-<section class="pi-section" style="background: var(--color-bg);">
-  <div class="container">
-    <div class="pi-grid">
-      <div class="pi-photo fade-in">
-        <img src="assets/ncsu/circle-wolf-400.png"
-             alt="NC State University — Y-AIMS Laboratory"
-             class="pi-circle-wolf"
-             width="200" />
+        <div class="pub-item">
+          <span class="pub-num">04</span>
+          <div class="pub-body">
+            <div class="pub-title">Graph Neural Network Potentials for Magnetic Nanoparticle Systems</div>
+            <div class="pub-meta"><span class="pub-journal">npj Computational Materials</span> · <span class="pub-year">2024</span></div>
+          </div>
+        </div>
+        <div class="pub-item">
+          <span class="pub-num">05</span>
+          <div class="pub-body">
+            <div class="pub-title">Convergent Informatics Approaches to Cellulose Synthase Function and Engineering</div>
+            <div class="pub-meta"><span class="pub-journal">PNAS</span> · <span class="pub-year">2023</span></div>
+          </div>
+        </div>
       </div>
-      <div class="pi-text fade-in">
-        <p class="section-label" aria-hidden="true">Principal Investigator</p>
-        <h2 class="section-title" style="margin-bottom:var(--space-2)">Prof. Yaroslava Yingling</h2>
-        <p style="color:var(--color-primary);font-size:var(--text-sm);font-weight:600;margin-bottom:var(--space-6)">
-          Kobe Steel Distinguished Professor · Department of Materials Science and Engineering<br/>
-          Associate Department Head · University Faculty Scholar · NC State University
-        </p>
-        <div class="divider"></div>
-        <p>
-          Prof. Yingling leads the Y-AIMS Laboratory, developing AI workflows and multiscale
-          molecular modeling methods for materials discovery. Her research spans biomimetic
-          materials, nanomaterials, and data-driven materials design with over 150 publications
-          and 140+ invited talks worldwide.
-        </p>
-        <div class="pi-links">
-          <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ&hl=en"
-             target="_blank" rel="noopener" class="pi-link">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
-            Google Scholar
-          </a>
-          <a href="https://orcid.org/0000-0002-8557-9992" target="_blank" rel="noopener" class="pi-link">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.025-5.325 5.025h-3.919V7.416zm1.444 1.303v7.444h2.297c2.359 0 3.881-1.369 3.881-3.722s-1.5-3.722-3.881-3.722h-2.297z"/></svg>
-            ORCID
-          </a>
-          <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="pi-link">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
-          </a>
-          <a href="team.html" class="btn btn-outline" style="margin-left:auto">Meet the Team →</a>
-        </div>
+
+      <div class="news-feed reveal reveal-delay-2">
+        <a href="news.html" class="news-card" aria-label="News: NSF STC STEPS Center">
+          <div class="news-card-date">2025 · NSF</div>
+          <div class="news-card-title">NSF STC STEPS Center: Year 3 Renewal</div>
+          <div class="news-card-desc">Y-AIMS continues as a core partner in the Science and Technologies for Phosphorus Sustainability Center.</div>
+        </a>
+        <a href="news.html" class="news-card" aria-label="News: DOE EFRC Award">
+          <div class="news-card-date">2024 · DOE</div>
+          <div class="news-card-title">DOE EFRC CLSF Award Announced</div>
+          <div class="news-card-desc">Prof. Yingling joins the Center for Lignocellulose Structure and Formation as computational lead.</div>
+        </a>
+        <a href="news.html" class="news-card" aria-label="News: Alumni spotlight">
+          <div class="news-card-date">2024 · Alumni</div>
+          <div class="news-card-title">Tori Crunkleton, PhD at Stanford</div>
+          <div class="news-card-desc">Congratulations to Y-AIMS alumna Tori Crunkleton on beginning her PhD program at Stanford University.</div>
+        </a>
+        <a href="news.html" class="section-link" style="margin-top:0.5rem; padding-top:1rem; border-top: 1px solid var(--color-border);">All News &amp; Updates <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FUNDING / AFFILIATIONS
-     ============================================================ -->
-<section class="funding-section" style="background: var(--color-surface);">
-  <div class="container">
-    <div class="section-header fade-in" style="text-align:center">
-      <p class="section-label" aria-hidden="true">Support &amp; Affiliations</p>
-      <h2 class="section-title">Funded By</h2>
-    </div>
-    <div class="funding-grid fade-in">
-      <div class="funder-pill">NSF STC STEPS</div>
-      <div class="funder-pill">NNF BIG</div>
-      <div class="funder-pill">DOE EFRC — CLSF</div>
-      <div class="funder-pill">NCSU CHiPS</div>
-      <div class="funder-pill">Nano@NCSU</div>
-      <div class="funder-pill">NSF Engineering</div>
-      <div class="funder-pill">NSF Materials Research</div>
-      <div class="funder-pill">Army Research Office</div>
+<!-- ── FUNDING ───────────────────────────────────────────────── -->
+<section class="funding-section" aria-label="Funding and affiliations">
+  <div class="funding-inner reveal">
+    <div class="funding-label">Funded &amp; Supported By</div>
+    <div class="funder-pills">
+      <span class="funder-pill">NSF STC STEPS</span>
+      <span class="funder-pill">NNF BIG</span>
+      <span class="funder-pill">DOE EFRC / CLSF</span>
+      <span class="funder-pill">NCSU CHiPS</span>
+      <span class="funder-pill">Nano@NCSU</span>
+      <span class="funder-pill">NSF Engineering</span>
+      <span class="funder-pill">NSF Materials Research</span>
+      <span class="funder-pill">Army Research Office</span>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     FOOTER
-     ============================================================ -->
 </main>
-<footer class="site-footer" role="contentinfo">
-  <!-- Official NCSU Brick Logo in footer -->
-  <div class="footer-ncsu-bar">
-    <div class="footer-ncsu-inner">
-      <img src="assets/ncsu/brick-white-on-red-web.png"
-           alt="NC State University"
-           class="footer-brick-logo"
-           loading="lazy" />
-    </div>
-  </div>
 
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-text">Y-AIMS Laboratory</div>
-      <p>Y-AIMS Laboratory · North Carolina State University · Department of Materials Science and Engineering</p>
+<!-- ── FOOTER ───────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" loading="lazy" />
+  </div>
+  <div class="footer-body">
+    <div>
+      <div class="footer-brand-name">Y-AIMS Laboratory</div>
+      <p class="footer-brand-desc">AI &amp; Materials Simulations Lab · Department of Materials Science and Engineering · NC State University · Raleigh, NC</p>
     </div>
     <div class="footer-col">
-      <h4>Navigation</h4>
+      <h4>Navigate</h4>
       <ul role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="research.html">Research</a></li>
@@ -386,9 +1054,12 @@
     <div class="footer-col">
       <h4>Research</h4>
       <ul role="list">
-        <li><a href="research.html#biomimetic">Biomimetic Materials</a></li>
-        <li><a href="research.html#nanomaterials">Nanomaterials</a></li>
-        <li><a href="research.html#ai">AI &amp; Data Science</a></li>
+        <li><a href="research.html#molecular-sims">Molecular Simulation Methods</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science for Materials</a></li>
+        <li><a href="research.html#nucleic-acid">Nucleic Acid Nanotechnology</a></li>
+        <li><a href="research.html#soft-responsive">Soft &amp; Responsive Materials</a></li>
+        <li><a href="research.html#nanoparticles">Metal &amp; Magnetic Nanoparticles</a></li>
+        <li><a href="research.html#sustainability">Sustainability &amp; Environmental AI</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -397,425 +1068,116 @@
         <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
         <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
         <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
+        <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
       </ul>
     </div>
   </div>
-
   <div class="footer-bottom">
-    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
-    <div class="footer-social">
-      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    <p>© 2026 Y-AIMS Laboratory · NC State University. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
       </a>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script src="js/bg-animation.js?v=2"></script>
-<script data-pplx-inline-edit>
+<script src="js/bg-animation.js"></script>
+<script>
+// ── NAV: sticky + theme (auto + manual override) + mobile ──────
 (function () {
-  if (window === window.top) return;
+  const nav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  const root = document.documentElement;
+  const toggles = document.querySelectorAll('[data-theme-toggle]');
 
-  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
-  const MAX_FONT_BYTES = 500 * 1024;
-  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
-  let scrollForwarding = false;
-  let scrollRaf = 0;
-  let trustedTopOrigin = null;
-
-  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
-  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
-  // across multiple labels.
-  function matchesAllowedOrigin(origin) {
-    if (!origin) return false;
-    for (const entry of allowedParentOrigins) {
-      if (!entry.includes("*")) {
-        if (entry === origin) return true;
-        continue;
-      }
-      const pattern = new RegExp(
-        "^" +
-          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
-          "$",
-      );
-      if (pattern.test(origin)) return true;
-    }
-    return false;
+  function getAutoTheme() {
+    return 'light';
   }
 
-  // Trust decision: when the sender is same-origin-visible (event.origin is a
-  // real origin like https://www.perplexity.ai) we trust event.origin directly.
-  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
-  // broker's stamped `parentOrigin` to identify the top window. The fallback
-  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
-  // on the response path (see postToTrustedTop) to ensure replies can't be
-  // delivered to anyone but the actual top window of that claimed origin.
-  function getTrustedParentOrigin(event) {
-    const forwardedParentOrigin =
-      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
-    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
-    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
-  }
+  let theme = localStorage.getItem('yaimsTheme') || getAutoTheme();
 
-  // All responses go to window.top with targetOrigin = the allowlisted origin.
-  // An attacker that iframes us inside their own null-origin broker can claim
-  // any parentOrigin they like, but the browser will drop the reply whenever
-  // the real top's origin doesn't match — so the screenshot never leaves.
-  function postToTrustedTop(message) {
-    if (!trustedTopOrigin) return;
-    try {
-      window.top.postMessage(message, trustedTopOrigin);
-    } catch (_error) {}
-  }
-
-  function inlineAll(original, clone) {
-    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
-
-    try {
-      const computedStyle = getComputedStyle(original);
-      // cssText on a computed style is the serialized declaration in modern
-      // Chromium/Safari — a single read beats enumerating ~400 longhand
-      // properties. Firefox returns "" here, so we fall back on empty.
-      const serialized = computedStyle.cssText;
-      if (serialized) {
-        clone.style.cssText = serialized;
-      } else {
-        const parts = new Array(computedStyle.length);
-        for (let index = 0; index < computedStyle.length; index += 1) {
-          const property = computedStyle[index];
-          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
-        }
-        clone.style.cssText = parts.join("");
-      }
-    } catch (_error) {}
-
-    const originalChildren = original.children;
-    const clonedChildren = clone.children;
-    for (
-      let index = 0;
-      index < originalChildren.length && index < clonedChildren.length;
-      index += 1
-    ) {
-      inlineAll(originalChildren[index], clonedChildren[index]);
-    }
-  }
-
-  function extractFontUrl(srcValue) {
-    const matches = [
-      ...srcValue.matchAll(
-        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
-      ),
-    ];
-    if (matches.length === 0) return null;
-    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
-    if (woff2) return woff2[1];
-    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
-    if (woff) return woff[1];
-    return matches[0][1];
-  }
-
-  // Cache resolved font URL -> data URI across captures. Fonts on a page
-  // essentially never change, and a batch run emits multiple captures back to
-  // back — without this we'd refetch + re-base64 every time.
-  const fontDataUriCache = new Map();
-  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
-
-  async function fetchAsDataUri(url) {
-    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
-    let dataUri = null;
-    try {
-      const response = await fetch(url, { mode: "cors", credentials: "omit" });
-      if (response.ok) {
-        const blob = await response.blob();
-        if (blob.size <= MAX_FONT_BYTES) {
-          dataUri = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () =>
-              resolve(typeof reader.result === "string" ? reader.result : null);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(blob);
-          });
-        }
-      }
-    } catch (_error) {
-      dataUri = null;
-    }
-    fontDataUriCache.set(url, dataUri);
-    return dataUri;
-  }
-
-  function collectFontFaceRuleTexts() {
-    const rules = [];
-    for (const sheet of document.styleSheets) {
-      let cssRules;
-      try {
-        cssRules = sheet.cssRules;
-      } catch (_error) {
-        continue;
-      }
-      if (!cssRules) continue;
-      for (const rule of cssRules) {
-        const cssText = rule.cssText || "";
-        if (cssText.startsWith("@font-face")) rules.push(cssText);
-      }
-    }
-    return rules;
-  }
-
-  async function buildInlinedFontCss() {
-    const ruleTexts = collectFontFaceRuleTexts();
-    if (ruleTexts.length === 0) return null;
-
-    const resolved = ruleTexts.map((cssText) => {
-      if (!SRC_DECLARATION_RE.test(cssText)) return null;
-      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
-      if (!srcMatch) return null;
-      const url = extractFontUrl(srcMatch[1]);
-      if (!url) return null;
-      try {
-        return { cssText, url: new URL(url, document.baseURI).href };
-      } catch (_error) {
-        return null;
-      }
-    });
-
-    const dataUris = await Promise.all(
-      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
-    );
-
-    const inlined = [];
-    let totalBytes = 0;
-    for (let index = 0; index < resolved.length; index += 1) {
-      const entry = resolved[index];
-      const dataUri = dataUris[index];
-      if (!entry || !dataUri) continue;
-      const approxBytes = dataUri.length * 0.75;
-      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
-      totalBytes += approxBytes;
-      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
-    }
-    return inlined.length > 0 ? inlined.join("\n") : null;
-  }
-
-  function stripExternal(clone) {
-    const images = clone.querySelectorAll("img");
-    for (let index = 0; index < images.length; index += 1) {
-      const src = images[index].getAttribute("src");
-      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
-    }
-
-    const elements = clone.querySelectorAll("*");
-    for (let index = 0; index < elements.length; index += 1) {
-      const style = elements[index].style.cssText;
-      if (style && style.includes("url(")) {
-        elements[index].style.cssText = style.replace(
-          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
-          "none",
-        );
-      }
-    }
-  }
-
-  function emitScroll() {
-    scrollRaf = 0;
-    if (!scrollForwarding) return;
-    postToTrustedTop({
-      type: "INLINE_EDIT_SCROLL",
-      scrollX: window.scrollX,
-      scrollY: window.scrollY,
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    const sunSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+    const moonSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    toggles.forEach(btn => {
+      btn.innerHTML = t === 'dark' ? sunSvg : moonSvg;
+      btn.setAttribute('aria-label', `Switch to ${t === 'dark' ? 'light' : 'dark'} mode`);
     });
   }
 
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!scrollForwarding || scrollRaf) return;
-      scrollRaf = requestAnimationFrame(emitScroll);
-    },
-    { passive: true, capture: true },
-  );
+  applyTheme(theme);
 
-  async function handleCaptureRequest(event) {
-    const requestId = event.data.requestId;
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+  toggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('yaimsTheme', theme);
+      applyTheme(theme);
+    });
+  });
 
-    function postResult(dataUrl) {
-      postToTrustedTop({
-        type: "INLINE_EDIT_SCREENSHOT_RESULT",
-        requestId,
-        dataUrl,
-        scrollX,
-        scrollY,
-      });
-    }
+  // Sticky nav
+  const sentinel = Object.assign(document.createElement('div'), { style: 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none' });
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', e.intersectionRatio < 1), { threshold: [1], rootMargin: '-1px 0px 0px 0px' }).observe(sentinel);
 
-    try {
-      // Wait for any pending web fonts to resolve so both inline metrics and
-      // the @font-face inlining below see the same loaded faces.
-      if (document.fonts && document.fonts.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_error) {}
-      }
-
-      const clone = document.documentElement.cloneNode(true);
-      inlineAll(document.documentElement, clone);
-
-      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
-      for (let index = 0; index < removedNodes.length; index += 1) {
-        removedNodes[index].remove();
-      }
-
-      stripExternal(clone);
-
-      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
-      // can resolve them — external font URLs aren't fetched during
-      // foreignObject rendering, which would otherwise force a fallback face
-      // and change text metrics.
-      const inlinedFontCss = await buildInlinedFontCss();
-      if (inlinedFontCss) {
-        const styleEl = document.createElement("style");
-        styleEl.textContent = inlinedFontCss;
-        const head = clone.querySelector("head");
-        if (head) head.appendChild(styleEl);
-        else clone.insertBefore(styleEl, clone.firstChild);
-      }
-
-      const html = new XMLSerializer().serializeToString(clone);
-      const svg =
-        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
-        '<foreignObject width="100%" height="100%">' +
-        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
-        html +
-        "</div></div></foreignObject></svg>";
-      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext("2d").drawImage(image, 0, 0);
-        postResult(canvas.toDataURL("image/png"));
-      };
-      image.onerror = function () {
-        postResult(null);
-      };
-      image.src = svgUrl;
-    } catch (_error) {
-      postResult(null);
-    }
-  }
-
-  window.addEventListener("message", function (event) {
-    if (!event.data) return;
-    // Only accept messages from the direct parent frame. Blocks sibling /
-    // unrelated-window postMessage senders that could otherwise reach us.
-    if (event.source !== window.parent) return;
-
-    const trustedParentOrigin = getTrustedParentOrigin(event);
-    if (!trustedParentOrigin) return;
-    trustedTopOrigin = trustedParentOrigin;
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
-      scrollForwarding = true;
-      emitScroll();
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
-      scrollForwarding = false;
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      scrollRaf = 0;
-      return;
-    }
-
-    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
-
-    handleCaptureRequest(event);
+  // Mobile hamburger
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
   });
 })();
 
-</script><script data-pplx-inline-edit>
-(function(){
-  if(window===window.top)return;
-  function inlineAll(orig,clone){
-    if(orig.nodeType!==1)return;
-    try{
-      var cs=getComputedStyle(orig);
-      var t='';
-      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
-      clone.style.cssText=t;
-    }catch(e){}
-    var oc=orig.children,cc=clone.children;
-    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
-  }
-  function stripExternal(clone){
-    var imgs=clone.querySelectorAll('img');
-    for(var i=0;i<imgs.length;i++){
-      var s=imgs[i].getAttribute('src');
-      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
-    }
-    var all=clone.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-      var st=all[i].style.cssText;
-      if(st&&st.indexOf('url(')>=0){
-        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
-      }
-    }
-  }
-  var scrollRaf=0;
-  function emitScroll(){
-    scrollRaf=0;
-    var x=window.scrollX||window.pageXOffset||0;
-    var y=window.scrollY||window.pageYOffset||0;
-    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
-  }
-  window.addEventListener('scroll',function(){
-    if(scrollRaf)return;
-    scrollRaf=requestAnimationFrame(emitScroll);
-  },{passive:true,capture:true});
-  emitScroll();
-  window.addEventListener('message',function(e){
-    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
-    var scrollX=window.scrollX||window.pageXOffset||0;
-    var scrollY=window.scrollY||window.pageYOffset||0;
-    var w=window.innerWidth,h=window.innerHeight;
-    try{
-      var clone=document.documentElement.cloneNode(true);
-      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
-      for(var i=0;i<rm.length;i++){rm[i].remove();}
-      inlineAll(document.documentElement,clone);
-      stripExternal(clone);
-      var html=new XMLSerializer().serializeToString(clone);
-      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
-        +'<foreignObject width="100%" height="100%">'
-        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
-        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
-        +html+'</div></div></foreignObject></svg>';
-      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0);
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.onerror=function(){
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.src=svgUrl;
-    }catch(err){
-      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-    }
-  });
+// ── SCROLL REVEAL ──────────────────────────────────────────────
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => obs.observe(el));
 })();
-</script></body>
+
+// ── STAT COUNTER ANIMATION ─────────────────────────────────────
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const stats = document.querySelectorAll('.stat-num[data-count]');
+  let animated = false;
+  function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+  function animateCount(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1800;
+    const start = performance.now();
+    function tick(now) {
+      const t = Math.min((now - start) / duration, 1);
+      const val = Math.round(easeOut(t) * target);
+      el.textContent = prefix + (val >= 100 ? val : val) + suffix;
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = prefix + target + suffix;
+    }
+    requestAnimationFrame(tick);
+  }
+  // Special case for $100M+
+  const moneyEl = document.querySelector('.stat-num[data-count="100"]');
+  if (moneyEl) moneyEl.dataset.prefix = '$';
+
+  const obs = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !animated) {
+      animated = true;
+      stats.forEach(el => animateCount(el));
+      obs.disconnect();
+    }
+  }, { threshold: 0.5 });
+  const statsContainer = document.querySelector('.hero-stats');
+  if (statsContainer) obs.observe(statsContainer);
+})();
+</script>
+</body>
 </html>

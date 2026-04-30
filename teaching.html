@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Teaching & Education — Y-AIMS Lab | NC State</title>
+  <title>Teaching &amp; Education — Y-AIMS Lab | NC State MSE</title>
   <meta name="description" content="Courses taught by Prof. Yaroslava Yingling at NC State — AI+Materials, Data Science for Materials, Nanoscale Simulations, and industry workshops." />
 
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
@@ -11,20 +11,35 @@
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/animations.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('yaimsTheme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
 
   <style>
     /* ─── HERO ───────────────────────────────────────────────── */
     .teaching-hero {
-      background: linear-gradient(135deg, var(--ncsu-red-dark) 0%, var(--ncsu-red-deepest) 100%);
-      padding: var(--space-20) var(--space-8) var(--space-16);
+      padding: calc(76px + var(--space-16)) var(--space-8) var(--space-16) !important;
       position: relative;
       overflow: hidden;
+      background:
+        radial-gradient(circle at top right, rgba(250, 200, 0, 0.18) 0%, transparent 26%),
+        radial-gradient(circle at bottom left, rgba(0, 132, 115, 0.12) 0%, transparent 24%),
+        linear-gradient(135deg, #fff8f1 0%, #fdeee5 54%, #eef7f6 100%);
+      border-bottom: 1px solid rgba(204, 0, 0, 0.08);
     }
     .teaching-hero::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.13) 100%);
+      background: linear-gradient(135deg, transparent 55%, rgba(65,86,161,0.08) 100%);
       pointer-events: none;
     }
     .teaching-hero-inner {
@@ -39,20 +54,20 @@
       font-weight: 700;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.55);
+      color: rgba(153, 0, 0, 0.78);
       margin-bottom: var(--space-3);
     }
     .hero-title {
       font-family: var(--font-display);
       font-size: clamp(2rem, 4vw, 3.2rem);
       font-weight: 700;
-      color: #fff;
+      color: #2c1b12;
       line-height: 1.1;
       margin-bottom: var(--space-5);
     }
     .hero-desc {
       font-size: var(--text-base);
-      color: rgba(255,255,255,0.78);
+      color: rgba(61, 44, 29, 0.84);
       max-width: 680px;
       line-height: 1.65;
     }
@@ -64,22 +79,23 @@
       margin-top: var(--space-8);
     }
     .hero-stat {
-      background: rgba(255,255,255,0.13);
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 8px;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(204, 0, 0, 0.08);
+      border-radius: 12px;
       padding: var(--space-3) var(--space-5);
       text-align: center;
+      box-shadow: 0 8px 24px rgba(115, 70, 32, 0.08);
     }
     .hero-stat-num {
       font-family: var(--font-display);
       font-size: var(--text-2xl);
       font-weight: 800;
-      color: #fff;
+      color: #7a170c;
       line-height: 1;
     }
     .hero-stat-label {
       font-size: var(--text-xs);
-      color: rgba(255,255,255,0.65);
+      color: rgba(82, 60, 43, 0.74);
       margin-top: 3px;
       font-weight: 600;
     }
@@ -184,7 +200,7 @@
       margin-top: var(--space-4);
     }
     .course-tag {
-      font-size: 11px;
+      font-size: 0.76rem;
       font-weight: 600;
       padding: 2px 8px;
       border-radius: 4px;
@@ -192,6 +208,70 @@
       color: var(--color-text-muted);
       border: 1px solid var(--color-border);
     }
+    .course-mode {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-faint);
+      margin-top: var(--space-2);
+    }
+    .course-details {
+      margin-top: var(--space-4);
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-3);
+      font-size: var(--text-sm);
+    }
+    .course-details > summary {
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--ncsu-red);
+      letter-spacing: 0.04em;
+      list-style: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .course-details > summary::-webkit-details-marker { display: none; }
+    .course-details > summary::after {
+      content: '+';
+      font-size: 1rem;
+      font-weight: 400;
+      transition: transform 0.2s;
+      display: inline-block;
+    }
+    .course-details[open] > summary::after { content: '−'; }
+    .course-details-body {
+      margin-top: var(--space-3);
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+    .course-details-body h4 {
+      font-family: var(--font-display);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      margin-top: var(--space-3);
+      margin-bottom: var(--space-2);
+    }
+    .course-details-body h4:first-child { margin-top: 0; }
+    .course-details-body p { margin-bottom: var(--space-2); }
+    .course-details-body ul { margin: var(--space-2) 0 var(--space-3) var(--space-5); }
+    .course-details-body ul li { margin-bottom: 4px; }
+    .course-details-body em { color: var(--color-text); }
+    .course-pub-ref {
+      margin-top: var(--space-3);
+      padding: var(--space-3) var(--space-4);
+      background: var(--color-surface);
+      border-left: 3px solid var(--ncsu-red);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      line-height: 1.6;
+    }
+    .course-pub-ref a { color: var(--ncsu-red); text-decoration: none; }
+    .course-pub-ref a:hover { text-decoration: underline; }
 
     /* ─── OUTREACH DESCRIPTION BLOCK ────────────────────────── */
     .workshops-section {
@@ -248,9 +328,18 @@
       padding: var(--space-4) var(--space-5);
     }
     .oac-icon {
-      font-size: 1.4rem;
-      margin-bottom: var(--space-2);
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: var(--color-primary-highlight);
+      border: 1px solid rgba(204,0,0,0.18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ncsu-red);
+      margin-bottom: var(--space-3);
     }
+    [data-theme='dark'] .oac-icon { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.28); color: #ff7a7a; }
     .oac-title {
       font-family: var(--font-display);
       font-size: var(--text-sm);
@@ -292,7 +381,7 @@
     .outreach-example-year {
       flex-shrink: 0;
       font-family: var(--font-display);
-      font-size: 11px;
+      font-size: 0.76rem;
       font-weight: 700;
       color: var(--ncsu-red);
       background: rgba(204,0,0,0.07);
@@ -372,17 +461,43 @@
     @media (max-width: 480px) {
       .courses-grid { grid-template-columns: 1fr; }
     }
+
+/* ─── CONSISTENT NAV / FOOTER ────────────────────────────── */
+.site-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 76px; display: flex; align-items: center; padding-inline: clamp(1rem,5vw,4rem); background: color-mix(in srgb, var(--color-bg) 90%, transparent); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--color-border); transition: box-shadow 0.3s; }
+.site-nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+.nav-inner { width: 100%; max-width: 1200px; margin-inline: auto; display: flex; align-items: center; gap: 2rem; }
+.nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
+.nav-wolf-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+.lab-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; }
+.lab-dept { font-size: 0.78rem; color: var(--color-text-muted); }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin-left: auto; }
+.nav-links a { font-size: 0.95rem; font-weight: 500; color: var(--color-text-muted); padding: 0.55rem 0.95rem; border-radius: 4px; text-decoration: none; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+.nav-links a.active { font-weight: 600; }
+.btn-theme { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-muted); cursor: pointer; margin-left: 0.5rem; transition: all 0.2s; }
+.btn-theme:hover { color: var(--color-text); background: var(--color-surface-offset); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; cursor: pointer; margin-left: auto; }
+.nav-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--color-text-muted); border-radius: 2px; }
+.nav-mobile { display: none; flex-direction: column; gap: 0.25rem; padding: 1rem; border-top: 1px solid var(--color-border); background: var(--color-bg); }
+.nav-mobile a { font-size: 1rem; font-weight: 500; color: var(--color-text-muted); padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; }
+.nav-mobile a:hover, .nav-mobile a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-actions .btn-theme { display: none; } .nav-hamburger { display: flex; } .nav-mobile.open { display: flex; } }
+.skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; padding: 0.75rem 1.25rem; background: var(--ncsu-red); color: #fff; font-weight: 700; border-radius: 0 0 6px 6px; text-decoration: none; transition: top 0.15s; }
+.skip-link:focus { top: 0; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
   </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <!-- NAV -->
-<nav class="site-nav" role="navigation" aria-label="Main navigation">
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
+<nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab — NC State University">
-      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State University circle wolf mark"
-           width="36" height="36" class="nav-wolf-img" loading="eager" />
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab home">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State wolf mark" class="nav-wolf-img" width="34" height="34" loading="eager" />
       <div class="nav-logo-text">
         <span class="lab-name">Y-AIMS Lab</span>
         <span class="lab-dept">NC State · MSE</span>
@@ -397,24 +512,17 @@
       <li><a href="software.html">Software</a></li>
       <li><a href="news.html">News</a></li>
     </ul>
-    <div class="nav-actions">
+    <div class="nav-actions" style="display:flex;align-items:center;">
       <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
     </div>
     <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
-  <div class="nav-mobile" role="list">
-    <a href="index.html">Home</a>
-    <a href="research.html">Research</a>
-    <a href="team.html">Team</a>
-    <a href="publications.html">Publications</a>
-    <a href="teaching.html" class="active" aria-current="page">Teaching</a>
-    <a href="software.html">Software</a>
-    <a href="news.html">News</a>
-    <div style="padding-top:var(--space-3);border-top:1px solid var(--color-border);margin-top:var(--space-2)">
-      <button class="btn-theme" data-theme-toggle style="width:auto;gap:var(--space-2);padding:var(--space-2) var(--space-3)" aria-label="Toggle dark mode">Dark Mode</button>
-    </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">Home</a><a href="research.html">Research</a><a href="team.html">Team</a>
+    <a href="publications.html">Publications</a><a href="teaching.html">Teaching</a>
+    <a href="software.html">Software</a><a href="news.html">News</a>
   </div>
 </nav>
 
@@ -426,7 +534,7 @@
     <p class="hero-desc">Prof. Yingling has pioneered AI+Materials education at NC State — developing graduate courses in data-driven materials discovery, molecular simulations, and AI tools for scientists that span academia and industry.</p>
     <div class="hero-stats">
       <div class="hero-stat">
-        <div class="hero-stat-num">5</div>
+        <div class="hero-stat-num">6</div>
         <div class="hero-stat-label">Courses Taught</div>
       </div>
       <div class="hero-stat">
@@ -454,22 +562,45 @@
 
   <div class="courses-grid">
 
-    <!-- DMSE723 -->
+    <!-- MSE 723 -->
     <article class="course-card">
       <div class="course-card-bar bar-red"></div>
       <div class="course-card-body">
         <div class="course-code-row">
-          <span class="course-code">DMSE 723</span>
+          <span class="course-code">MSE 723</span>
           <span class="course-years">2018 – Present</span>
         </div>
-        <h3 class="course-title">Data Science for Materials</h3>
-        <p class="course-desc">Introduces materials scientists and engineers to data-driven methods: regression, classification, neural networks, and generative AI applied to structure–property–processing relationships. Students complete hands-on projects using real materials datasets.</p>
+        <h3 class="course-title">Materials Informatics</h3>
+        <p class="course-desc">Introduces the emergent field of materials informatics and current approaches that use machine learning together with experimental and computational data to accelerate materials optimization, discovery, and development. Emphasizes practical implementation of ML techniques on real materials problems.</p>
+        <p class="course-mode">Distance Education and in-person at NC State</p>
         <div class="course-tags">
           <span class="course-tag">Graduate</span>
           <span class="course-tag">Machine Learning</span>
           <span class="course-tag">Python</span>
           <span class="course-tag">Materials Informatics</span>
         </div>
+        <details class="course-details">
+          <summary>Course goals &amp; learning outcomes</summary>
+          <div class="course-details-body">
+            <h4>Class goals</h4>
+            <p>The course aims to <em>introduce</em> the emergent field of materials informatics and current approaches that employ machine learning and experimental and computational data to accelerate the process of materials optimization, discovery, and development. An emphasis will be placed on the practical implementation of machine learning techniques to various materials science problems.</p>
+            <h4>Student learning outcomes</h4>
+            <p>After completing this course, students will be able to:</p>
+            <ul>
+              <li>Demonstrate an understanding of key materials informatics concepts and components.</li>
+              <li>Explain the relationship between materials and data-driven techniques.</li>
+              <li>Interpret the informatics problems and capabilities associated with different types of materials.</li>
+              <li>Describe available machine learning techniques and materials databases.</li>
+              <li>Identify a machine learning algorithm with the desired properties for a given materials problem.</li>
+              <li>Evaluate existing and emerging machine learning technologies and analyze trends in data-driven techniques to anticipate how materials informatics will evolve.</li>
+            </ul>
+            <div class="course-pub-ref">
+              T. J. Oweida, A. Ul-Mahmood, M. D. Manning, S. Rigin, Y. G. Yingling, <em>MRS Advances</em> 5 (2020) 1–18 ·
+              <a href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/98E47A9B14726B01DE91ED5AF3A250AB/S2059852120001711a.pdf/merging_materials_and_data_science_opportunities_challenges_and_education_in_materials_informatics.pdf" target="_blank" rel="noopener">DOI: 10.1557/adv.2020.171</a>
+              <p style="margin-top:6px; font-style: italic;">In this paper, we discuss the growing use of materials informatics in academia and industry, highlight the need for educational advances, and discuss the implementation of a materials informatics course into the curriculum to jump-start interested students with the skills required to succeed in materials informatics projects.</p>
+            </div>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -502,12 +633,74 @@
         </div>
         <h3 class="course-title">Nanoscale Simulations &amp; Molecular Modeling</h3>
         <p class="course-desc">Comprehensive treatment of atomistic and coarse-grained simulation methods: molecular dynamics, Monte Carlo, DPD, CGMD, and free energy techniques. Covers LAMMPS, GROMACS, NAMD workflows and force field parameterization with applications in soft matter and nanomaterials.</p>
+        <p class="course-mode">Distance Education and in-person at NC State</p>
         <div class="course-tags">
           <span class="course-tag">Graduate</span>
           <span class="course-tag">MD Simulations</span>
           <span class="course-tag">Coarse-Graining</span>
           <span class="course-tag">LAMMPS</span>
         </div>
+        <details class="course-details">
+          <summary>Course goals &amp; learning outcomes</summary>
+          <div class="course-details-body">
+            <h4>Class goals</h4>
+            <p>The course is designed to assist engineering students in learning the fundamentals and cutting-edge nature of various simulation methods and their application to nanostructures and nanotechnology. The modeling tools range from accurate first-principles quantum-based methods to multi-scale approaches that combine atomic and continuum modeling. An emphasis is placed on using computational methods for data-driven approaches for the design of new materials.</p>
+            <h4>Student learning objectives</h4>
+            <p>After completing this course, students will be able to:</p>
+            <ul>
+              <li>Identify and explain the advantages and limitations of various computational techniques.</li>
+              <li>Explain the properties of various nanomaterials and nanosystems.</li>
+              <li>Select appropriate computational methods that can address specific materials, properties, and processing.</li>
+              <li>Evaluate literature based on the use of computational techniques.</li>
+              <li>Design research problems with the use of computational techniques.</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </article>
+
+    <!-- MSE 485 / MSE 791 — Biomaterials -->
+    <article class="course-card">
+      <div class="course-card-bar bar-red"></div>
+      <div class="course-card-body">
+        <div class="course-code-row">
+          <span class="course-code">MSE 485 / MSE 791</span>
+          <span class="course-years">Active</span>
+        </div>
+        <h3 class="course-title">Biomaterials</h3>
+        <p class="course-desc">Fundamentals of biomaterials — synthesis, properties, processing, and applications of materials derived from or associated with bio-entities. The course emphasizes biomaterials with applications beyond medical or clinical uses, drawing on biological systems' unique machinery and function.</p>
+        <p class="course-mode">Distance Education and in-person at NC State</p>
+        <div class="course-tags">
+          <span class="course-tag">Undergrad / Graduate</span>
+          <span class="course-tag">Biomaterials</span>
+          <span class="course-tag">Soft Matter</span>
+          <span class="course-tag">Bioelectronics</span>
+        </div>
+        <details class="course-details">
+          <summary>Course goals &amp; learning outcomes</summary>
+          <div class="course-details-body">
+            <h4>Class goals</h4>
+            <p>The course introduces fundamental aspects associated with synthesis, properties, processing/fabrication, and application of materials derived from or associated with bio-entities. The course focuses on biomaterials with broad applications beyond medical or clinical uses, and emphasizes biological systems' unique machinery and function in the context of desired outcomes that utilize a material or materials' systems. Fundamental concepts covered include:</p>
+            <ul>
+              <li>Differences among classes of biomaterials.</li>
+              <li>Toxicity vs. biocompatibility of biomaterials.</li>
+              <li>Bulk vs. surface properties of biomaterials.</li>
+              <li>Interactions of biomaterials with different environments.</li>
+              <li>Biomaterials stability and degradation.</li>
+              <li>Biomaterials for sensing and bioelectronics applications.</li>
+              <li>Biomaterials for energy, soft robotics, and responsive materials.</li>
+              <li>Biomaterials for drug delivery, multiplexing, and theranostic applications.</li>
+            </ul>
+            <h4>Student learning objectives</h4>
+            <p>After completing this course, students will be able to:</p>
+            <ul>
+              <li>Explain the properties of various biomaterials.</li>
+              <li>Select appropriate methods that can help address specific materials, properties, and processing.</li>
+              <li>Apply chemistry and engineering knowledge to solve challenges in biomaterials.</li>
+              <li>Critically review papers from the scientific literature and identify research opportunities.</li>
+            </ul>
+          </div>
+        </details>
       </div>
     </article>
 
@@ -553,7 +746,7 @@
   <!-- TEACHING PHILOSOPHY -->
   <div class="philosophy-section">
     <p class="philosophy-quote">AI is not just a tool — it is a paradigm shift for materials science. Our students need to be fluent in both the physics of matter and the language of machines.</p>
-    <p class="philosophy-attr">— Prof. Yaroslava Yingling, Y-AIMS Laboratory</p>
+    <p class="philosophy-attr">— Prof. Yaroslava Yingling, AIMS Laboratory</p>
   </div>
 
   <!-- WORKSHOPS & SHORT COURSES -->
@@ -572,22 +765,30 @@
 
         <div class="outreach-audience-grid">
           <div class="outreach-audience-card">
-            <div class="oac-icon">🎓</div>
+            <div class="oac-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/><path d="M22 10v6"/></svg>
+            </div>
             <div class="oac-title">Undergraduates</div>
             <div class="oac-desc">REU bootcamps and MSE department workshops introducing AI/ML tools, Python for materials, and data-driven research methods to undergrad researchers.</div>
           </div>
           <div class="outreach-audience-card">
-            <div class="oac-icon">🔬</div>
+            <div class="oac-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6"/><path d="M10 3v6.5L4.5 18a2 2 0 0 0 1.7 3h11.6a2 2 0 0 0 1.7-3L14 9.5V3"/><line x1="7.5" y1="13" x2="16.5" y2="13"/></svg>
+            </div>
             <div class="oac-title">Graduate Students</div>
             <div class="oac-desc">Dedicated workshops on integrating LLMs, AI assistants, and ML workflows into PhD research — including the AI Tools for Graduate Students series and annual AI+Materials hackathons.</div>
           </div>
           <div class="outreach-audience-card">
-            <div class="oac-icon">👩‍🏫</div>
+            <div class="oac-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
             <div class="oac-title">Faculty &amp; Researchers</div>
             <div class="oac-desc">Gordon Research Conference sessions, invited lectures, and peer workshops for faculty and postdoctoral researchers on AI-driven materials discovery and autonomous lab paradigms.</div>
           </div>
           <div class="outreach-audience-card">
-            <div class="oac-icon">🏭</div>
+            <div class="oac-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M5 20V8l5 4V8l5 4V4l4 4v12"/><path d="M9 20v-3M14 20v-3"/></svg>
+            </div>
             <div class="oac-title">Industry Professionals</div>
             <div class="oac-desc">Custom multi-day short courses for industrial R&amp;D scientists at companies including Eastman Chemical, CDP, P-Forum, and aixACCT — covering molecular simulations, materials informatics, and AI-assisted polymer design.</div>
           </div>
@@ -665,133 +866,54 @@
 <!-- FOOTER -->
 <footer class="site-footer" role="contentinfo">
   <div class="footer-ncsu-bar">
-    <div class="footer-ncsu-inner">
-      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University"
-           class="footer-brick-logo" loading="lazy" />
-    </div>
+    <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" loading="lazy" />
   </div>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="logo-text">Y-AIMS Laboratory</div>
-      <p>Y-AIMS Laboratory at North Carolina State University. Integrating molecular modeling, data science, and AI for materials discovery.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Navigation</h4>
-      <ul role="list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-        <li><a href="news.html">News</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Courses</h4>
-      <ul role="list">
-        <li><a href="teaching.html">DMSE 723 — Data Science for Materials</a></li>
-        <li><a href="teaching.html">MSE 591 — AI + Materials</a></li>
-        <li><a href="teaching.html">MSE 721 — Nanoscale Simulations</a></li>
-        <li><a href="teaching.html">MSE 290 — Materials Sci. Fiction</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Connect</h4>
-      <ul role="list">
-        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
-        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
-        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
-        <li><a href="https://www.mse.ncsu.edu" target="_blank">NC State MSE</a></li>
-      </ul>
-    </div>
+  <div class="footer-body">
+    <div><div class="footer-brand-name">Y-AIMS Laboratory</div><p class="footer-brand-desc">AI &amp; Materials Simulations Lab · Department of Materials Science and Engineering · NC State University · Raleigh, NC</p></div>
+    <div class="footer-col"><h4>Navigate</h4><ul role="list"><li><a href="index.html">Home</a></li><li><a href="research.html">Research</a></li><li><a href="team.html">Team</a></li><li><a href="publications.html">Publications</a></li><li><a href="teaching.html">Teaching</a></li><li><a href="software.html">Software</a></li><li><a href="news.html">News</a></li></ul></div>
+    <div class="footer-col"><h4>Research</h4><ul role="list"><li><a href="research.html#molecular-sims">Molecular Simulation Methods</a></li><li><a href="research.html#ai">AI &amp; Data Science for Materials</a></li><li><a href="research.html#nucleic-acid">Nucleic Acid Nanotechnology</a></li><li><a href="research.html#soft-responsive">Soft &amp; Responsive Materials</a></li><li><a href="research.html#nanoparticles">Metal &amp; Magnetic Nanoparticles</a></li><li><a href="research.html#sustainability">Sustainability &amp; Environmental AI</a></li></ul></div>
+    <div class="footer-col"><h4>Connect</h4><ul role="list"><li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li><li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li><li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li><li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <p>© 2026 Yingling Research Group · NC State University. All rights reserved.</p>
-    <div class="footer-social">
-      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+    <p>© 2026 Y-AIMS Laboratory · NC State University. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
       </a>
-      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
       </a>
     </div>
   </div>
 </footer>
 
-<script src="js/main.js"></script>
-<script data-pplx-inline-edit>
-(function(){
-  if(window===window.top)return;
-  function inlineAll(orig,clone){
-    if(orig.nodeType!==1)return;
-    try{
-      var cs=getComputedStyle(orig);
-      var t='';
-      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
-      clone.style.cssText=t;
-    }catch(e){}
-    var oc=orig.children,cc=clone.children;
-    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
+
+<script>
+(function () {
+  const nav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  const root = document.documentElement;
+  const toggles = document.querySelectorAll('[data-theme-toggle]');
+  function getAutoTheme() {
+    return 'light';
   }
-  function stripExternal(clone){
-    var imgs=clone.querySelectorAll('img');
-    for(var i=0;i<imgs.length;i++){
-      var s=imgs[i].getAttribute('src');
-      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
-    }
-    var all=clone.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-      var st=all[i].style.cssText;
-      if(st&&st.indexOf('url(')>=0){
-        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
-      }
-    }
+  let theme = localStorage.getItem('yaimsTheme') || getAutoTheme();
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    toggles.forEach(btn => { btn.innerHTML = t === 'dark' ? sun : moon; btn.setAttribute('aria-label', 'Switch to ' + (t === 'dark' ? 'light' : 'dark') + ' mode'); });
   }
-  var scrollRaf=0;
-  function emitScroll(){
-    scrollRaf=0;
-    var x=window.scrollX||window.pageXOffset||0;
-    var y=window.scrollY||window.pageYOffset||0;
-    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
+  applyTheme(theme);
+  toggles.forEach(btn => { btn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('yaimsTheme', theme); applyTheme(theme); }); });
+  if (nav) {
+    const s = Object.assign(document.createElement('div'), {style:'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none'});
+    document.body.prepend(s);
+    new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', e.intersectionRatio < 1), {threshold:[1],rootMargin:'-1px 0px 0px 0px'}).observe(s);
   }
-  window.addEventListener('scroll',function(){
-    if(scrollRaf)return;
-    scrollRaf=requestAnimationFrame(emitScroll);
-  },{passive:true,capture:true});
-  emitScroll();
-  window.addEventListener('message',function(e){
-    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
-    var scrollX=window.scrollX||window.pageXOffset||0;
-    var scrollY=window.scrollY||window.pageYOffset||0;
-    var w=window.innerWidth,h=window.innerHeight;
-    try{
-      var clone=document.documentElement.cloneNode(true);
-      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
-      for(var i=0;i<rm.length;i++){rm[i].remove();}
-      inlineAll(document.documentElement,clone);
-      stripExternal(clone);
-      var html=new XMLSerializer().serializeToString(clone);
-      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
-        +'<foreignObject width="100%" height="100%">'
-        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
-        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
-        +html+'</div></div></foreignObject></svg>';
-      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0);
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.onerror=function(){
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.src=svgUrl;
-    }catch(err){
-      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-    }
-  });
+  if (hamburger) hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.setAttribute('aria-expanded', open); });
 })();
-</script></body>
+</script>
+</body>
 </html>

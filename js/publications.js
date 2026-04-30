@@ -1,5 +1,5 @@
 /* ── PUBLICATIONS DATA ──────────────────────────────────────── */
-// Labels: 'cover','press-release','award','featured','invited','book-chapter'
+// Labels: 'cover','press-release','award','featured','invited','book'
 // extras: { coverImg, coverCaption, pressReleases:[{label,url}], note } — stored in-memory (persists for session)
 
 const PUBLICATIONS = [
@@ -860,6 +860,24 @@ function getMergedExtras(pub) {
   };
 }
 
+function getPubTopics(pub) {
+  return pub.topic || pub.topics || [];
+}
+
+function getPubHref(pub) {
+  if (pub.doi) {
+    return /^https?:\/\//i.test(pub.doi) ? pub.doi : `https://doi.org/${pub.doi}`;
+  }
+  return pub.url || '';
+}
+
+function renderPubLink(pub) {
+  const href = getPubHref(pub);
+  if (!href) return '';
+  const label = pub.doi ? 'DOI ↗' : 'Link ↗';
+  return `<a class="pub-doi" href="${href}" target="_blank" rel="noopener">${label}</a>`;
+}
+
 function getFiltered() {
   const q = state.search.toLowerCase().trim();
   return PUBLICATIONS.filter(p => {
@@ -867,7 +885,7 @@ function getFiltered() {
              !p.authors.toLowerCase().replace(/<[^>]+>/g,'').includes(q) &&
              !p.journal.toLowerCase().includes(q)) return false;
     if (state.year && p.year !== +state.year) return false;
-    if (state.topic && !p.topic.includes(state.topic)) return false;
+    if (state.topic && !getPubTopics(p).includes(state.topic)) return false;
     if (state.label) {
       if (state.label === 'press-release') {
         const ex = getMergedExtras(p);
@@ -883,15 +901,31 @@ function getFiltered() {
 function renderTopicBadges(topics) {
   return (topics || []).map(t => {
     const cfg = TOPIC_CONFIG[t];
-    return cfg ? `<span class="topic-badge ${cfg.cls}">${cfg.text}</span>` : '';
+    return cfg ? `<span class="pub-topic ${cfg.cls}">${cfg.text}</span>` : '';
   }).join('');
 }
 
 function renderLabelBadges(labels) {
   return (labels || []).map(key => {
     const cfg = LABEL_CONFIG[key];
-    return cfg ? `<span class="label-badge ${cfg.cls}">${cfg.text}</span>` : '';
+    return cfg ? `<span class="pub-label ${cfg.cls}">${cfg.text}</span>` : '';
   }).join('');
+}
+
+function renderTagRow(pub) {
+  const labels = renderLabelBadges(pub.labels);
+  const topics = renderTopicBadges(getPubTopics(pub));
+  if (!labels && !topics) return '';
+  return `<div class="pub-tag-row">${labels}${topics}</div>`;
+}
+
+function renderPubMeta(pub) {
+  const parts = [];
+  if (pub.journal) parts.push(`<em class="pub-journal">${pub.journal}</em>${pub.vol ? ', ' + pub.vol : ''}`);
+  if (pub.year) parts.push(`<span class="pub-year">${pub.year}</span>`);
+  const link = renderPubLink(pub);
+  if (link) parts.push(link);
+  return `<div class="pub-meta">${parts.join('<span class="pub-meta-sep">·</span>')}</div>`;
 }
 
 function renderPressIcons(pub) {
@@ -915,47 +949,41 @@ function render() {
     return;
   }
 
-  if (state.view === 'cards') {
-    list.className = 'pub-grid';
-    list.innerHTML = filtered.map(pub => {
-      const ex = getMergedExtras(pub);
-      const coverHtml = ex.coverImg ? `<div class="pub-card-cover"><img src="${ex.coverImg}" alt="${ex.coverCaption || 'Journal cover'}" loading="lazy"></div>` : '';
-      const noteHtml = ex.note ? `<p class="pub-card-note">${ex.note}</p>` : '';
-      return `
-      <div class="pub-card">
-        ${coverHtml}
-        <div class="pub-card-body">
-          <div class="pub-badges">${renderLabelBadges(pub.labels)}${renderTopicBadges(pub.topic)}</div>
-          <h3 class="pub-card-title">${pub.title}</h3>
-          <p class="pub-card-authors">${pub.authors}</p>
-          <p class="pub-card-journal"><em>${pub.journal}</em>${pub.vol ? ', ' + pub.vol : ''}</p>
-          ${pub.doi ? `<a class="pub-doi" href="https://doi.org/${pub.doi}" target="_blank" rel="noopener">DOI ↗</a>` : ''}
+  const total = filtered.length;
+  const isCards = state.view === 'cards';
+  list.className = isCards ? 'pub-list view-cards' : 'pub-list view-list';
+
+  list.innerHTML = filtered.map((pub, idx) => {
+    const ex = getMergedExtras(pub);
+    const num = String(total - idx).padStart(3, '0');
+    const tags = renderTagRow(pub);
+    const meta = renderPubMeta(pub);
+    const href = getPubHref(pub);
+    const titleInner = href
+      ? `<a href="${href}" target="_blank" rel="noopener">${pub.title}</a>`
+      : pub.title;
+    const coverHtml = isCards && ex.coverImg
+      ? `<div class="pub-cover-row"><img class="pub-cover-thumb" src="${ex.coverImg}" alt="${ex.coverCaption || 'Journal cover'}" loading="lazy"></div>`
+      : '';
+    const noteHtml = ex.note ? `<div class="pub-note">${ex.note}</div>` : '';
+    const pressHtml = renderPressIcons(pub);
+    const pressRow = pressHtml ? `<div class="pub-press-row">${pressHtml}</div>` : '';
+    const hasExtras = !!(ex.coverImg || ex.note || (ex.pressReleases && ex.pressReleases.length));
+    return `
+      <article class="pub-item">
+        <div class="pub-num">${num}</div>
+        <div class="pub-body">
+          ${coverHtml}
+          ${tags}
+          <h3 class="pub-title">${titleInner}</h3>
+          <div class="pub-authors">${pub.authors}</div>
+          ${meta}
           ${noteHtml}
-          <div class="pub-press-row">${renderPressIcons(pub)}</div>
-          <button class="pub-add-btn" data-pubid="${pub.id}" title="Add cover / press release">+ Add</button>
+          ${pressRow}
+          <button class="pub-add-btn ${hasExtras ? 'has-extras' : ''}" data-pubid="${pub.id}" title="Add cover / press release / award" aria-label="Add or edit publication info">${hasExtras ? '✓ Edit info' : '+ Add info'}</button>
         </div>
-      </div>`;
-    }).join('');
-  } else {
-    list.className = 'pub-list';
-    list.innerHTML = filtered.map(pub => {
-      const ex = getMergedExtras(pub);
-      const noteHtml = ex.note ? `<span class="pub-note">${ex.note}</span>` : '';
-      return `
-      <div class="pub-item">
-        <div class="pub-content">
-          <div class="pub-badges">${renderLabelBadges(pub.labels)}${renderTopicBadges(pub.topic)}</div>
-          <span class="pub-title">${pub.title}</span>
-          <span class="pub-authors">${pub.authors}</span>
-          <span class="pub-journal"><em>${pub.journal}</em>${pub.vol ? ', ' + pub.vol : ''}${pub.year ? ' (' + pub.year + ')' : ''}</span>
-          ${pub.doi ? `<a class="pub-doi" href="https://doi.org/${pub.doi}" target="_blank" rel="noopener">DOI ↗</a>` : ''}
-          ${noteHtml}
-          <div class="pub-press-row">${renderPressIcons(pub)}</div>
-          <button class="pub-add-btn" data-pubid="${pub.id}" title="Add cover / press release">+ Add</button>
-        </div>
-      </div>`;
-    }).join('');
-  }
+      </article>`;
+  }).join('');
 }
 
 function populateYears() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,37 +10,53 @@
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
   <link rel="stylesheet" href="css/publications.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('yaimsTheme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-  <script src="https://cdn.ncsu.edu/brand-assets/2.5/scripts/utility-bar.js"></script>
-
   <!-- NAV -->
-  <nav class="site-nav" aria-label="Main navigation" id="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="assets/ncsu/circle-wolf-400.png" alt="NC State Wolf" class="nav-wolf-img" />
-        <span class="nav-brand-text">
-          <span class="nav-lab">Y-AIMS Lab</span>
-          <span class="nav-dept">NC State · MSE</span>
-        </span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="publications.html" class="active" aria-current="page">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-        <li><a href="news.html">News</a></li>
-      </ul>
-      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
+  <script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
+<nav class="site-nav" id="site-nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab home">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State wolf mark" class="nav-wolf-img" width="34" height="34" loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html">Team</a></li>
+      <li><a href="publications.html" class="active" aria-current="page">Publications</a></li>
+      <li><a href="teaching.html">Teaching</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
     </div>
-  </nav>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">Home</a><a href="research.html">Research</a><a href="team.html">Team</a>
+    <a href="publications.html">Publications</a><a href="teaching.html">Teaching</a>
+    <a href="software.html">Software</a><a href="news.html">News</a>
+  </div>
+</nav>
 
   <!-- PAGE HERO -->
   <header class="page-hero">
@@ -54,7 +70,7 @@
   <!-- STATS BAR -->
   <div class="pub-stats-bar">
     <div class="pub-stats-inner">
-      <div class="pub-stat"><span class="pub-stat-num">142</span><span class="pub-stat-label">Publications</span></div>
+      <div class="pub-stat"><span class="pub-stat-num">143</span><span class="pub-stat-label">Publications</span></div>
       <div class="pub-stat-div"></div>
       <div class="pub-stat"><span class="pub-stat-num">30+</span><span class="pub-stat-label">Journal Covers</span></div>
       <div class="pub-stat-div"></div>
@@ -165,646 +181,57 @@
     </div>
   </div>
 
-  <footer class="site-footer">
-    <div class="footer-ncsu-bar">
-      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" />
+  <footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" loading="lazy" />
+  </div>
+  <div class="footer-body">
+    <div><div class="footer-brand-name">Y-AIMS Laboratory</div><p class="footer-brand-desc">AI &amp; Materials Simulations Lab · Department of Materials Science and Engineering · NC State University · Raleigh, NC</p></div>
+    <div class="footer-col"><h4>Navigate</h4><ul role="list"><li><a href="index.html">Home</a></li><li><a href="research.html">Research</a></li><li><a href="team.html">Team</a></li><li><a href="publications.html">Publications</a></li><li><a href="teaching.html">Teaching</a></li><li><a href="software.html">Software</a></li><li><a href="news.html">News</a></li></ul></div>
+    <div class="footer-col"><h4>Research</h4><ul role="list"><li><a href="research.html#molecular-sims">Molecular Simulation Methods</a></li><li><a href="research.html#ai">AI &amp; Data Science for Materials</a></li><li><a href="research.html#nucleic-acid">Nucleic Acid Nanotechnology</a></li><li><a href="research.html#soft-responsive">Soft &amp; Responsive Materials</a></li><li><a href="research.html#nanoparticles">Metal &amp; Magnetic Nanoparticles</a></li><li><a href="research.html#sustainability">Sustainability &amp; Environmental AI</a></li></ul></div>
+    <div class="footer-col"><h4>Connect</h4><ul role="list"><li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li><li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li><li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li><li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Y-AIMS Laboratory · NC State University. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
     </div>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-brand">Y-AIMS Laboratory</div>
-        <p class="footer-tagline">AI &amp; Materials Simulations Lab<br>Department of Materials Science &amp; Engineering<br>NC State University, Raleigh, NC</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">Quick Links</div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-          <li><a href="news.html">News</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">External</div>
-        <ul class="footer-links">
-          <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
-          <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
-          <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2025 Y-AIMS Laboratory, NC State University</span>
-    </div>
-  </footer>
+  </div>
+</footer>
 
-  <script src="js/main.js?v=3"></script>
-  <script src="js/publications.js?v=8"></script>
-<script data-pplx-inline-edit>
+
+  <script src="js/publications.js?v=9"></script>
+<script>
 (function () {
-  if (window === window.top) return;
-
-  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
-  const MAX_FONT_BYTES = 500 * 1024;
-  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
-  let scrollForwarding = false;
-  let scrollRaf = 0;
-  let trustedTopOrigin = null;
-
-  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
-  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
-  // across multiple labels.
-  function matchesAllowedOrigin(origin) {
-    if (!origin) return false;
-    for (const entry of allowedParentOrigins) {
-      if (!entry.includes("*")) {
-        if (entry === origin) return true;
-        continue;
-      }
-      const pattern = new RegExp(
-        "^" +
-          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
-          "$",
-      );
-      if (pattern.test(origin)) return true;
-    }
-    return false;
+  const nav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  const root = document.documentElement;
+  const toggles = document.querySelectorAll('[data-theme-toggle]');
+  function getAutoTheme() {
+    return 'light';
   }
-
-  // Trust decision: when the sender is same-origin-visible (event.origin is a
-  // real origin like https://www.perplexity.ai) we trust event.origin directly.
-  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
-  // broker's stamped `parentOrigin` to identify the top window. The fallback
-  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
-  // on the response path (see postToTrustedTop) to ensure replies can't be
-  // delivered to anyone but the actual top window of that claimed origin.
-  function getTrustedParentOrigin(event) {
-    const forwardedParentOrigin =
-      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
-    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
-    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
+  let theme = localStorage.getItem('yaimsTheme') || getAutoTheme();
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    const sun = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
+    const moon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+    toggles.forEach(btn => { btn.innerHTML = t === 'dark' ? sun : moon; btn.setAttribute('aria-label', 'Switch to ' + (t === 'dark' ? 'light' : 'dark') + ' mode'); });
   }
-
-  // All responses go to window.top with targetOrigin = the allowlisted origin.
-  // An attacker that iframes us inside their own null-origin broker can claim
-  // any parentOrigin they like, but the browser will drop the reply whenever
-  // the real top's origin doesn't match — so the screenshot never leaves.
-  function postToTrustedTop(message) {
-    if (!trustedTopOrigin) return;
-    try {
-      window.top.postMessage(message, trustedTopOrigin);
-    } catch (_error) {}
+  applyTheme(theme);
+  toggles.forEach(btn => { btn.addEventListener('click', () => { theme = theme === 'dark' ? 'light' : 'dark'; localStorage.setItem('yaimsTheme', theme); applyTheme(theme); }); });
+  if (nav) {
+    const s = Object.assign(document.createElement('div'), {style:'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none'});
+    document.body.prepend(s);
+    new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', e.intersectionRatio < 1), {threshold:[1],rootMargin:'-1px 0px 0px 0px'}).observe(s);
   }
-
-  function inlineAll(original, clone) {
-    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
-
-    try {
-      const computedStyle = getComputedStyle(original);
-      // cssText on a computed style is the serialized declaration in modern
-      // Chromium/Safari — a single read beats enumerating ~400 longhand
-      // properties. Firefox returns "" here, so we fall back on empty.
-      const serialized = computedStyle.cssText;
-      if (serialized) {
-        clone.style.cssText = serialized;
-      } else {
-        const parts = new Array(computedStyle.length);
-        for (let index = 0; index < computedStyle.length; index += 1) {
-          const property = computedStyle[index];
-          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
-        }
-        clone.style.cssText = parts.join("");
-      }
-    } catch (_error) {}
-
-    const originalChildren = original.children;
-    const clonedChildren = clone.children;
-    for (
-      let index = 0;
-      index < originalChildren.length && index < clonedChildren.length;
-      index += 1
-    ) {
-      inlineAll(originalChildren[index], clonedChildren[index]);
-    }
-  }
-
-  function extractFontUrl(srcValue) {
-    const matches = [
-      ...srcValue.matchAll(
-        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
-      ),
-    ];
-    if (matches.length === 0) return null;
-    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
-    if (woff2) return woff2[1];
-    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
-    if (woff) return woff[1];
-    return matches[0][1];
-  }
-
-  // Cache resolved font URL -> data URI across captures. Fonts on a page
-  // essentially never change, and a batch run emits multiple captures back to
-  // back — without this we'd refetch + re-base64 every time.
-  const fontDataUriCache = new Map();
-  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
-
-  async function fetchAsDataUri(url) {
-    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
-    let dataUri = null;
-    try {
-      const response = await fetch(url, { mode: "cors", credentials: "omit" });
-      if (response.ok) {
-        const blob = await response.blob();
-        if (blob.size <= MAX_FONT_BYTES) {
-          dataUri = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () =>
-              resolve(typeof reader.result === "string" ? reader.result : null);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(blob);
-          });
-        }
-      }
-    } catch (_error) {
-      dataUri = null;
-    }
-    fontDataUriCache.set(url, dataUri);
-    return dataUri;
-  }
-
-  function collectFontFaceRuleTexts() {
-    const rules = [];
-    for (const sheet of document.styleSheets) {
-      let cssRules;
-      try {
-        cssRules = sheet.cssRules;
-      } catch (_error) {
-        continue;
-      }
-      if (!cssRules) continue;
-      for (const rule of cssRules) {
-        const cssText = rule.cssText || "";
-        if (cssText.startsWith("@font-face")) rules.push(cssText);
-      }
-    }
-    return rules;
-  }
-
-  async function buildInlinedFontCss() {
-    const ruleTexts = collectFontFaceRuleTexts();
-    if (ruleTexts.length === 0) return null;
-
-    const resolved = ruleTexts.map((cssText) => {
-      if (!SRC_DECLARATION_RE.test(cssText)) return null;
-      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
-      if (!srcMatch) return null;
-      const url = extractFontUrl(srcMatch[1]);
-      if (!url) return null;
-      try {
-        return { cssText, url: new URL(url, document.baseURI).href };
-      } catch (_error) {
-        return null;
-      }
-    });
-
-    const dataUris = await Promise.all(
-      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
-    );
-
-    const inlined = [];
-    let totalBytes = 0;
-    for (let index = 0; index < resolved.length; index += 1) {
-      const entry = resolved[index];
-      const dataUri = dataUris[index];
-      if (!entry || !dataUri) continue;
-      const approxBytes = dataUri.length * 0.75;
-      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
-      totalBytes += approxBytes;
-      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
-    }
-    return inlined.length > 0 ? inlined.join("\n") : null;
-  }
-
-  function stripExternal(clone) {
-    const images = clone.querySelectorAll("img");
-    for (let index = 0; index < images.length; index += 1) {
-      const src = images[index].getAttribute("src");
-      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
-    }
-
-    const elements = clone.querySelectorAll("*");
-    for (let index = 0; index < elements.length; index += 1) {
-      const style = elements[index].style.cssText;
-      if (style && style.includes("url(")) {
-        elements[index].style.cssText = style.replace(
-          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
-          "none",
-        );
-      }
-    }
-  }
-
-  function emitScroll() {
-    scrollRaf = 0;
-    if (!scrollForwarding) return;
-    postToTrustedTop({
-      type: "INLINE_EDIT_SCROLL",
-      scrollX: window.scrollX,
-      scrollY: window.scrollY,
-    });
-  }
-
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!scrollForwarding || scrollRaf) return;
-      scrollRaf = requestAnimationFrame(emitScroll);
-    },
-    { passive: true, capture: true },
-  );
-
-  async function handleCaptureRequest(event) {
-    const requestId = event.data.requestId;
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    function postResult(dataUrl) {
-      postToTrustedTop({
-        type: "INLINE_EDIT_SCREENSHOT_RESULT",
-        requestId,
-        dataUrl,
-        scrollX,
-        scrollY,
-      });
-    }
-
-    try {
-      // Wait for any pending web fonts to resolve so both inline metrics and
-      // the @font-face inlining below see the same loaded faces.
-      if (document.fonts && document.fonts.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_error) {}
-      }
-
-      const clone = document.documentElement.cloneNode(true);
-      inlineAll(document.documentElement, clone);
-
-      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
-      for (let index = 0; index < removedNodes.length; index += 1) {
-        removedNodes[index].remove();
-      }
-
-      stripExternal(clone);
-
-      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
-      // can resolve them — external font URLs aren't fetched during
-      // foreignObject rendering, which would otherwise force a fallback face
-      // and change text metrics.
-      const inlinedFontCss = await buildInlinedFontCss();
-      if (inlinedFontCss) {
-        const styleEl = document.createElement("style");
-        styleEl.textContent = inlinedFontCss;
-        const head = clone.querySelector("head");
-        if (head) head.appendChild(styleEl);
-        else clone.insertBefore(styleEl, clone.firstChild);
-      }
-
-      const html = new XMLSerializer().serializeToString(clone);
-      const svg =
-        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
-        '<foreignObject width="100%" height="100%">' +
-        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
-        html +
-        "</div></div></foreignObject></svg>";
-      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext("2d").drawImage(image, 0, 0);
-        postResult(canvas.toDataURL("image/png"));
-      };
-      image.onerror = function () {
-        postResult(null);
-      };
-      image.src = svgUrl;
-    } catch (_error) {
-      postResult(null);
-    }
-  }
-
-  window.addEventListener("message", function (event) {
-    if (!event.data) return;
-    // Only accept messages from the direct parent frame. Blocks sibling /
-    // unrelated-window postMessage senders that could otherwise reach us.
-    if (event.source !== window.parent) return;
-
-    const trustedParentOrigin = getTrustedParentOrigin(event);
-    if (!trustedParentOrigin) return;
-    trustedTopOrigin = trustedParentOrigin;
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
-      scrollForwarding = true;
-      emitScroll();
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
-      scrollForwarding = false;
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      scrollRaf = 0;
-      return;
-    }
-
-    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
-
-    handleCaptureRequest(event);
-  });
+  if (hamburger) hamburger.addEventListener('click', () => { const open = mobileNav.classList.toggle('open'); hamburger.setAttribute('aria-expanded', open); });
 })();
-
-</script><script data-pplx-inline-edit>
-(function(){
-  if(window===window.top)return;
-  function inlineAll(orig,clone){
-    if(orig.nodeType!==1)return;
-    try{
-      var cs=getComputedStyle(orig);
-      var t='';
-      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
-      clone.style.cssText=t;
-    }catch(e){}
-    var oc=orig.children,cc=clone.children;
-    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
-  }
-  function stripExternal(clone){
-    var imgs=clone.querySelectorAll('img');
-    for(var i=0;i<imgs.length;i++){
-      var s=imgs[i].getAttribute('src');
-      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
-    }
-    var all=clone.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-      var st=all[i].style.cssText;
-      if(st&&st.indexOf('url(')>=0){
-        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
-      }
-    }
-  }
-  var scrollRaf=0;
-  function emitScroll(){
-    scrollRaf=0;
-    var x=window.scrollX||window.pageXOffset||0;
-    var y=window.scrollY||window.pageYOffset||0;
-    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
-  }
-  window.addEventListener('scroll',function(){
-    if(scrollRaf)return;
-    scrollRaf=requestAnimationFrame(emitScroll);
-  },{passive:true,capture:true});
-  emitScroll();
-  window.addEventListener('message',function(e){
-    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
-    var scrollX=window.scrollX||window.pageXOffset||0;
-    var scrollY=window.scrollY||window.pageYOffset||0;
-    var w=window.innerWidth,h=window.innerHeight;
-    try{
-      var clone=document.documentElement.cloneNode(true);
-      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
-      for(var i=0;i<rm.length;i++){rm[i].remove();}
-      inlineAll(document.documentElement,clone);
-      stripExternal(clone);
-      var html=new XMLSerializer().serializeToString(clone);
-      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
-        +'<foreignObject width="100%" height="100%">'
-        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
-        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
-        +html+'</div></div></foreignObject></svg>';
-      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0);
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.onerror=function(){
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.src=svgUrl;
-    }catch(err){
-      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-    }
-  });
-})();
-</script></body>
-</html>TYPE html>
-<html lang="en" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Publications — Y-AIMS Lab | NC State MSE</title>
-  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
-  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/tokens.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/publications.css" />
-</head>
-<body>
-  <script src="https://cdn.ncsu.edu/brand-assets/2.5/scripts/utility-bar.js"></script>
-
-  <!-- NAV -->
-  <div class="site-nav" aria-label="Main navigation" id="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="assets/ncsu/circle-wolf-400.png" alt="NC State Wolf" class="nav-wolf-img" />
-        <span class="nav-brand-text">
-          <span class="nav-lab">Y-AIMS Lab</span>
-          <span class="nav-dept">NC State · MSE</span>
-        </span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="team.html">Team</a></li>
-        <li><a href="publications.html" class="active" aria-current="page">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-        <li><a href="news.html">News</a></li>
-      </ul>
-      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <!-- PAGE HERO -->
-  <header class="page-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">Publications</p>
-      <h1 class="page-hero-title">Publications</h1>
-      <p class="page-hero-subtitle">143 peer-reviewed publications in computational materials science, AI/ML, biopolymers, and nanomaterials. <br>Citations, covers, press releases, and featured articles noted.</p>
-    </div>
-  </header>
-
-  <!-- STATS BAR -->
-  <div class="pub-stats-bar">
-    <div class="pub-stats-inner">
-      <div class="pub-stat"><span class="pub-stat-num">142</span><span class="pub-stat-label">Publications</span></div>
-      <div class="pub-stat-div"></div>
-      <div class="pub-stat"><span class="pub-stat-num">30+</span><span class="pub-stat-label">Journal Covers</span></div>
-      <div class="pub-stat-div"></div>
-      <div class="pub-stat"><span class="pub-stat-num">10+</span><span class="pub-stat-label">Press Releases</span></div>
-      <div class="pub-stat-div"></div>
-      <div class="pub-stat"><span class="pub-stat-num">5</span><span class="pub-stat-label">Best Paper Awards</span></div>
-    </div>
-  </div>
-
-  <!-- CONTROLS -->
-  <section class="pub-controls" id="pub-controls">
-    <div class="pub-controls-inner">
-      <div class="pub-search-wrap">
-        <svg class="pub-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-        <input type="text" class="pub-search" id="pubSearch" placeholder="Search by title, author, journal…" />
-      </div>
-      <div class="pub-filters">
-        <select id="filterYear" class="pub-select" aria-label="Filter by year">
-          <option value="">All Years</option>
-        </select>
-        <select id="filterTopic" class="pub-select" aria-label="Filter by topic">
-          <option value="">All Topics</option>
-          <option value="ai-ml">AI / Machine Learning</option>
-          <option value="nanoparticles">Nanoparticles</option>
-          <option value="dna-rna">DNA / RNA</option>
-          <option value="cellulose">Cellulose / Plant</option>
-          <option value="polymer">Polymers</option>
-          <option value="biomolecular">Biomolecular</option>
-          <option value="informatics">Materials Informatics</option>
-          <option value="water">Water / Environment</option>
-          <option value="laser">Laser / Ablation</option>
-        </select>
-        <select id="filterLabel" class="pub-select" aria-label="Filter by label type">
-          <option value="">All Labels</option>
-          <option value="cover">Journal Cover</option>
-          <option value="press-release">Press Release</option>
-          <option value="award">Award / Honor</option>
-          <option value="featured">Featured / Highlighted</option>
-          <option value="invited">Invited Review</option>
-        </select>
-        <button class="pub-reset-btn" id="pubResetBtn">Reset</button>
-      </div>
-    </div>
-    <div class="pub-count-bar">
-      <span id="pubCountText">Showing all 143 publications</span>
-      <div class="pub-view-toggle">
-        <button class="view-btn active" id="viewList" title="List view">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-        </button>
-        <button class="view-btn" id="viewCard" title="Card view">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- PUBLICATIONS LIST -->
-  <main class="pub-main" id="main-content" tabindex="-1">
-    <div id="pubList" class="pub-list view-list">
-      <!-- Publications injected by JS -->
-    </div>
-    <div id="pubEmpty" class="pub-empty" style="display:none">
-      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <p>No publications match your filters.</p>
-      <button onclick="document.getElementById('pubResetBtn').click()">Clear filters</button>
-    </div>
-  </main>
-
-  <!-- ADD / EDIT MODAL -->
-  <div id="pubModal" class="pub-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="pub-modal-backdrop" id="modalBackdrop"></div>
-    <div class="pub-modal-box">
-      <div class="pub-modal-header">
-        <h2 id="modalTitle">Add Extra Information</h2>
-        <button class="pub-modal-close" id="modalClose" aria-label="Close">&times;</button>
-      </div>
-      <div class="pub-modal-body">
-        <p class="modal-pub-ref" id="modalPubRef"></p>
-        <div class="form-grid">
-          <div class="form-group">
-            <label for="modalCoverImg">Journal Cover Image URL</label>
-            <input type="url" id="modalCoverImg" placeholder="https://…" />
-            <span class="form-hint">Paste the journal cover image URL</span>
-          </div>
-          <div class="form-group">
-            <label for="modalCoverCaption">Cover Caption</label>
-            <input type="text" id="modalCoverCaption" placeholder="e.g. Front Cover, ACS Nano, Vol. 17" />
-          </div>
-          <div class="form-group full">
-            <label>Press Releases / News Coverage</label>
-            <div id="pressReleaseList" class="press-list"></div>
-            <div class="press-add-row">
-              <input type="text" id="newPressLabel" placeholder="Label (e.g. NSF Press Release)" />
-              <input type="url" id="newPressUrl" placeholder="URL (optional)" />
-              <button id="addPressBtn" class="btn-add-press">+ Add</button>
-            </div>
-          </div>
-          <div class="form-group full">
-            <label for="modalNote">Additional Notes / Awards</label>
-            <textarea id="modalNote" rows="3" placeholder="e.g. Editor's Pick, Top Downloaded Article 2018-2019…"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="pub-modal-footer">
-        <button class="btn-cancel" id="modalCancel">Cancel</button>
-        <button class="btn-save" id="modalSave">Save</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="site-footer">
-    <div class="footer-ncsu-bar">
-      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" />
-    </div>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-brand">Y-AIMS Laboratory</div>
-        <p class="footer-tagline">AI &amp; Materials Simulations Lab<br>Department of Materials Science &amp; Engineering<br>NC State University, Raleigh, NC</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">Quick Links</div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-          <li><a href="news.html">News</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">External</div>
-        <ul class="footer-links">
-          <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
-          <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
-          <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2025 Y-AIMS Laboratory, NC State University</span>
-    </div>
-  </footer>
-
-  <script src="js/main.js?v=3"></script>
-  <script src="js/publications.js?v=8"></script>
+</script>
 </body>
 </html>

@@ -1,1511 +1,842 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Team — Y-AIMS Lab | NC State MSE</title>
+  <meta name="description" content="Meet the Y-AIMS Laboratory team — faculty, postdocs, graduate students, and alumni at NC State University." />
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
   <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&family=Roboto+Condensed:wght@300;400;700&display=swap" />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/team.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('yaimsTheme');
+        if (t !== 'dark' && t !== 'light') {
+          t = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'light'); }
+    })();
+  </script>
+  <style>
+/* ================================================================
+   Y-AIMS TEAM PAGE — Redesigned 2026
+   ================================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scroll-padding-top: 76px; -webkit-font-smoothing: antialiased; }
+body { background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+ul[role='list'], ol[role='list'] { list-style: none; }
+
+/* ── NAV (same as index) ──────────────────────────────────────── */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200; height: 76px;
+  display: flex; align-items: center;
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  background: color-mix(in srgb, var(--color-bg) 90%, transparent);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--color-border);
+  transition: box-shadow 0.3s;
+}
+.site-nav.scrolled { box-shadow: 0 2px 16px rgba(0,0,0,0.08); }
+.nav-inner { width: 100%; max-width: 1200px; margin-inline: auto; display: flex; align-items: center; gap: 2rem; }
+.nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; flex-shrink: 0; }
+.nav-wolf-img { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
+.nav-logo-text { display: flex; flex-direction: column; line-height: 1.15; }
+.lab-name { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; }
+.lab-dept { font-size: 0.78rem; color: var(--color-text-muted); }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; list-style: none; margin-left: auto; }
+.nav-links a { font-size: 0.95rem; font-weight: 500; color: var(--color-text-muted); padding: 0.55rem 0.95rem; border-radius: 4px; text-decoration: none; transition: color 0.2s, background 0.2s; }
+.nav-links a:hover, .nav-links a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+.nav-links a.active { font-weight: 600; }
+.btn-theme { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; color: var(--color-text-muted); cursor: pointer; margin-left: 0.5rem; transition: all 0.2s; }
+.btn-theme:hover { color: var(--color-text); border-color: #aaa; background: var(--color-surface-offset); }
+.nav-hamburger { display: none; flex-direction: column; gap: 5px; width: 36px; height: 36px; align-items: center; justify-content: center; border-radius: 6px; border: 1px solid var(--color-border); background: transparent; cursor: pointer; margin-left: auto; }
+.nav-hamburger span { display: block; width: 18px; height: 1.5px; background: var(--color-text-muted); border-radius: 2px; }
+.nav-mobile { display: none; flex-direction: column; gap: 0.25rem; padding: 1rem; border-top: 1px solid var(--color-border); background: var(--color-bg); }
+.nav-mobile a { font-size: 1rem; font-weight: 500; color: var(--color-text-muted); padding: 0.75rem 1rem; border-radius: 6px; text-decoration: none; }
+.nav-mobile a:hover, .nav-mobile a.active { color: var(--ncsu-red); background: var(--color-primary-highlight); }
+@media (max-width: 768px) { .nav-links { display: none; } .nav-actions .btn-theme { display: none; } .nav-hamburger { display: flex; } .nav-mobile.open { display: flex; } }
+
+/* ── PAGE HERO ───────────────────────────────────────────────── */
+.page-hero {
+  padding-top: calc(76px + clamp(3rem, 8vw, 6rem));
+  padding-bottom: clamp(3rem, 8vw, 6rem);
+  padding-inline: clamp(1rem, 5vw, 4rem);
+  background: var(--color-secondary);
+  position: relative; overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(204,0,0,0.18) 0%, transparent 55%);
+  pointer-events: none;
+}
+.page-hero::after {
+  content: '';
+  position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+}
+[data-theme='light'] .page-hero { background: #1a0000; }
+.page-hero-inner { max-width: 1200px; margin-inline: auto; position: relative; z-index: 1; }
+.page-hero-label { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ncsu-red); margin-bottom: 1rem; }
+.page-hero-title { font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; color: #fff; letter-spacing: -0.04em; line-height: 1.0; margin-bottom: 1.25rem; }
+.page-hero-subtitle { font-size: clamp(0.95rem, 1.5vw, 1.1rem); color: rgba(255,255,255,0.6); max-width: 60ch; line-height: 1.75; }
+
+/* ── LAYOUT ──────────────────────────────────────────────────── */
+.page-body { max-width: 1200px; margin-inline: auto; padding-inline: clamp(1rem, 5vw, 4rem); }
+.team-section { padding-block: clamp(3rem, 6vw, 5rem); border-bottom: 1px solid var(--color-border); }
+.team-section:last-child { border-bottom: none; }
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.section-title-label {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 11px;
+  border-radius: 999px;
+  background: var(--color-primary-highlight);
+  border: 1px solid rgba(204,0,0,0.22);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ncsu-red);
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+[data-theme='dark'] .section-title-label { background: rgba(255,51,51,0.14); border-color: rgba(255,51,51,0.30); color: #ff7a7a; }
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 800;
+  color: var(--color-text);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+.section-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-left: auto;
+}
+
+/* ── PI CARD ─────────────────────────────────────────────────── */
+.pi-card {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: clamp(2rem, 4vw, 4rem);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: clamp(1.75rem, 3vw, 2.75rem);
+  align-items: start;
+  position: relative;
+  overflow: hidden;
+}
+.pi-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: var(--ncsu-red);
+}
+.pi-avatar-col { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+.pi-avatar {
+  width: 140px; height: 140px; border-radius: 50%;
+  background: linear-gradient(135deg, #3a0000 0%, #0d0101 100%);
+  border: 2.5px solid var(--ncsu-red);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--ncsu-red) 10%, transparent);
+  flex-shrink: 0;
+}
+.pi-avatar-initials { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: rgba(255,255,255,0.65); letter-spacing: -0.04em; user-select: none; }
+.pi-content {}
+.pi-name { font-family: var(--font-display); font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 800; color: var(--color-text); letter-spacing: -0.03em; margin-bottom: 0.75rem; }
+.pi-badges { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+.pi-badge { font-size: 0.72rem; font-weight: 500; padding: 0.28rem 0.65rem; border-radius: 99px; background: var(--color-surface-offset); border: 1px solid var(--color-border); color: var(--color-text-muted); }
+.pi-bio { font-size: 0.925rem; color: var(--color-text-muted); line-height: 1.85; max-width: 72ch; }
+.pi-bio + .pi-bio { margin-top: 0.85rem; }
+.pi-footer { margin-top: 1.75rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; border-top: 1px solid var(--color-border); padding-top: 1.5rem; }
+.pi-contact { display: flex; align-items: center; gap: 0.5rem; font-size: 0.82rem; color: var(--color-text-muted); text-decoration: none; }
+.pi-contact:hover { color: var(--ncsu-red); }
+.pi-link-btn { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; font-weight: 600; color: var(--color-text-muted); text-decoration: none; padding: 0.4rem 0.85rem; border-radius: 99px; border: 1px solid var(--color-border); transition: all 0.2s; }
+.pi-link-btn:hover { color: var(--ncsu-red); border-color: var(--ncsu-red); background: var(--color-primary-highlight); }
+@media (max-width: 700px) { .pi-card { grid-template-columns: 1fr; } .pi-avatar { width: 100px; height: 100px; } .pi-avatar-initials { font-size: 1.8rem; } .pi-avatar-col { flex-direction: row; align-items: center; } }
+
+/* ── MEMBER GRID ─────────────────────────────────────────────── */
+.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+.member-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: flex; gap: 1.1rem;
+  align-items: flex-start;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.member-card:hover { border-color: var(--color-text-muted); box-shadow: 0 4px 20px rgba(0,0,0,0.08); transform: translateY(-2px); }
+.member-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-family: var(--font-display); font-size: 0.85rem;
+  font-weight: 700; color: #fff; letter-spacing: -0.01em;
+}
+.member-info {}
+.member-name { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.01em; margin-bottom: 0.2rem; }
+.member-role { font-size: 0.78rem; color: var(--ncsu-red); font-weight: 600; margin-bottom: 0.6rem; }
+.member-research { font-size: 0.82rem; color: var(--color-text-muted); line-height: 1.65; }
+.member-bio-short { font-size: 0.78rem; color: var(--color-text-faint); line-height: 1.55; margin-bottom: 0.4rem; }
+.member-email { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.78rem; color: var(--color-text-muted); text-decoration: none; margin-top: 0.5rem; }
+.member-email:hover { color: var(--ncsu-red); }
+.member-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+.member-link-btn { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.72rem; font-weight: 600; color: var(--color-text-muted); text-decoration: none; padding: 0.25rem 0.6rem; border-radius: 99px; border: 1px solid var(--color-border); transition: all 0.2s; }
+.member-link-btn:hover { color: var(--ncsu-red); border-color: var(--ncsu-red); background: var(--color-primary-highlight); }
+
+/* ── UNDERGRAD GRID ──────────────────────────────────────────── */
+.undergrad-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+.undergrad-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  display: flex; gap: 0.85rem; align-items: flex-start;
+  transition: border-color 0.2s;
+}
+.undergrad-card:hover { border-color: var(--color-text-muted); }
+.undergrad-avatar {
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--color-surface-offset);
+  border: 1.5px solid var(--color-border);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.72rem; font-weight: 700; color: var(--color-text-muted);
+}
+.undergrad-name { font-size: 0.875rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.2rem; }
+.undergrad-role { font-size: 0.75rem; color: var(--color-text-muted); margin-bottom: 0.35rem; }
+.undergrad-project { font-size: 0.75rem; color: var(--color-text-faint); line-height: 1.5; font-style: italic; }
+
+/* ── ALUMNI ──────────────────────────────────────────────────── */
+/* alumni section now blends with the page bg, no surface highlight */
+.alumni-group-label { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--color-text); letter-spacing: -0.02em; margin-bottom: 1.25rem; margin-top: 2.5rem; padding-bottom: 0.6rem; border-bottom: 1px solid var(--color-border); }
+.alumni-group-label:first-of-type { margin-top: 0; }
+.alumni-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+.alumni-card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.alumni-card:hover { border-color: var(--color-text-muted); box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.alumni-year { font-family: var(--font-mono); font-size: 0.68rem; color: var(--ncsu-red); font-weight: 600; letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+.alumni-name { font-size: 0.9rem; font-weight: 700; color: var(--color-text); margin-bottom: 0.25rem; }
+.alumni-now { font-size: 0.78rem; color: var(--color-text-muted); line-height: 1.5; }
+.alumni-links { display: flex; gap: 0.4rem; margin-top: 0.5rem; flex-wrap: wrap; }
+.alumni-link { font-size: 0.7rem; font-weight: 600; color: var(--color-text-muted); text-decoration: none; padding: 0.2rem 0.55rem; border-radius: 99px; border: 1px solid var(--color-border); transition: all 0.2s; }
+.alumni-link:hover { color: var(--ncsu-red); border-color: var(--ncsu-red); background: var(--color-primary-highlight); }
+.alumni-note { font-size: 0.78rem; color: var(--color-text-muted); line-height: 1.65; max-width: 90ch; margin-top: 1rem; }
+
+/* ── SCROLL REVEAL ───────────────────────────────────────────── */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+.reveal.visible { opacity: 1; transform: none; }
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+
+/* ── GROUP PHOTO ─────────────────────────────────────────────── */
+.group-photo-section {
+  padding-top: clamp(2rem, 4vw, 3rem);
+  padding-bottom: 0;
+}
+.group-photo-wrap {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 16 / 7;
+  background: linear-gradient(135deg, #2a0000 0%, #0d0101 60%, #1a1a2e 100%);
+  box-shadow: 0 12px 36px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.group-photo-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.group-photo-placeholder {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 0.75rem;
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  padding: 1rem;
+  pointer-events: none;
+}
+.group-photo-placeholder svg { opacity: 0.4; }
+.group-photo-placeholder-title { font-family: var(--font-display); font-size: 0.95rem; font-weight: 700; color: rgba(255,255,255,0.85); letter-spacing: -0.01em; }
+.group-photo-placeholder-hint { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.45); max-width: 50ch; line-height: 1.55; }
+@media (max-width: 700px) {
+  .group-photo-wrap { aspect-ratio: 4 / 3; }
+}
+
+/* ── PHOTO SUPPORT ───────────────────────────────────────────── */
+/* Initials are direct text inside the colored avatar div; an optional <img>
+   overlays them when present. If the photo file is missing, the inline
+   onerror handler removes the <img> and the initials show through. */
+.pi-avatar, .member-avatar, .undergrad-avatar { position: relative; overflow: hidden; }
+.pi-avatar > img,
+.member-avatar > img,
+.undergrad-avatar > img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  z-index: 1;
+}
+
+/* ── UTILS ───────────────────────────────────────────────────── */
+.skip-link { position: absolute; top: -100%; left: 1rem; z-index: 9999; padding: 0.75rem 1.25rem; background: var(--ncsu-red); color: #fff; font-weight: 700; border-radius: 0 0 6px 6px; text-decoration: none; transition: top 0.15s; }
+.skip-link:focus { top: 0; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } .reveal { opacity: 1 !important; transform: none !important; } }
+  </style>
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-  <script src="https://cdn.ncsu.edu/brand-assets/2.5/scripts/utility-bar.js"></script>
+<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/v3/ncstate-utility-bar.js"></script>
 
-  <!-- NAV -->
-  <nav class="site-nav" aria-label="Main navigation" id="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="assets/ncsu/circle-wolf-400.png" alt="NC State Wolf" class="nav-wolf-img" />
-        <span class="nav-brand-text">
-          <span class="nav-lab">Y-AIMS Lab</span>
-          <span class="nav-dept">NC State · MSE</span>
-        </span>
-      </a>
-      <ul class="nav-links">
+<!-- ── NAVIGATION ──────────────────────────────────────────── -->
+<nav class="site-nav" role="navigation" aria-label="Main navigation" id="site-nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Y-AIMS Lab home">
+      <img src="assets/ncsu/circle-wolf-400.png" alt="NC State wolf mark" class="nav-wolf-img" width="34" height="34" loading="eager" />
+      <div class="nav-logo-text">
+        <span class="lab-name">Y-AIMS Lab</span>
+        <span class="lab-dept">NC State · MSE</span>
+      </div>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="research.html">Research</a></li>
+      <li><a href="team.html" class="active" aria-current="page">Team</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="teaching.html">Teaching</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="news.html">News</a></li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;">
+      <button class="btn-theme" data-theme-toggle aria-label="Toggle dark mode"></button>
+    </div>
+    <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-mobile" id="nav-mobile">
+    <a href="index.html">Home</a>
+    <a href="research.html">Research</a>
+    <a href="team.html" class="active" aria-current="page">Team</a>
+    <a href="publications.html">Publications</a>
+    <a href="teaching.html">Teaching</a>
+    <a href="software.html">Software</a>
+    <a href="news.html">News</a>
+  </div>
+</nav>
+
+<!-- ── PAGE HERO ────────────────────────────────────────────── -->
+<header class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Y-AIMS Laboratory</p>
+    <h1 class="page-hero-title">Our Team</h1>
+    <p class="page-hero-subtitle">A multidisciplinary group working at the intersection of materials science, physics, chemistry, biology, molecular modeling, and artificial intelligence.</p>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+<div class="page-body">
+
+  <!-- ── GROUP PHOTO ──────────────────────────────────────── -->
+  <section class="group-photo-section reveal" aria-label="Y-AIMS Lab group photo">
+    <div class="group-photo-wrap">
+      <img src="assets/people/group-photo.jpg" alt="Y-AIMS Laboratory group photo" loading="lazy" onerror="this.remove()" />
+      <div class="group-photo-placeholder">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+          <circle cx="9" cy="9" r="3"/><circle cx="17" cy="9" r="2.4"/>
+          <path d="M3 19c0-3 3-5 6-5s6 2 6 5"/>
+          <path d="M14 19c.5-2.4 2.5-4 4.5-4s3.3 1.4 3.5 4"/>
+        </svg>
+        <div class="group-photo-placeholder-title">Group photo coming soon</div>
+        <div class="group-photo-placeholder-hint">Drop a JPEG at <code style="background:rgba(255,255,255,0.08); padding:1px 6px; border-radius:4px;">assets/people/group-photo.jpg</code> — recommended 1600×700, ≤300 KB.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PI ──────────────────────────────────────────────── -->
+  <section class="team-section" id="pi" aria-labelledby="pi-title">
+    <div class="section-title-row reveal">
+      <span class="section-title-label">01</span>
+      <h2 class="section-title" id="pi-title">Principal Investigator</h2>
+    </div>
+    <div class="pi-card reveal">
+      <div class="pi-avatar-col">
+        <div class="pi-avatar" aria-label="Prof. Yingling">
+          <span class="pi-avatar-initials" aria-hidden="true">YY</span>
+          <img src="assets/people/yara-yingling.jpg" alt="" loading="lazy" onerror="this.remove()" />
+        </div>
+        <div style="text-align:center;">
+          <a href="https://www.mse.ncsu.edu/yingling/" target="_blank" rel="noopener" class="pi-link-btn" style="font-size:0.78rem;">MSE Faculty Page ↗</a>
+        </div>
+      </div>
+      <div class="pi-content">
+        <h3 class="pi-name">Prof. Yaroslava (Yara) G. Yingling</h3>
+        <div class="pi-badges">
+          <span class="pi-badge">Kobe Steel Distinguished Professor of MSE</span>
+          <span class="pi-badge">University Faculty Fellow</span>
+          <span class="pi-badge">Associate Department Head</span>
+          <span class="pi-badge">Director of Undergraduate Program</span>
+          <span class="pi-badge">Director, Graduate Certificate in Materials Informatics</span>
+        </div>
+        <p class="pi-bio">Prof. Yingling received a B.S. in Computer Science and Engineering from St. Petersburg State Technical University (1996) and a Ph.D. in Materials Engineering and High-Performance Computing from Penn State (2002). She completed postdoctoral research at Penn State Chemistry and the NIH National Cancer Institute before joining NC State University in 2007.</p>
+        <p class="pi-bio">Her research integrates molecular modeling, data science, and AI to accelerate materials discovery for energy, environment, and health applications. She has authored 143 peer-reviewed publications and delivered 140+ invited talks worldwide.</p>
+        <div class="pi-footer">
+          <a href="mailto:yara_yingling@ncsu.edu" class="pi-contact">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            yara_yingling@ncsu.edu
+          </a>
+          <span class="pi-contact">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            3014 Engineering Building I
+          </span>
+          <span class="pi-contact">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            +1 (919) 513-2624
+          </span>
+          <div style="margin-left:auto;display:flex;gap:0.5rem;flex-wrap:wrap;">
+            <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" class="pi-link-btn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+              Google Scholar
+            </a>
+            <a href="https://orcid.org/0000-0002-8557-9992" target="_blank" rel="noopener" class="pi-link-btn">ORCID</a>
+            <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" class="pi-link-btn">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Research Faculty & Staff ────────────────────────── -->
+  <section class="team-section" id="faculty" aria-labelledby="faculty-title">
+    <div class="section-title-row reveal">
+      <span class="section-title-label">02</span>
+      <h2 class="section-title" id="faculty-title">Research Faculty &amp; Staff</h2>
+      <span class="section-count">3 members</span>
+    </div>
+    <div class="member-grid">
+      <div class="member-card reveal reveal-delay-1">
+        <div class="member-avatar" style="background:var(--ncsu-red)">AK<img src="assets/people/albert-kwansa.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Prof. Albert L. Kwansa</div>
+          <div class="member-role">Research Assistant Professor of MSE</div>
+          <div class="member-research">Molecular dynamics simulations, electronic structure calculations, and method development involving polymers, chemical additives, cellulose and cellulose synthases, and reflectin proteins.</div>
+          <a href="mailto:alkwansa@ncsu.edu" class="member-email">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            alkwansa@ncsu.edu
+          </a>
+          <div class="member-links">
+            <a href="https://scholar.google.com/citations?user=OmQotdcAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn">Scholar</a>
+            <a href="https://www.linkedin.com/in/albert-l-kwansa" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+            <a href="https://orcid.org/0000-0001-7041-5928" target="_blank" rel="noopener" class="member-link-btn">ORCID</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-2">
+        <div class="member-avatar" style="background:var(--ncsu-blue)">AG<img src="assets/people/alexey-gulyuk.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Prof. Alexey Gulyuk</div>
+          <div class="member-role">Teaching Assistant Professor of MSE</div>
+          <div class="member-research">Convergence informatics and data-science approaches for materials design, artificial intelligence in education, and advancing AI literacy in engineering. Part of the NSF STC STEPS Center.</div>
+          <a href="mailto:agulyuk@ncsu.edu" class="member-email">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            agulyuk@ncsu.edu
+          </a>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/alexey-gulyuk" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=Bv5pJ1YAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn">Scholar</a>
+            <a href="https://orcid.org/0000-0001-9580-7626" target="_blank" rel="noopener" class="member-link-btn">ORCID</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-3">
+        <div class="member-avatar" style="background:var(--ncsu-blue-teal)">BF<img src="assets/people/barry-farmer.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Dr. Barry L. Farmer</div>
+          <div class="member-role">Chief Scientist Emeritus, Air Force Research Laboratory</div>
+          <div class="member-research">Internationally recognized polymer scientist; pioneered the use of dissipative particle dynamics (DPD) and multiscale modeling to investigate the structure, properties, and processing of complex polymers, biomaterials, and soft matter. Long-standing collaborator with the Y-AIMS group on DPD methods for self-assembling materials.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Postdoctoral Fellows ─────────────────────────────── -->
+  <section class="team-section" id="postdocs" aria-labelledby="postdocs-title">
+    <div class="section-title-row reveal">
+      <span class="section-title-label">03</span>
+      <h2 class="section-title" id="postdocs-title">Postdoctoral Fellows</h2>
+    </div>
+    <p class="alumni-note reveal" style="margin: 0;">Currently recruiting. Interested postdoctoral candidates with a background in molecular simulations, machine learning for materials, or AI/data science are encouraged to <a href="mailto:yara_yingling@ncsu.edu" style="color:var(--ncsu-red); font-weight:600;">contact Prof. Yingling</a>.</p>
+  </section>
+
+  <!-- ── Graduate Students ────────────────────────────────── -->
+  <section class="team-section" id="grad" aria-labelledby="grad-title">
+    <div class="section-title-row reveal">
+      <span class="section-title-label">04</span>
+      <h2 class="section-title" id="grad-title">Graduate Students</h2>
+      <span class="section-count">7 members</span>
+    </div>
+    <div class="member-grid">
+      <div class="member-card reveal reveal-delay-1">
+        <div class="member-avatar" style="background:#5a2d82">SR<img src="assets/people/sergei-rigin.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Sergei Rigin</div>
+          <div class="member-role">PhD Candidate, Materials Science &amp; Engineering</div>
+          <div class="member-bio-short">B.S. &amp; M.S. in Laser Technologies, ITMO University; M.S. in Chemistry, New Mexico Highlands University.</div>
+          <div class="member-research">Molecular dynamics simulations of polymer brushes, chemically tailored coatings, and adsorptive polymer brush–based composites.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/sergei-rigin" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=RGJ4KeIAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn">Scholar</a>
+            <a href="https://orcid.org/0000-0003-4805-8060" target="_blank" rel="noopener" class="member-link-btn">ORCID</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-2">
+        <div class="member-avatar" style="background:var(--ncsu-blue-teal)">AC<img src="assets/people/andrew-cannon.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Andrew Hans Cannon</div>
+          <div class="member-role">PhD Student, Materials Science &amp; Engineering</div>
+          <div class="member-bio-short">B.S. &amp; M.S. in MSE, NC State University.</div>
+          <div class="member-research">Molecular dynamics of peptide-based materials including phosphate-binding proteins and reflectin proteins; prediction of mechanical and optical properties.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/andrew-cannon-2aa293138/" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-3">
+        <div class="member-avatar" style="background:var(--ncsu-green)">MF<img src="assets/people/merve-fedai.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Merve Fedai</div>
+          <div class="member-role">PhD Candidate, Materials Science &amp; Engineering</div>
+          <div class="member-bio-short">B.S. (2021) and M.S. (2023), MSE, NC State University.</div>
+          <div class="member-research">Molecular modeling of cellulose-based materials and modification of carbonic anhydrases for environmental remediation.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/merve-fedai-a35737129" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=55Xv4gMAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn">Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-1">
+        <div class="member-avatar" style="background:var(--ncsu-teal)">CB<img src="assets/people/christina-bayard.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Christina J. Bayard</div>
+          <div class="member-role">PhD Candidate, Materials Science &amp; Engineering</div>
+          <div class="member-bio-short">B.S. in Mechanical &amp; Energy Engineering, University of North Texas (2022).</div>
+          <div class="member-research">Molecular modeling of nucleic-acid based nanomaterials.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/christinajbayard" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=RO4_nkMAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn">Scholar</a>
+            <a href="https://orcid.org/0009-0002-5344-3713" target="_blank" rel="noopener" class="member-link-btn">ORCID</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-3">
+        <div class="member-avatar" style="background:var(--ncsu-orange)">PH<img src="assets/people/patrick-hogsed.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Patrick Hogsed</div>
+          <div class="member-role">PhD Candidate, Chemistry</div>
+          <div class="member-bio-short">M.S. in Comprehensive Chemistry, Western Carolina University (2021).</div>
+          <div class="member-research">Phosphorus binding protein (PBP) molecular dynamics for phosphate specificity.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/baileyhogsed/" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+            <a href="https://scholar.google.com/citations?user=meH0-B4AAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn">Scholar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-2">
+        <div class="member-avatar" style="background:var(--ncsu-red)">LB<img src="assets/people/laila-belpalme.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Laila Belpalme</div>
+          <div class="member-role">PhD Student, Chemistry</div>
+          <div class="member-bio-short">B.S. Georgia Gwinnett College, 2023.</div>
+          <div class="member-research">AI-driven approaches for materials discovery; STEPS Center.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/laila-blp" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card reveal reveal-delay-3">
+        <div class="member-avatar" style="background:var(--ncsu-blue)">DP<img src="assets/people/deepak-pendyala.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div class="member-info">
+          <div class="member-name">Deepak Sai Pendyala</div>
+          <div class="member-role">MS Student, Computer Science</div>
+          <div class="member-bio-short">B.S. in Computer Science.</div>
+          <div class="member-research">AI tools for materials informatics; STEPS Center / Y-AIMS Lab.</div>
+          <div class="member-links">
+            <a href="https://www.linkedin.com/in/deepaksaip" target="_blank" rel="noopener" class="member-link-btn">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Undergraduate Students ───────────────────────────── -->
+  <section class="team-section" id="undergrad" aria-labelledby="undergrad-title">
+    <div class="section-title-row reveal">
+      <span class="section-title-label">05</span>
+      <h2 class="section-title" id="undergrad-title">Undergraduate Research Assistants</h2>
+      <span class="section-count">5 members</span>
+    </div>
+    <div class="undergrad-grid">
+      <div class="undergrad-card reveal reveal-delay-1">
+        <div class="undergrad-avatar"><span>SM</span><img src="assets/people/siri-mudunuri.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div>
+          <div class="undergrad-name">Siri Mudunuri</div>
+          <div class="undergrad-role">Undergraduate Student, Computer Science</div>
+          <div class="undergrad-project">Machine Learning Assisted Characterization and Analysis of Material Properties</div>
+        </div>
+      </div>
+      <div class="undergrad-card reveal reveal-delay-2">
+        <div class="undergrad-avatar"><span>AK</span><img src="assets/people/arjun-kancharla.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div>
+          <div class="undergrad-name">Arjun Kancharla</div>
+          <div class="undergrad-role">Undergraduate Student, Computer Science</div>
+          <div class="undergrad-project">Machine Learning Force Fields for RNA</div>
+        </div>
+      </div>
+      <div class="undergrad-card reveal reveal-delay-3">
+        <div class="undergrad-avatar"><span>SS</span><img src="assets/people/sanchit-shah.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div>
+          <div class="undergrad-name">Sanchit Shah</div>
+          <div class="undergrad-role">Undergraduate Student, Computer Science</div>
+          <div class="undergrad-project">Machine Learning Methods for Functional Peptide Engineering</div>
+        </div>
+      </div>
+      <div class="undergrad-card reveal reveal-delay-1">
+        <div class="undergrad-avatar"><span>AC</span><img src="assets/people/anne-chabaneix.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div>
+          <div class="undergrad-name">Anne Chabaneix</div>
+          <div class="undergrad-role">Undergraduate Student, Materials Science &amp; Engineering</div>
+          <div class="undergrad-project">Diffusion of antioxidants in tire materials</div>
+        </div>
+      </div>
+      <div class="undergrad-card reveal reveal-delay-2">
+        <div class="undergrad-avatar"><span>SE</span><img src="assets/people/stephanie-trujillo.jpg" alt="" loading="lazy" onerror="this.remove()" /></div>
+        <div>
+          <div class="undergrad-name">Stephanie Euceda Trujillo</div>
+          <div class="undergrad-role">Undergraduate Student, Materials Science &amp; Engineering</div>
+          <div class="undergrad-project">Materials for Phosphorus Sustainability</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Alumni ────────────────────────────────────────────── -->
+  <section class="team-section alumni-section" id="alumni" aria-labelledby="alumni-title">
+    <div class="section-title-row reveal">
+      <span class="section-title-label">06</span>
+      <h2 class="section-title" id="alumni-title">Alumni</h2>
+    </div>
+    <p class="alumni-note reveal" style="margin-bottom:2rem;">Y-AIMS Lab alumni have gone on to faculty positions, national laboratories, tech companies, and industry R&amp;D roles worldwide.</p>
+
+    <div class="reveal">
+      <div class="alumni-group-label">PhD Graduates</div>
+      <div class="alumni-grid">
+        <div class="alumni-card"><div class="alumni-year">2025</div><div class="alumni-name">Michael Kirsch</div><div class="alumni-now">PhD, Chemistry — molecular modeling of cellulose synthase proteins and lipid nanodisks</div></div>
+        <div class="alumni-card"><div class="alumni-year">2025</div><div class="alumni-name">Abishec Sundar Senthilvel</div><div class="alumni-now">PhD, Materials Science &amp; Engineering — modeling of organized nanochannel materials</div><div class="alumni-links"><a href="https://www.linkedin.com/in/abishec-sundar-senthilvel" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2024</div><div class="alumni-name">Sabila Kader Pinky</div><div class="alumni-now">PhD, Materials Science &amp; Engineering — molecular self-assembly of complex functional materials</div><div class="alumni-links"><a href="https://www.linkedin.com/in/sabila-kader" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2024</div><div class="alumni-name">Thomas (Tad) Deaton</div><div class="alumni-now">Senior Engineer, Applied Research Associates, Inc.</div><div class="alumni-links"><a href="https://www.linkedin.com/in/thomasdeaton" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2023</div><div class="alumni-name">Akhlak Ul Mahmood</div><div class="alumni-now">Product Innovation Manager, Matmerize Inc.</div><div class="alumni-links"><a href="https://www.linkedin.com/in/akhlakm" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=S-uoOngAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2021</div><div class="alumni-name">Thomas Oweida</div><div class="alumni-now">Sr. Principal Software Engineer, Northrop Grumman</div><div class="alumni-links"><a href="https://www.linkedin.com/in/thomasoweida" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=67035AcAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2019</div><div class="alumni-name">Yuxin Xie</div><div class="alumni-now">Data Scientist, AXB Bio (Axbio Inc.)</div><div class="alumni-links"><a href="https://scholar.google.com/citations?user=dXJ6di4AAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2019</div><div class="alumni-name">James Peerless</div><div class="alumni-now">Senior AI Product Manager, Citrine Informatics</div><div class="alumni-links"><a href="https://www.linkedin.com/in/jspeerless" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=nScmYFIAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2017</div><div class="alumni-name">Jessica Nash</div><div class="alumni-now">Developer &amp; Educator, Innovation CoLab at Duke University</div><div class="alumni-links"><a href="https://www.linkedin.com/in/jessica-a-nash" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=IyGGbjsAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2017</div><div class="alumni-name">Ho Shin Kim</div><div class="alumni-now">Computational Scientist, Pacific Northwest National Lab</div><div class="alumni-links"><a href="https://www.linkedin.com/in/hoshinkim" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2016</div><div class="alumni-name">Nan K. Li</div><div class="alumni-now">Senior Data Scientist, Johnson &amp; Johnson</div><div class="alumni-links"><a href="https://www.linkedin.com/in/nankli" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2013</div><div class="alumni-name">Latsavongsakda Sethaphong</div><div class="alumni-now">HPC Lead Platform Engineer (AI/ML), General Motors</div></div>
+        <div class="alumni-card"><div class="alumni-year">2012</div><div class="alumni-name">Rakhee Pani</div><div class="alumni-now">Senior Lecturer, MSE, Clemson University</div></div>
+        <div class="alumni-card"><div class="alumni-year">2012</div><div class="alumni-name">Abhishek Singh</div><div class="alumni-now">Scientist, BASF</div><div class="alumni-links"><a href="https://scholar.google.com/citations?user=RCYJP1oAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+      </div>
+
+      <div class="alumni-group-label" style="margin-top:2.5rem;">Postdoctoral Associates</div>
+      <div class="alumni-grid">
+        <div class="alumni-card"><div class="alumni-year">2024–25</div><div class="alumni-name">Dr. Sabila Kader Pinky</div><div class="alumni-now">Convergent informatics for sustainable phosphorus solutions (NSF STC STEPS Center)</div><div class="alumni-links"><a href="https://www.linkedin.com/in/sabila-kader" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2024–25</div><div class="alumni-name">Dr. Quanpeng (Sam) Yang</div><div class="alumni-now">AI for Science and Engineering</div><div class="alumni-links"><a href="https://www.linkedin.com/in/quanpengyang" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=-NQ3WIkAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link">Scholar</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2014–21</div><div class="alumni-name">Dr. Abhishek Singh</div><div class="alumni-now">Scientist, BASF</div></div>
+        <div class="alumni-card"><div class="alumni-year">2012–18</div><div class="alumni-name">Dr. Ho Shin Kim</div><div class="alumni-now">Computational Scientist, PNNL</div></div>
+        <div class="alumni-card"><div class="alumni-year">2015–16</div><div class="alumni-name">Dr. Sanket Deshmukh</div><div class="alumni-now">Associate Professor (Erin Michelle Lohr Faculty Fellow), Virginia Tech</div><div class="alumni-links"><a href="https://www.linkedin.com/in/sanket-a-deshmukh-08aa3585" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2013</div><div class="alumni-name">Dr. Sergei Y. Ponomarev</div><div class="alumni-now">HPC Systems Integrator, Worcester Polytechnic Institute</div></div>
+        <div class="alumni-card"><div class="alumni-year">2007–08</div><div class="alumni-name">Dr. Andrey Semichaevsky</div><div class="alumni-now">Associate Professor, Chemistry &amp; Physics, Lincoln University, PA</div></div>
+        <div class="alumni-card"><div class="alumni-year">2009</div><div class="alumni-name">Dr. Stacy Snyder</div><div class="alumni-now">Crystal Growth Process Engineer, Coherent Corp.</div></div>
+      </div>
+
+      <div class="alumni-group-label" style="margin-top:2.5rem;">Masters Students</div>
+      <div class="alumni-grid">
+        <div class="alumni-card"><div class="alumni-year">2025</div><div class="alumni-name">Ruchika Malhotra</div><div class="alumni-now">M.S. Computer Science, NC State</div></div>
+        <div class="alumni-card"><div class="alumni-year">2024</div><div class="alumni-name">Sahil Kamlesh Changlani</div><div class="alumni-now">Software Engineer, Credit Karma (Intuit)</div><div class="alumni-links"><a href="https://www.linkedin.com/in/sahil-changlani" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2012</div><div class="alumni-name">Hamed Eksiri</div><div class="alumni-now">Founder, Al Eksir LLC</div><div class="alumni-links"><a href="https://www.linkedin.com/in/eksiri" target="_blank" rel="noopener" class="alumni-link">LinkedIn</a></div></div>
+        <div class="alumni-card"><div class="alumni-year">2011</div><div class="alumni-name">Ashley E. Marlowe</div><div class="alumni-now">Technical Leader, Plant Layout, GE Vernova</div></div>
+      </div>
+
+      <div class="alumni-group-label" style="margin-top:2.5rem;">Selected Undergraduate Researchers</div>
+      <div class="alumni-grid">
+        <div class="alumni-card"><div class="alumni-year">2023–24</div><div class="alumni-name">Tori Crunkleton</div><div class="alumni-now">Ph.D. Student, Materials Science, Stanford University</div></div>
+        <div class="alumni-card"><div class="alumni-year">2020–22</div><div class="alumni-name">Tiernan Baucom</div><div class="alumni-now">Ph.D. Student, University of Michigan</div></div>
+        <div class="alumni-card"><div class="alumni-year">2019–22</div><div class="alumni-name">Justin Williams</div><div class="alumni-now">Pipeline Controller, Tallgrass</div></div>
+        <div class="alumni-card"><div class="alumni-year">2019–21</div><div class="alumni-name">Ibrahim Ahmad</div><div class="alumni-now">Software Engineer, Amazon</div></div>
+        <div class="alumni-card"><div class="alumni-year">2015–17</div><div class="alumni-name">Benjamin Peterson</div><div class="alumni-now">Ph.D., Penn State University</div></div>
+        <div class="alumni-card"><div class="alumni-year">2009–11</div><div class="alumni-name">Andy Vargas</div><div class="alumni-now">Ph.D., UC Berkeley</div></div>
+      </div>
+      <p class="alumni-note" style="margin-top:0.75rem;">REU students include: Sanjana Addanki (VT, 2025), Leala Carbonneau (WPI, 2024), Carolina Cunningham (UNC-CH, 2023), Brooklynn Blackwell (Howard, 2022), Amani Reed (UNC-CH, 2018), Leo Sutter (RIT, 2016), Jeremy Loffredo (UVA, 2013), Trisha Dupnock (Clarkson, 2013), Ramyata Upmaka (CMU, 2012), Michael Entz (UA, 2009), and many others.</p>
+
+      <div class="alumni-group-label" style="margin-top:2.5rem;">Visiting Researchers</div>
+      <div class="alumni-grid">
+        <div class="alumni-card"><div class="alumni-year">2018–19</div><div class="alumni-name">Haolong Xue</div><div class="alumni-now">Jiangnan University, China</div></div>
+        <div class="alumni-card"><div class="alumni-year">2013–14</div><div class="alumni-name">Doyoung Eom</div><div class="alumni-now">Inha University, Korea</div></div>
+        <div class="alumni-card"><div class="alumni-year">2012</div><div class="alumni-name">George Washington</div><div class="alumni-now">University of Virginia</div></div>
+        <div class="alumni-card"><div class="alumni-year">2010–11</div><div class="alumni-name">Hoshin Kim</div><div class="alumni-now">Inha University, Korea</div></div>
+        <div class="alumni-card"><div class="alumni-year">2009–10</div><div class="alumni-name">Xiaolu Li</div><div class="alumni-now">Duke University</div></div>
+      </div>
+      <p class="alumni-note" style="margin-top:1.25rem;">Also includes many additional undergraduate researchers, REU students, and visiting researchers from institutions worldwide.</p>
+    </div>
+  </section>
+
+</div><!-- /page-body -->
+</main>
+
+<!-- ── FOOTER ───────────────────────────────────────────────── -->
+<footer class="site-footer" role="contentinfo">
+  <div class="footer-ncsu-bar">
+    <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" loading="lazy" />
+  </div>
+  <div class="footer-body">
+    <div>
+      <div class="footer-brand-name">Y-AIMS Laboratory</div>
+      <p class="footer-brand-desc">AI &amp; Materials Simulations Lab · Department of Materials Science and Engineering · NC State University · Raleigh, NC</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul role="list">
         <li><a href="index.html">Home</a></li>
         <li><a href="research.html">Research</a></li>
-        <li><a href="team.html" class="active" aria-current="page">Team</a></li>
+        <li><a href="team.html">Team</a></li>
         <li><a href="publications.html">Publications</a></li>
         <li><a href="teaching.html">Teaching</a></li>
         <li><a href="software.html">Software</a></li>
         <li><a href="news.html">News</a></li>
       </ul>
-      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
     </div>
-  </nav>
-
-  <!-- PAGE HERO -->
-  <header class="page-hero team-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">Y-AIMS Laboratory</p>
-      <h1 class="page-hero-title">Our Team</h1>
-      <p class="page-hero-subtitle">A multidisciplinary group of researchers working at the intersection of materials science, physics, chemistry, biology, molecular modeling, and artificial intelligence.</p>
-    </div>
-  </header>
-
-  <main id="main-content" tabindex="-1" class="team-main">
-
-    <!-- ── PI ─────────────────────────────────────────────── -->
-    <section class="team-section" id="pi">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Principal Investigator</h2>
-        <div class="pi-card">
-          <div class="pi-avatar">
-            <div class="pi-avatar-initials">YY</div>
-          </div>
-          <div class="pi-content">
-            <h3 class="pi-name">Prof. Yaroslava (Yara) G. Yingling</h3>
-            <div class="pi-titles">
-              <span class="pi-title-badge">Kobe Steel Distinguished Professor of MSE</span>
-              <span class="pi-title-badge">University Faculty Fellow</span>
-              <span class="pi-title-badge">Associate Department Head</span>
-              <span class="pi-title-badge">Director of Undergraduate Program</span>
-              <span class="pi-title-badge">Director, Graduate Certificate in Materials Informatics</span>
-            </div>
-            <p class="pi-bio">Prof. Yingling received a B.S. in Computer Science and Engineering from St. Petersburg State Technical University (1996) and a Ph.D. in Materials Engineering and High-Performance Computing from Penn State (2002). She completed postdoctoral research at Penn State Chemistry and the NIH National Cancer Institute before joining NC State University in 2007. Her research integrates molecular modeling, data science, and AI to accelerate materials discovery for energy, environment, and health applications.</p>
-            <div class="pi-contact">
-              <a href="mailto:yara_yingling@ncsu.edu" class="pi-contact-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                yara_yingling@ncsu.edu
-              </a>
-              <span class="pi-contact-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +1 (919) 513-2624
-              </span>
-              <span class="pi-contact-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                3014 Engineering Building I, NC State
-              </span>
-            </div>
-            <div class="pi-links">
-              <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" class="pi-link-btn">Google Scholar</a>
-              <a href="https://orcid.org/0000-0002-8557-9992" target="_blank" class="pi-link-btn">ORCID</a>
-              <a href="https://www.mse.ncsu.edu/yingling/" target="_blank" class="pi-link-btn">Lab Website</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Research Faculty / Staff ────────────────────────── -->
-    <section class="team-section" id="faculty">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Research Faculty &amp; Staff</h2>
-        <div class="member-grid">
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--ncsu-red)"><span>AK</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Prof. Albert L. Kwansa</h3>
-              <p class="member-role">Research Assistant Professor of MSE</p>
-              <p class="member-research">Molecular dynamics simulations, electronic structure calculations, and method development involving polymers, chemical additives, cellulose and cellulose synthases, and reflectin proteins.</p>
-              <a href="mailto:alkwansa@ncsu.edu" class="member-email">alkwansa@ncsu.edu</a>
-              <div class="member-links">
-                <a href="https://scholar.google.com/citations?user=OmQotdcAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Google Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--centennial)"><span>AG</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Prof. Alexey Gulyuk</h3>
-              <p class="member-role">Teaching Assistant Professor of MSE</p>
-              <p class="member-research">Convergence informatics and data-science approaches for materials design, artificial intelligence in education, and advancing AI literacy in engineering. Part of the NSF STC STEPS Center.</p>
-              <a href="mailto:agulyuk@ncsu.edu" class="member-email">agulyuk@ncsu.edu</a>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/alexey-gulyuk" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--hunt)"><span>BF</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Dr. Barry Farmer</h3>
-              <p class="member-role">Adjunct Professor</p>
-              <p class="member-research">Chief Scientist Emeritus at Air Force Research Laboratory. DPD modeling of complex materials.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Postdoctoral Fellows ──────────────────────────────── -->
-    <section class="team-section" id="postdocs">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Postdoctoral Fellows</h2>
-        <div class="member-grid">
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--pyromaniac)"><span>SP</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Dr. Sabila Kader Pinky</h3>
-              <p class="member-role">Postdoctoral Fellow, MSE</p>
-              <p class="member-research">Science and Technologies for Phosphorus Sustainability (STEPS) Center — convergent informatics integrating data science, molecular modeling, and materials research for sustainable phosphorus solutions.</p>
-              <a href="mailto:spinky@ncsu.edu" class="member-email">spinky@ncsu.edu</a>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/sabila-kader" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Graduate Students ────────────────────────────────── -->
-    <section class="team-section" id="grad">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Graduate Students</h2>
-        <div class="member-grid">
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: #5a2d82"><span>SR</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Sergei Rigin</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. &amp; M.S. in Laser Technologies, ITMO University; M.S. in Chemistry, New Mexico Highlands University.</p>
-              <p class="member-research">Molecular dynamics simulations of nanoparticle-embedded polymer brushes; STEPS Center.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/sergei-rigin" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=RGJ4KeIAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--hunt)"><span>AC</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Andrew Hans Cannon</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. &amp; M.S. in Materials Science and Engineering, NC State University.</p>
-              <p class="member-research">Molecular dynamics simulations of peptide-based materials including phosphate-binding proteins and reflectin proteins; prediction of mechanical and optical properties.</p>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--genomic)"><span>MF</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Merve Fedai</h3>
-              <p class="member-role">PhD Candidate, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. (2021) and M.S. (2023) in Materials Science and Engineering, NC State University.</p>
-              <p class="member-research">Molecular modeling of cellulose-based materials and modification of carbonic anhydrases for environmental remediation.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/merve-fedai-a35737129" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=55Xv4gMAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--lonnie)"><span>CV</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Christina Vilchez (Bayard)</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. in Mechanical and Energy Engineering, University of North Texas (2022).</p>
-              <p class="member-research">Molecular dynamics simulations of nucleic acid nanoparticles and their supramolecular assemblies.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/christinajbayard" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--centennial)"><span>MK</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Michael Kirsch</h3>
-              <p class="member-role">PhD Student, Chemistry</p>
-              <p class="member-bio-short">B.S. in Biochemistry with Minor in Mathematics, SUNY Oswego (2020).</p>
-              <p class="member-research">Molecular modeling of cellulose synthase proteins and cellulose materials; lipid nanodisks.</p>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--pyromaniac)"><span>PH</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Patrick Hogsed</h3>
-              <p class="member-role">PhD Student, Chemistry</p>
-              <p class="member-bio-short">M.S. in Comprehensive Chemistry, Western Carolina University (2021); B.S. in Chemistry, Young Harris College (2019).</p>
-              <p class="member-research">Phosphorus binding protein (PBP) molecular dynamics simulations for phosphate specificity.</p>
-              <div class="member-links">
-                <a href="https://scholar.google.com/citations?user=meH0-B4AAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--ncsu-red)"><span>AS</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Abishec Sundar Senthilvel</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">M.S. in Nanoengineering, NC State (2023); B.E. in Mechanical Engineering, Anna University, India (2020).</p>
-              <p class="member-research">Modeling of organized nanochannel materials from biomolecular magnetic organic frameworks.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/abishec-sundar-senthilvel" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--ncsu-red)"><span>LB</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Laila Belpalme</h3>
-              <p class="member-role">PhD Student, Chemistry</p>
-              <p class="member-bio-short">B.S. Georgia Gwinnett College, 2023.</p>
-              <p class="member-research">AI-driven approaches for materials discovery; STEPS Center.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/laila-blp" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--centennial)"><span>DP</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Deepak Sai Pendyala</h3>
-              <p class="member-role">MS Student, Computer Science</p>
-              <p class="member-bio-short">B.S. Computer Science.</p>
-              <p class="member-research">AI tools for materials informatics; STEPS Center / Y-AIMS Lab.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/deepaksaip" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Undergraduate Students ───────────────────────────── -->
-    <section class="team-section" id="undergrad">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Undergraduate Research Assistants</h2>
-        <div class="undergrad-grid">
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>SM</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Siri Mudunuri</h4>
-              <p class="undergrad-role">Undergraduate Student, Computer Science</p>
-              <p class="undergrad-project">Machine Learning Assisted Characterization and Analysis of Material Properties</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>AK</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Arjun Kancharla</h4>
-              <p class="undergrad-role">Undergraduate Student, Computer Science</p>
-              <p class="undergrad-project">Machine Learning Force Fields for RNA</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>SS</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Sanchit Shah</h4>
-              <p class="undergrad-role">Undergraduate Student, Computer Science</p>
-              <p class="undergrad-project">Machine Learning Methods for Functional Peptide Engineering</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>AC</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Anne Chabaneix</h4>
-              <p class="undergrad-role">Undergraduate Student, Materials Science &amp; Engineering</p>
-              <p class="undergrad-project">Diffusion of antioxidants in tire materials</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>SE</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Stephanie Euceda Trujillo</h4>
-              <p class="undergrad-role">Undergraduate Student, Materials Science &amp; Engineering</p>
-              <p class="undergrad-project">Materials for Phosphorus Sustainability</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Alumni ────────────────────────────────────── -->
-    <section class="team-section team-section-alt" id="alumni">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Alumni</h2>
-        <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-8);max-width:680px;line-height:1.7;">Y-AIMS Lab alumni have gone on to faculty positions, national laboratories, tech companies, and industry R&D roles worldwide. We are proud of every member of our extended lab family.</p>
-
-        <!-- PhD Graduates -->
-        <h3 class="alumni-group-title">PhD Graduates</h3>
-        <div class="alumni-card-grid">
-          <div class="alumni-card">
-            <div class="alumni-card-year">2025</div>
-            <div class="alumni-card-name">Sabila Kader Pinky</div>
-            <div class="alumni-card-now">Postdoctoral Fellow, Y-AIMS Lab, NC State</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/sabila-kader" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2024</div>
-            <div class="alumni-card-name">Thomas (Tad) Deaton</div>
-            <div class="alumni-card-now">Senior Engineer, Applied Research Associates, Inc.</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/thomasdeaton" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2023</div>
-            <div class="alumni-card-name">Akhlak Ul Mahmood</div>
-            <div class="alumni-card-now">Product Innovation Manager, Matmerize Inc.</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/akhlakm" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=S-uoOngAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2021</div>
-            <div class="alumni-card-name">Thomas Oweida</div>
-            <div class="alumni-card-now">Sr. Principal Software Engineer, Northrop Grumman</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/thomasoweida" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=67035AcAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2019</div>
-            <div class="alumni-card-name">Yuxin Xie</div>
-            <div class="alumni-card-now">Data Scientist, AXB Bio (Axbio Inc.)</div>
-            <div class="alumni-card-links"><a href="https://scholar.google.com/citations?user=dXJ6di4AAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2019</div>
-            <div class="alumni-card-name">James Peerless</div>
-            <div class="alumni-card-now">Senior AI Product Manager, Citrine Informatics</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/jspeerless" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=nScmYFIAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2017</div>
-            <div class="alumni-card-name">Jessica Nash</div>
-            <div class="alumni-card-now">Developer &amp; Educator, Innovation CoLab at Duke University</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/jessica-a-nash" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=IyGGbjsAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2017</div>
-            <div class="alumni-card-name">Ho Shin Kim</div>
-            <div class="alumni-card-now">Computational Scientist, Pacific Northwest National Lab (PNNL)</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/hoshinkim" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=Lge7SiYAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2016</div>
-            <div class="alumni-card-name">Nan K. Li</div>
-            <div class="alumni-card-now">Senior Data Scientist, Johnson &amp; Johnson</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/nankli" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=RRiJz1UAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2013</div>
-            <div class="alumni-card-name">Latsavongsakda Sethaphong</div>
-            <div class="alumni-card-now">HPC Lead Platform Engineer (AI/ML), General Motors</div>
-            <div class="alumni-card-links"><a href="https://scholar.google.com/citations?user=EXVnAlkAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2012</div>
-            <div class="alumni-card-name">Rakhee Pani</div>
-            <div class="alumni-card-now">Senior Lecturer, Materials Science &amp; Engineering, Clemson University</div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2012</div>
-            <div class="alumni-card-name">Abhishek Singh</div>
-            <div class="alumni-card-now">Scientist, BASF</div>
-            <div class="alumni-card-links"><a href="https://scholar.google.com/citations?user=RCYJP1oAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-        </div>
-
-        <!-- Postdoctoral Associates -->
-        <h3 class="alumni-group-title" style="margin-top:var(--space-10);">Postdoctoral Associates</h3>
-        <div class="alumni-card-grid">
-          <div class="alumni-card">
-            <div class="alumni-card-year">2024–25</div>
-            <div class="alumni-card-name">Dr. Quanpeng (Sam) Yang</div>
-            <div class="alumni-card-now">AI for Science and Engineering</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/quanpengyang" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=-NQ3WIkAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2014–21</div>
-            <div class="alumni-card-name">Dr. Abhishek Singh</div>
-            <div class="alumni-card-now">Scientist, BASF</div>
-            <div class="alumni-card-links"><a href="https://scholar.google.com/citations?user=RCYJP1oAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2012–18</div>
-            <div class="alumni-card-name">Dr. Ho Shin Kim</div>
-            <div class="alumni-card-now">Computational Scientist, PNNL</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/hoshinkim" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2015–16</div>
-            <div class="alumni-card-name">Dr. Sanket Deshmukh</div>
-            <div class="alumni-card-now">Associate Professor (Erin Michelle Lohr Faculty Fellow), Virginia Tech</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/sanket-a-deshmukh-08aa3585" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=MS9fTyoAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2012–15</div>
-            <div class="alumni-card-name">Dr. Rakhee Pani</div>
-            <div class="alumni-card-now">Senior Lecturer, MSE, Clemson University</div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2013–15</div>
-            <div class="alumni-card-name">Dr. Jung-Goo Lee</div>
-            <div class="alumni-card-now">University of Texas</div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2013</div>
-            <div class="alumni-card-name">Dr. Sergei Y. Ponomarev</div>
-            <div class="alumni-card-now">HPC Systems Integrator, Worcester Polytechnic Institute</div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2007–08</div>
-            <div class="alumni-card-name">Dr. Andrey Semichaevsky</div>
-            <div class="alumni-card-now">Associate Professor, Chemistry &amp; Physics, Lincoln University, PA</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/andrey-semichaevsky-949a6332" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2009</div>
-            <div class="alumni-card-name">Dr. Stacy Snyder</div>
-            <div class="alumni-card-now">Crystal Growth Process Engineer, Coherent Corp.</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/stacyesnyder" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a><a href="https://scholar.google.com/citations?user=EWns_soAAAAJ" target="_blank" rel="noopener" class="alumni-card-link">Scholar</a></div>
-          </div>
-        </div>
-
-        <!-- Masters Students -->
-        <h3 class="alumni-group-title" style="margin-top:var(--space-10);">Masters Students</h3>
-        <div class="alumni-card-grid">
-          <div class="alumni-card">
-            <div class="alumni-card-year">2025</div>
-            <div class="alumni-card-name">Ruchika Malhotra</div>
-            <div class="alumni-card-now">M.S. Computer Science, NC State</div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2024</div>
-            <div class="alumni-card-name">Sahil Kamlesh Changlani</div>
-            <div class="alumni-card-now">Software Engineer, Credit Karma (Intuit)</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/sahil-changlani" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2012</div>
-            <div class="alumni-card-name">Hamed Eksiri</div>
-            <div class="alumni-card-now">Founder, Al Eksir LLC (formerly Product Development Lead at Chevron)</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/eksiri" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card">
-            <div class="alumni-card-year">2011</div>
-            <div class="alumni-card-name">Ashley E. Marlowe</div>
-            <div class="alumni-card-now">Technical Leader, Plant Layout &amp; Program Implementation, GE Vernova</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/ashley-marlowe" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-        </div>
-
-        <!-- Undergraduate Researchers -->
-        <h3 class="alumni-group-title" style="margin-top:var(--space-10);">Undergraduate Researchers — Selected</h3>
-        <div class="alumni-card-grid">
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2023–24</div>
-            <div class="alumni-card-name">Tori Crunkleton</div>
-            <div class="alumni-card-now">Ph.D. Student, Materials Science, Stanford University</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/tori-crunkleton" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2020–22</div>
-            <div class="alumni-card-name">Tiernan Baucom</div>
-            <div class="alumni-card-now">Ph.D. Student, University of Michigan</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2021–22</div>
-            <div class="alumni-card-name">Mitch Hayes</div>
-            <div class="alumni-card-now">Process Sustaining Engineer, Wolfspeed</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/mitch-hayes-b48145205" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2019–22</div>
-            <div class="alumni-card-name">Justin Williams</div>
-            <div class="alumni-card-now">Pipeline Controller, Tallgrass (formerly ExxonMobil)</div>
-            <div class="alumni-card-links"><a href="https://www.linkedin.com/in/justin-williams-6a83841ab" target="_blank" rel="noopener" class="alumni-card-link">LinkedIn</a></div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2009–11</div>
-            <div class="alumni-card-name">Andy Vargas</div>
-            <div class="alumni-card-now">Ph.D., UC Berkeley</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2015–17</div>
-            <div class="alumni-card-name">Benjamin Peterson</div>
-            <div class="alumni-card-now">Ph.D., Penn State University</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2013–14</div>
-            <div class="alumni-card-name">Sabrina Huang</div>
-            <div class="alumni-card-now">Ph.D., Purdue University</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2019–21</div>
-            <div class="alumni-card-name">Ibrahim Ahmad</div>
-            <div class="alumni-card-now">Software Engineer, Amazon</div>
-          </div>
-        </div>
-        <p class="alumni-ug-note">Also includes: Sanchit Shah, Nathan Perry, Josh McClure, Grant Blankenberger, Harry Antoniades, Patrick Sullivan, Jonathan Wendrock, Johnny Donald, Merve Fedai (now PhD), Kevin Kronk, Branden Hawkins, Devin Junkins, Lukas Harries, John Johnson, Nathan Brown, Graham Gatwood, Thomas Oweida (now PhD), William H. Fuss, Danielle Stallings, Graham Bowers, Tasha Tucker, Joshua Amick, Joshua McKenney, Michael Williams, Benjamin Bond, Andrew Veasey, Evan Keresi, Garik Sadovy, Habtom Amde, Ashley Marlowe (now MS) &amp; many others.</p>
-        <p class="alumni-ug-note">REU students include: Sanjana Addanki (VT, 2025), Leala Carbonneau (WPI, 2024), Carolina Cunningham (UNC-CH, 2023), Brooklynn Blackwell (Howard, 2022), Amani Reed (UNC-CH, 2018), Leo Sutter (RIT, 2016), Jeremy Loffredo (UVA, 2013), Trisha Dupnock (Clarkson, 2013), Ramyata Upmaka (CMU, 2012), Michael Entz (UA, 2009), and others.</p>
-
-        <!-- Visiting Researchers -->
-        <h3 class="alumni-group-title" style="margin-top:var(--space-10);">Visiting Researchers</h3>
-        <div class="alumni-card-grid">
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2018–19</div>
-            <div class="alumni-card-name">Haolong Xue</div>
-            <div class="alumni-card-now">Jiangnan University, China</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2013–14</div>
-            <div class="alumni-card-name">Doyoung Eom</div>
-            <div class="alumni-card-now">Inha University, Korea</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2010–11</div>
-            <div class="alumni-card-name">Hoshin Kim</div>
-            <div class="alumni-card-now">Inha University, Korea</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2009–10</div>
-            <div class="alumni-card-name">Xiaolu Li</div>
-            <div class="alumni-card-now">Duke University</div>
-          </div>
-          <div class="alumni-card alumni-card-ug">
-            <div class="alumni-card-year">2012</div>
-            <div class="alumni-card-name">George Washington</div>
-            <div class="alumni-card-now">University of Virginia</div>
-          </div>
-        </div>
-
-      </div>
-    </section>
-
-    </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-ncsu-bar">
-      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" />
-    </div>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-brand">Y-AIMS Laboratory</div>
-        <p class="footer-tagline">AI &amp; Materials Simulations Lab<br>Department of Materials Science &amp; Engineering<br>NC State University, Raleigh, NC</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">Quick Links</div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-          <li><a href="news.html">News</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">External</div>
-        <ul class="footer-links">
-          <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
-          <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
-          <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2025 Y-AIMS Laboratory, NC State University</span>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
-<script data-pplx-inline-edit>
-(function () {
-  if (window === window.top) return;
-
-  const allowedParentOrigins = ["https://www.perplexity.ai","https://perplexity.ai","https://testing.perplexity.ai","https://staging.perplexity.ai","https://*.preview.i.perplexity.ai","http://localhost:3000","http://127.0.0.1:3000","http://localhost:5173","http://127.0.0.1:5173"];
-  const MAX_FONT_BYTES = 500 * 1024;
-  const MAX_TOTAL_FONT_BYTES = 2 * 1024 * 1024;
-  let scrollForwarding = false;
-  let scrollRaf = 0;
-  let trustedTopOrigin = null;
-
-  // Allow entries like "https://*.preview.i.perplexity.ai" — the wildcard
-  // matches a single DNS label (no dots), so "https://*.foo" cannot stretch
-  // across multiple labels.
-  function matchesAllowedOrigin(origin) {
-    if (!origin) return false;
-    for (const entry of allowedParentOrigins) {
-      if (!entry.includes("*")) {
-        if (entry === origin) return true;
-        continue;
-      }
-      const pattern = new RegExp(
-        "^" +
-          entry.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[^.]+") +
-          "$",
-      );
-      if (pattern.test(origin)) return true;
-    }
-    return false;
-  }
-
-  // Trust decision: when the sender is same-origin-visible (event.origin is a
-  // real origin like https://www.perplexity.ai) we trust event.origin directly.
-  // When event.origin is "null" (opaque broker srcdoc), we fall back to the
-  // broker's stamped `parentOrigin` to identify the top window. The fallback
-  // is claim-only — we rely on the browser's native `targetOrigin` enforcement
-  // on the response path (see postToTrustedTop) to ensure replies can't be
-  // delivered to anyone but the actual top window of that claimed origin.
-  function getTrustedParentOrigin(event) {
-    const forwardedParentOrigin =
-      typeof event.data.parentOrigin === "string" ? event.data.parentOrigin : null;
-    const parentOrigin = event.origin === "null" ? forwardedParentOrigin : event.origin;
-    return matchesAllowedOrigin(parentOrigin) ? parentOrigin : null;
-  }
-
-  // All responses go to window.top with targetOrigin = the allowlisted origin.
-  // An attacker that iframes us inside their own null-origin broker can claim
-  // any parentOrigin they like, but the browser will drop the reply whenever
-  // the real top's origin doesn't match — so the screenshot never leaves.
-  function postToTrustedTop(message) {
-    if (!trustedTopOrigin) return;
-    try {
-      window.top.postMessage(message, trustedTopOrigin);
-    } catch (_error) {}
-  }
-
-  function inlineAll(original, clone) {
-    if (original.nodeType !== 1 || clone.nodeType !== 1) return;
-
-    try {
-      const computedStyle = getComputedStyle(original);
-      // cssText on a computed style is the serialized declaration in modern
-      // Chromium/Safari — a single read beats enumerating ~400 longhand
-      // properties. Firefox returns "" here, so we fall back on empty.
-      const serialized = computedStyle.cssText;
-      if (serialized) {
-        clone.style.cssText = serialized;
-      } else {
-        const parts = new Array(computedStyle.length);
-        for (let index = 0; index < computedStyle.length; index += 1) {
-          const property = computedStyle[index];
-          parts[index] = `${property}:${computedStyle.getPropertyValue(property)};`;
-        }
-        clone.style.cssText = parts.join("");
-      }
-    } catch (_error) {}
-
-    const originalChildren = original.children;
-    const clonedChildren = clone.children;
-    for (
-      let index = 0;
-      index < originalChildren.length && index < clonedChildren.length;
-      index += 1
-    ) {
-      inlineAll(originalChildren[index], clonedChildren[index]);
-    }
-  }
-
-  function extractFontUrl(srcValue) {
-    const matches = [
-      ...srcValue.matchAll(
-        /url\(["']?([^"')]+)["']?\)(?:\s*format\(["']?([^"')]+)["']?\))?/gi,
-      ),
-    ];
-    if (matches.length === 0) return null;
-    const woff2 = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff2"));
-    if (woff2) return woff2[1];
-    const woff = matches.find((m) => m[2] && m[2].toLowerCase().includes("woff"));
-    if (woff) return woff[1];
-    return matches[0][1];
-  }
-
-  // Cache resolved font URL -> data URI across captures. Fonts on a page
-  // essentially never change, and a batch run emits multiple captures back to
-  // back — without this we'd refetch + re-base64 every time.
-  const fontDataUriCache = new Map();
-  const SRC_DECLARATION_RE = /src\s*:\s*[^;}]+/i;
-
-  async function fetchAsDataUri(url) {
-    if (fontDataUriCache.has(url)) return fontDataUriCache.get(url);
-    let dataUri = null;
-    try {
-      const response = await fetch(url, { mode: "cors", credentials: "omit" });
-      if (response.ok) {
-        const blob = await response.blob();
-        if (blob.size <= MAX_FONT_BYTES) {
-          dataUri = await new Promise((resolve) => {
-            const reader = new FileReader();
-            reader.onloadend = () =>
-              resolve(typeof reader.result === "string" ? reader.result : null);
-            reader.onerror = () => resolve(null);
-            reader.readAsDataURL(blob);
-          });
-        }
-      }
-    } catch (_error) {
-      dataUri = null;
-    }
-    fontDataUriCache.set(url, dataUri);
-    return dataUri;
-  }
-
-  function collectFontFaceRuleTexts() {
-    const rules = [];
-    for (const sheet of document.styleSheets) {
-      let cssRules;
-      try {
-        cssRules = sheet.cssRules;
-      } catch (_error) {
-        continue;
-      }
-      if (!cssRules) continue;
-      for (const rule of cssRules) {
-        const cssText = rule.cssText || "";
-        if (cssText.startsWith("@font-face")) rules.push(cssText);
-      }
-    }
-    return rules;
-  }
-
-  async function buildInlinedFontCss() {
-    const ruleTexts = collectFontFaceRuleTexts();
-    if (ruleTexts.length === 0) return null;
-
-    const resolved = ruleTexts.map((cssText) => {
-      if (!SRC_DECLARATION_RE.test(cssText)) return null;
-      const srcMatch = cssText.match(/src\s*:\s*([^;}]+)[;}]/i);
-      if (!srcMatch) return null;
-      const url = extractFontUrl(srcMatch[1]);
-      if (!url) return null;
-      try {
-        return { cssText, url: new URL(url, document.baseURI).href };
-      } catch (_error) {
-        return null;
-      }
-    });
-
-    const dataUris = await Promise.all(
-      resolved.map((entry) => (entry ? fetchAsDataUri(entry.url) : Promise.resolve(null))),
-    );
-
-    const inlined = [];
-    let totalBytes = 0;
-    for (let index = 0; index < resolved.length; index += 1) {
-      const entry = resolved[index];
-      const dataUri = dataUris[index];
-      if (!entry || !dataUri) continue;
-      const approxBytes = dataUri.length * 0.75;
-      if (totalBytes + approxBytes > MAX_TOTAL_FONT_BYTES) break;
-      totalBytes += approxBytes;
-      inlined.push(entry.cssText.replace(SRC_DECLARATION_RE, `src: url("${dataUri}")`));
-    }
-    return inlined.length > 0 ? inlined.join("\n") : null;
-  }
-
-  function stripExternal(clone) {
-    const images = clone.querySelectorAll("img");
-    for (let index = 0; index < images.length; index += 1) {
-      const src = images[index].getAttribute("src");
-      if (src && !src.startsWith("data:")) images[index].removeAttribute("src");
-    }
-
-    const elements = clone.querySelectorAll("*");
-    for (let index = 0; index < elements.length; index += 1) {
-      const style = elements[index].style.cssText;
-      if (style && style.includes("url(")) {
-        elements[index].style.cssText = style.replace(
-          /url\(["']?(?!data:)[^)"']*["']?\)/gi,
-          "none",
-        );
-      }
-    }
-  }
-
-  function emitScroll() {
-    scrollRaf = 0;
-    if (!scrollForwarding) return;
-    postToTrustedTop({
-      type: "INLINE_EDIT_SCROLL",
-      scrollX: window.scrollX,
-      scrollY: window.scrollY,
-    });
-  }
-
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (!scrollForwarding || scrollRaf) return;
-      scrollRaf = requestAnimationFrame(emitScroll);
-    },
-    { passive: true, capture: true },
-  );
-
-  async function handleCaptureRequest(event) {
-    const requestId = event.data.requestId;
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-
-    function postResult(dataUrl) {
-      postToTrustedTop({
-        type: "INLINE_EDIT_SCREENSHOT_RESULT",
-        requestId,
-        dataUrl,
-        scrollX,
-        scrollY,
-      });
-    }
-
-    try {
-      // Wait for any pending web fonts to resolve so both inline metrics and
-      // the @font-face inlining below see the same loaded faces.
-      if (document.fonts && document.fonts.ready) {
-        try {
-          await document.fonts.ready;
-        } catch (_error) {}
-      }
-
-      const clone = document.documentElement.cloneNode(true);
-      inlineAll(document.documentElement, clone);
-
-      const removedNodes = clone.querySelectorAll("script,link[rel=\"stylesheet\"],style");
-      for (let index = 0; index < removedNodes.length; index += 1) {
-        removedNodes[index].remove();
-      }
-
-      stripExternal(clone);
-
-      // Re-embed web fonts as data-URI @font-face rules so the SVG rasterizer
-      // can resolve them — external font URLs aren't fetched during
-      // foreignObject rendering, which would otherwise force a fallback face
-      // and change text metrics.
-      const inlinedFontCss = await buildInlinedFontCss();
-      if (inlinedFontCss) {
-        const styleEl = document.createElement("style");
-        styleEl.textContent = inlinedFontCss;
-        const head = clone.querySelector("head");
-        if (head) head.appendChild(styleEl);
-        else clone.insertBefore(styleEl, clone.firstChild);
-      }
-
-      const html = new XMLSerializer().serializeToString(clone);
-      const svg =
-        `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}">` +
-        '<foreignObject width="100%" height="100%">' +
-        `<div xmlns="http://www.w3.org/1999/xhtml" style="width:${width}px;height:${height}px;overflow:hidden">` +
-        `<div style="transform:translate(-${scrollX}px,-${scrollY}px);transform-origin:top left">` +
-        html +
-        "</div></div></foreignObject></svg>";
-      const svgUrl = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
-      const image = new Image();
-      image.onload = function () {
-        const canvas = document.createElement("canvas");
-        canvas.width = width;
-        canvas.height = height;
-        canvas.getContext("2d").drawImage(image, 0, 0);
-        postResult(canvas.toDataURL("image/png"));
-      };
-      image.onerror = function () {
-        postResult(null);
-      };
-      image.src = svgUrl;
-    } catch (_error) {
-      postResult(null);
-    }
-  }
-
-  window.addEventListener("message", function (event) {
-    if (!event.data) return;
-    // Only accept messages from the direct parent frame. Blocks sibling /
-    // unrelated-window postMessage senders that could otherwise reach us.
-    if (event.source !== window.parent) return;
-
-    const trustedParentOrigin = getTrustedParentOrigin(event);
-    if (!trustedParentOrigin) return;
-    trustedTopOrigin = trustedParentOrigin;
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_START") {
-      scrollForwarding = true;
-      emitScroll();
-      return;
-    }
-
-    if (event.data.type === "INLINE_EDIT_SCROLL_STOP") {
-      scrollForwarding = false;
-      if (scrollRaf) cancelAnimationFrame(scrollRaf);
-      scrollRaf = 0;
-      return;
-    }
-
-    if (event.data.type !== "INLINE_EDIT_CAPTURE_REQUEST") return;
-
-    handleCaptureRequest(event);
-  });
-})();
-
-</script><script data-pplx-inline-edit>
-(function(){
-  if(window===window.top)return;
-  function inlineAll(orig,clone){
-    if(orig.nodeType!==1)return;
-    try{
-      var cs=getComputedStyle(orig);
-      var t='';
-      for(var i=0;i<cs.length;i++){t+=cs[i]+':'+cs.getPropertyValue(cs[i])+';';}
-      clone.style.cssText=t;
-    }catch(e){}
-    var oc=orig.children,cc=clone.children;
-    for(var j=0;j<oc.length&&j<cc.length;j++){inlineAll(oc[j],cc[j]);}
-  }
-  function stripExternal(clone){
-    var imgs=clone.querySelectorAll('img');
-    for(var i=0;i<imgs.length;i++){
-      var s=imgs[i].getAttribute('src');
-      if(s&&!s.startsWith('data:'))imgs[i].removeAttribute('src');
-    }
-    var all=clone.querySelectorAll('*');
-    for(var i=0;i<all.length;i++){
-      var st=all[i].style.cssText;
-      if(st&&st.indexOf('url(')>=0){
-        all[i].style.cssText=st.replace(/url\(["']?(?!data:)[^)"']*["']?\)/gi,'none');
-      }
-    }
-  }
-  var scrollRaf=0;
-  function emitScroll(){
-    scrollRaf=0;
-    var x=window.scrollX||window.pageXOffset||0;
-    var y=window.scrollY||window.pageYOffset||0;
-    window.parent.postMessage({type:'INLINE_EDIT_SCROLL',scrollX:x,scrollY:y},'*');
-  }
-  window.addEventListener('scroll',function(){
-    if(scrollRaf)return;
-    scrollRaf=requestAnimationFrame(emitScroll);
-  },{passive:true,capture:true});
-  emitScroll();
-  window.addEventListener('message',function(e){
-    if(!e.data||e.data.type!=='INLINE_EDIT_CAPTURE_REQUEST')return;
-    var scrollX=window.scrollX||window.pageXOffset||0;
-    var scrollY=window.scrollY||window.pageYOffset||0;
-    var w=window.innerWidth,h=window.innerHeight;
-    try{
-      var clone=document.documentElement.cloneNode(true);
-      var rm=clone.querySelectorAll('script,link[rel="stylesheet"],style');
-      for(var i=0;i<rm.length;i++){rm[i].remove();}
-      inlineAll(document.documentElement,clone);
-      stripExternal(clone);
-      var html=new XMLSerializer().serializeToString(clone);
-      var svg='<svg xmlns="http://www.w3.org/2000/svg" width="'+w+'" height="'+h+'">'
-        +'<foreignObject width="100%" height="100%">'
-        +'<div xmlns="http://www.w3.org/1999/xhtml" style="width:'+w+'px;height:'+h+'px;overflow:hidden">'
-        +'<div style="transform:translate(-'+scrollX+'px,-'+scrollY+'px);transform-origin:top left">'
-        +html+'</div></div></foreignObject></svg>';
-      var svgUrl='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
-      var img=new Image();
-      img.onload=function(){
-        var c=document.createElement('canvas');c.width=w;c.height=h;
-        c.getContext('2d').drawImage(img,0,0);
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:c.toDataURL('image/png'),scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.onerror=function(){
-        window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-      };
-      img.src=svgUrl;
-    }catch(err){
-      window.parent.postMessage({type:'INLINE_EDIT_SCREENSHOT_RESULT',dataUrl:null,scrollX:scrollX,scrollY:scrollY},'*');
-    }
-  });
-})();
-</script></body>
-</html>TYPE html>
-<html lang="en" data-theme="light">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Team — Y-AIMS Lab | NC State MSE</title>
-  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include.css" />
-  <link rel="stylesheet" href="https://cdn.ncsu.edu/brand-assets/fonts-2-0/include-roboto.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/tokens.css" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/team.css" />
-</head>
-<body>
-  <script src="https://cdn.ncsu.edu/brand-assets/2.5/scripts/utility-bar.js"></script>
-
-  <!-- NAV -->
-  <div class="site-nav" aria-label="Main navigation" id="site-nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-brand">
-        <img src="assets/ncsu/circle-wolf-400.png" alt="NC State Wolf" class="nav-wolf-img" />
-        <span class="nav-brand-text">
-          <span class="nav-lab">Y-AIMS Lab</span>
-          <span class="nav-dept">NC State · MSE</span>
-        </span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="research.html">Research</a></li>
-        <li><a href="team.html" class="active" aria-current="page">Team</a></li>
-        <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-        <li><a href="news.html">News</a></li>
+    <div class="footer-col">
+      <h4>Research</h4>
+      <ul role="list">
+        <li><a href="research.html#molecular-sims">Molecular Simulation Methods</a></li>
+        <li><a href="research.html#ai">AI &amp; Data Science for Materials</a></li>
+        <li><a href="research.html#nucleic-acid">Nucleic Acid Nanotechnology</a></li>
+        <li><a href="research.html#soft-responsive">Soft &amp; Responsive Materials</a></li>
+        <li><a href="research.html#nanoparticles">Metal &amp; Magnetic Nanoparticles</a></li>
+        <li><a href="research.html#sustainability">Sustainability &amp; Environmental AI</a></li>
       </ul>
-      <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-        </svg>
-      </button>
+    </div>
+    <div class="footer-col">
+      <h4>Connect</h4>
+      <ul role="list">
+        <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
+        <li><a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank">LinkedIn</a></li>
+        <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
+      </ul>
     </div>
   </div>
-
-  <!-- PAGE HERO -->
-  <header class="page-hero team-hero">
-    <div class="page-hero-inner">
-      <p class="page-hero-label">Y-AIMS Laboratory</p>
-      <h1 class="page-hero-title">Our Team</h1>
-      <p class="page-hero-subtitle">A multidisciplinary group of researchers working at the intersection of materials science, physics, chemistry, biology, molecular modeling, and artificial intelligence.</p>
+  <div class="footer-bottom">
+    <p>© 2026 Y-AIMS Laboratory · NC State University. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.linkedin.com/in/yaroslava-yingling" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+      <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" class="footer-social-link">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg>
+      </a>
     </div>
-  </header>
+  </div>
+</footer>
 
-  <main class="team-main">
+<script>
+// ── NAV + THEME + MOBILE + REVEAL ─────────────────────────────
+(function () {
+  const nav = document.getElementById('site-nav');
+  const hamburger = document.querySelector('.nav-hamburger');
+  const mobileNav = document.getElementById('nav-mobile');
+  const themeToggles = document.querySelectorAll('[data-theme-toggle]');
+  const root = document.documentElement;
 
-    <!-- ── PI ─────────────────────────────────────────────── -->
-    <section class="team-section" id="pi">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Principal Investigator</h2>
-        <div class="pi-card">
-          <div class="pi-avatar">
-            <div class="pi-avatar-initials">YY</div>
-          </div>
-          <div class="pi-content">
-            <h3 class="pi-name">Prof. Yaroslava (Yara) G. Yingling</h3>
-            <div class="pi-titles">
-              <span class="pi-title-badge">Kobe Steel Distinguished Professor of MSE</span>
-              <span class="pi-title-badge">University Faculty Fellow</span>
-              <span class="pi-title-badge">Associate Department Head</span>
-              <span class="pi-title-badge">Director of Undergraduate Program</span>
-              <span class="pi-title-badge">Director, Graduate Certificate in Materials Informatics</span>
-            </div>
-            <p class="pi-bio">Prof. Yingling received a B.S. in Computer Science and Engineering from St. Petersburg State Technical University (1996) and a Ph.D. in Materials Engineering and High-Performance Computing from Penn State (2002). She completed postdoctoral research at Penn State Chemistry and the NIH National Cancer Institute before joining NC State University in 2007. Her research integrates molecular modeling, data science, and AI to accelerate materials discovery for energy, environment, and health applications.</p>
-            <div class="pi-contact">
-              <a href="mailto:yara_yingling@ncsu.edu" class="pi-contact-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-                yara_yingling@ncsu.edu
-              </a>
-              <span class="pi-contact-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.36 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                +1 (919) 513-2624
-              </span>
-              <span class="pi-contact-item">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                3014 Engineering Building I, NC State
-              </span>
-            </div>
-            <div class="pi-links">
-              <a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank" class="pi-link-btn">Google Scholar</a>
-              <a href="https://orcid.org/0000-0002-8557-9992" target="_blank" class="pi-link-btn">ORCID</a>
-              <a href="https://www.mse.ncsu.edu/yingling/" target="_blank" class="pi-link-btn">Lab Website</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+  const stored = localStorage.getItem('yaimsTheme');
+  function getAutoTheme() {
+    return 'light';
+  }
+  let theme = stored || getAutoTheme();
 
-    <!-- ── Research Faculty / Staff ────────────────────────── -->
-    <section class="team-section" id="faculty">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Research Faculty &amp; Staff</h2>
-        <div class="member-grid">
+  function applyTheme(t) {
+    root.setAttribute('data-theme', t);
+    const sunSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`;
+    const moonSvg = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+    themeToggles.forEach(btn => {
+      btn.innerHTML = t === 'dark' ? sunSvg : moonSvg;
+      btn.setAttribute('aria-label', `Switch to ${t === 'dark' ? 'light' : 'dark'} mode`);
+    });
+  }
+  applyTheme(theme);
+  themeToggles.forEach(btn => {
+    btn.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('yaimsTheme', theme);
+      applyTheme(theme);
+    });
+  });
 
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--ncsu-red)"><span>AK</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Prof. Albert L. Kwansa</h3>
-              <p class="member-role">Research Assistant Professor of MSE</p>
-              <p class="member-research">Molecular dynamics simulations, electronic structure calculations, and method development involving polymers, chemical additives, cellulose and cellulose synthases, and reflectin proteins.</p>
-              <a href="mailto:alkwansa@ncsu.edu" class="member-email">alkwansa@ncsu.edu</a>
-              <div class="member-links">
-                <a href="https://scholar.google.com/citations?user=OmQotdcAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Google Scholar</a>
-              </div>
-            </div>
-          </div>
+  const sentinel = Object.assign(document.createElement('div'), { style: 'position:absolute;top:0;left:0;width:1px;height:1px;pointer-events:none' });
+  document.body.prepend(sentinel);
+  new IntersectionObserver(([e]) => nav.classList.toggle('scrolled', e.intersectionRatio < 1), { threshold: [1], rootMargin: '-1px 0px 0px 0px' }).observe(sentinel);
 
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--centennial)"><span>AG</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Prof. Alexey Gulyuk</h3>
-              <p class="member-role">Teaching Assistant Professor of MSE</p>
-              <p class="member-research">Convergence informatics and data-science approaches for materials design, artificial intelligence in education, and advancing AI literacy in engineering. Part of the NSF STC STEPS Center.</p>
-              <a href="mailto:agulyuk@ncsu.edu" class="member-email">agulyuk@ncsu.edu</a>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/alexey-gulyuk" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
+  hamburger.addEventListener('click', () => {
+    const open = mobileNav.classList.toggle('open');
+    hamburger.setAttribute('aria-expanded', open);
+  });
 
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--hunt)"><span>BF</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Dr. Barry Farmer</h3>
-              <p class="member-role">Adjunct Professor</p>
-              <p class="member-research">Chief Scientist Emeritus at Air Force Research Laboratory. DPD modeling of complex materials.</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Postdoctoral Fellows ──────────────────────────────── -->
-    <section class="team-section" id="postdocs">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Postdoctoral Fellows</h2>
-        <div class="member-grid">
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--pyromaniac)"><span>SP</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Dr. Sabila Kader Pinky</h3>
-              <p class="member-role">Postdoctoral Fellow, MSE</p>
-              <p class="member-research">Science and Technologies for Phosphorus Sustainability (STEPS) Center — convergent informatics integrating data science, molecular modeling, and materials research for sustainable phosphorus solutions.</p>
-              <a href="mailto:spinky@ncsu.edu" class="member-email">spinky@ncsu.edu</a>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/sabila-kader" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Graduate Students ────────────────────────────────── -->
-    <section class="team-section" id="grad">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Graduate Students</h2>
-        <div class="member-grid">
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: #5a2d82"><span>SR</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Sergei Rigin</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. &amp; M.S. in Laser Technologies, ITMO University; M.S. in Chemistry, New Mexico Highlands University.</p>
-              <p class="member-research">Molecular dynamics simulations of nanoparticle-embedded polymer brushes; STEPS Center.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/sergei-rigin" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=RGJ4KeIAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--hunt)"><span>AC</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Andrew Hans Cannon</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. &amp; M.S. in Materials Science and Engineering, NC State University.</p>
-              <p class="member-research">Molecular dynamics simulations of peptide-based materials including phosphate-binding proteins and reflectin proteins; prediction of mechanical and optical properties.</p>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--genomic)"><span>MF</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Merve Fedai</h3>
-              <p class="member-role">PhD Candidate, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. (2021) and M.S. (2023) in Materials Science and Engineering, NC State University.</p>
-              <p class="member-research">Molecular modeling of cellulose-based materials and modification of carbonic anhydrases for environmental remediation.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/merve-fedai-a35737129" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-                <a href="https://scholar.google.com/citations?user=55Xv4gMAAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--lonnie)"><span>CV</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Christina Vilchez (Bayard)</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">B.S. in Mechanical and Energy Engineering, University of North Texas (2022).</p>
-              <p class="member-research">Molecular dynamics simulations of nucleic acid nanoparticles and their supramolecular assemblies.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/christinajbayard" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--centennial)"><span>MK</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Michael Kirsch</h3>
-              <p class="member-role">PhD Student, Chemistry</p>
-              <p class="member-bio-short">B.S. in Biochemistry with Minor in Mathematics, SUNY Oswego (2020).</p>
-              <p class="member-research">Molecular modeling of cellulose synthase proteins and cellulose materials; lipid nanodisks.</p>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--pyromaniac)"><span>PH</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Patrick Hogsed</h3>
-              <p class="member-role">PhD Student, Chemistry</p>
-              <p class="member-bio-short">M.S. in Comprehensive Chemistry, Western Carolina University (2021); B.S. in Chemistry, Young Harris College (2019).</p>
-              <p class="member-research">Phosphorus binding protein (PBP) molecular dynamics simulations for phosphate specificity.</p>
-              <div class="member-links">
-                <a href="https://scholar.google.com/citations?user=meH0-B4AAAAJ&hl=en" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="member-card">
-            <div class="member-avatar" style="background: var(--ncsu-red)"><span>AS</span></div>
-            <div class="member-info">
-              <h3 class="member-name">Abishec Sundar Senthilvel</h3>
-              <p class="member-role">PhD Student, Materials Science &amp; Engineering</p>
-              <p class="member-bio-short">M.S. in Nanoengineering, NC State (2023); B.E. in Mechanical Engineering, Anna University, India (2020).</p>
-              <p class="member-research">Modeling of organized nanochannel materials from biomolecular magnetic organic frameworks.</p>
-              <div class="member-links">
-                <a href="https://www.linkedin.com/in/abishec-sundar-senthilvel" target="_blank" rel="noopener" class="member-link-btn"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Undergraduate Students ───────────────────────────── -->
-    <section class="team-section" id="undergrad">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Undergraduate Research Assistants</h2>
-        <div class="undergrad-grid">
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>SM</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Siri Mudunuri</h4>
-              <p class="undergrad-role">Undergraduate Student, Computer Science</p>
-              <p class="undergrad-project">Machine Learning Assisted Characterization and Analysis of Material Properties</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>AK</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Arjun Kancharla</h4>
-              <p class="undergrad-role">Undergraduate Student, Computer Science</p>
-              <p class="undergrad-project">Machine Learning Force Fields for RNA</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>SS</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Sanchit Shah</h4>
-              <p class="undergrad-role">Undergraduate Student, Computer Science</p>
-              <p class="undergrad-project">Machine Learning Methods for Functional Peptide Engineering</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>AC</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Anne Chabaneix</h4>
-              <p class="undergrad-role">Undergraduate Student, Materials Science &amp; Engineering</p>
-              <p class="undergrad-project">Diffusion of antioxidants in tire materials</p>
-            </div>
-          </div>
-
-          <div class="undergrad-card">
-            <div class="undergrad-avatar"><span>SE</span></div>
-            <div class="undergrad-info">
-              <h4 class="undergrad-name">Stephanie Euceda Trujillo</h4>
-              <p class="undergrad-role">Undergraduate Student, Materials Science &amp; Engineering</p>
-              <p class="undergrad-project">Materials for Phosphorus Sustainability</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Alumni ────────────────────────────────────────────── -->
-    <section class="team-section team-section-alt" id="alumni">
-      <div class="team-section-inner">
-        <h2 class="team-section-title">Alumni</h2>
-
-        <div class="alumni-group">
-          <h3 class="alumni-group-title">PhD Graduates</h3>
-          <ul class="alumni-list">
-            <li><span class="alumni-year">2025</span> <strong>Sabila Kader Pinky</strong> — Ph.D. Materials Science &amp; Engineering, NCSU; now Postdoctoral Fellow, Y-AIMS Lab, NC State<span class="alumni-links"><a href="https://www.linkedin.com/in/sabila-kader" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2024</span> <strong>Thomas (Tad) Deaton</strong> — B.S. East Carolina University; now Senior Engineer (Multiscale Physics-based Modeling), Applied Research Associates, Inc.<span class="alumni-links"><a href="https://www.linkedin.com/in/thomasdeaton" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2023</span> <strong>Akhlak Ul Mahmood</strong> — B.S. Physics, University of Dhaka; now Product Innovation Manager at Matmerize, Inc., Atlanta, GA<span class="alumni-links"><a href="https://www.linkedin.com/in/akhlakm" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=S-uoOngAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2021</span> <strong>Thomas Oweida</strong> — B.S. NC State University; now Sr. Principal Software Engineer / Scientific Analyst at Northrop Grumman<span class="alumni-links"><a href="https://www.linkedin.com/in/thomasoweida" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=67035AcAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2019</span> <strong>Yuxin Xie</strong> — B.S. Central South University; now Data Scientist at AXB Bio (Axbio Inc.)<span class="alumni-links"><a href="https://scholar.google.com/citations?user=dXJ6di4AAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2019</span> <strong>James Peerless</strong> — B.S. Northeastern University (WRRI &amp; SEAS NRT Fellowships); now Senior AI Product Manager at Citrine Informatics<span class="alumni-links"><a href="https://www.linkedin.com/in/jspeerless" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=nScmYFIAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2017</span> <strong>Jessica Nash</strong> — B.S. UNC-CH (NSF Fellowship 2013–2016); now Developer &amp; Educator, Innovation CoLab at Duke University<span class="alumni-links"><a href="https://www.linkedin.com/in/jessica-a-nash" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=IyGGbjsAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2017</span> <strong>Ho Shin Kim</strong> — M.S. Inha University (ACS Graduate Research Award); now Computational Scientist at Pacific Northwest National Laboratory (PNNL)<span class="alumni-links"><a href="https://www.linkedin.com/in/hoshinkim" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=Lge7SiYAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2016</span> <strong>Nan K. Li</strong> — M.S. Jilin University (ACS, MRS, AIChE graduate awards); now Senior Data Scientist at Johnson &amp; Johnson<span class="alumni-links"><a href="https://www.linkedin.com/in/nankli" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=RRiJz1UAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2013</span> <strong>Latsavongsakda Sethaphong</strong> — B.A. Harvard, M.S. Vanderbilt; now HPC Lead Platform Engineer (AI/ML) at General Motors<span class="alumni-links"><a href="https://scholar.google.com/citations?user=EXVnAlkAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2012</span> <strong>Rakhee Pani</strong> — M.S. Indian Institute of Technology; now Senior Lecturer, Materials Science &amp; Engineering at Clemson University</li>
-            <li><span class="alumni-year">2012</span> <strong>Abhishek Singh</strong> — M.S. Michigan State University; now Scientist at BASF<span class="alumni-links"><a href="https://scholar.google.com/citations?user=RCYJP1oAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-          </ul>
-        </div>
-
-        <div class="alumni-group">
-          <h3 class="alumni-group-title">Postdoctoral Associates</h3>
-          <ul class="alumni-list">
-            <li><span class="alumni-year">2024–2025</span> <strong>Dr. Quanpeng (Sam) Yang</strong> — Ph.D. UC Merced 2021; AI for Science and Engineering<span class="alumni-links"><a href="https://www.linkedin.com/in/quanpengyang" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=-NQ3WIkAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2014–2021</span> <strong>Dr. Abhishek Singh</strong> — Ph.D. NCSU 2012; now Scientist at BASF<span class="alumni-links"><a href="https://scholar.google.com/citations?user=RCYJP1oAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2012–2018</span> <strong>Dr. Ho Shin Kim</strong> — Ph.D. NCSU 2017; now Computational Scientist at PNNL<span class="alumni-links"><a href="https://www.linkedin.com/in/hoshinkim" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=Lge7SiYAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2015–2016</span> <strong>Dr. Sanket Deshmukh</strong> — Ph.D. U Dublin; now Associate Professor (Erin Michelle Lohr Faculty Fellow), Virginia Tech<span class="alumni-links"><a href="https://www.linkedin.com/in/sanket-a-deshmukh-08aa3585" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=MS9fTyoAAAAJ&hl=en" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-            <li><span class="alumni-year">2012–2015</span> <strong>Dr. Rakhee Pani</strong> — Ph.D. NCSU; now Senior Lecturer, MSE at Clemson University</li>
-            <li><span class="alumni-year">2013–2015</span> <strong>Dr. Jung-Goo Lee</strong> — Ph.D. University of Texas</li>
-            <li><span class="alumni-year">2013</span> <strong>Dr. Sergei Y. Ponomarev</strong> — now High Performance Systems Integrator, Worcester Polytechnic Institute</li>
-            <li><span class="alumni-year">2007–2008</span> <strong>Dr. Andrey Semichaevsky</strong> — now Associate Professor, Dept. of Chemistry &amp; Physics at Lincoln University, PA<span class="alumni-links"><a href="https://www.linkedin.com/in/andrey-semichaevsky-949a6332" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2009</span> <strong>Dr. Stacy Snyder</strong> — now Crystal Growth Process Engineer at Coherent Corp.<span class="alumni-links"><a href="https://www.linkedin.com/in/stacyesnyder" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a><a href="https://scholar.google.com/citations?user=EWns_soAAAAJ" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 10a8 8 0 0 1 7.162 3.44L24 9.5z"/></svg> Scholar</a></span></li>
-          </ul>
-        </div>
-
-        <div class="alumni-group">
-          <h3 class="alumni-group-title">Masters Students</h3>
-          <ul class="alumni-list">
-            <li><span class="alumni-year">2025</span> <strong>Ruchika Malhotra</strong> — M.S. Computer Science, NCSU; B.S. J.C. Bose University of Science and Technology, India</li>
-            <li><span class="alumni-year">2024</span> <strong>Sahil Kamlesh Changlani</strong> — M.S. Computer Science, NCSU; now Software Engineer at Credit Karma (Intuit)<span class="alumni-links"><a href="https://www.linkedin.com/in/sahil-changlani" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2012</span> <strong>Hamed Eksiri</strong> — M.A. Materials Science &amp; Engineering, NCSU; Founder, Al Eksir LLC (formerly Product Development Lead at Chevron)<span class="alumni-links"><a href="https://www.linkedin.com/in/eksiri" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2011</span> <strong>Ashley E. Marlowe</strong> — B.S. MSE, NCSU; now Technical Leader – Plant Layout &amp; Program Implementation at GE Vernova (formerly Lead Nuclear Engineer, Duke Energy)<span class="alumni-links"><a href="https://www.linkedin.com/in/ashley-marlowe" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-          </ul>
-        </div>
-
-        <div class="alumni-group">
-          <h3 class="alumni-group-title">Research Assistants</h3>
-          <ul class="alumni-list">
-            <li><span class="alumni-year">2016–2021</span> <strong>Matthew Manning</strong> — B.S. Clemson University 2015, MSE, NCSU</li>
-            <li><span class="alumni-year">2020–2021</span> <strong>Naimul Haque</strong> — M.S. Tuskegee University 2020</li>
-            <li><span class="alumni-year">2017–2020</span> <strong>Nina Milliken</strong> — B.S. UNC-CH</li>
-            <li><span class="alumni-year">2015–2016</span> <strong>Joel Lapin</strong> — B.S. Illinois State University 2013</li>
-            <li><span class="alumni-year">2016–2017</span> <strong>Kudiyar Orazymbetov</strong> — now Data Scientist at Blue Cross Blue Shield, NC</li>
-            <li><span class="alumni-year">2013–2014</span> <strong>Mina Lim</strong> — B.S. Texas A&amp;M 2006</li>
-            <li><span class="alumni-year">2009–2010</span> <strong>Ganesh Krishnan</strong></li>
-          </ul>
-        </div>
-
-        <div class="alumni-group">
-          <h3 class="alumni-group-title">Undergraduate Researchers</h3>
-          <ul class="alumni-list">
-            <li><span class="alumni-year">2023–2024</span> <strong>Tori Crunkleton</strong> — B.S. MSE, NCSU 2024; now Ph.D. Student (Materials Science &amp; Engineering) at Stanford University<span class="alumni-links"><a href="https://www.linkedin.com/in/tori-crunkleton" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2024–2025</span> <strong>Sanchit Shah</strong> — B.S. Computer Science, NCSU</li>
-            <li><span class="alumni-year">2024–2025</span> <strong>Nathan Perry</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2023–2024</span> <strong>Josh McClure</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2022</span> <strong>Grant Blankenberger</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2021–2022</span> <strong>Harry Antoniades</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2021–2022</span> <strong>Patrick Sullivan</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2021–2022</span> <strong>Mitch Hayes</strong> — B.S. MSE, NCSU; now Process Sustaining Engineer at Wolfspeed<span class="alumni-links"><a href="https://www.linkedin.com/in/mitch-hayes-b48145205" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2019–2022</span> <strong>Justin Williams</strong> — B.S. Chemical Engineering, NCSU; now Pipeline Controller at Tallgrass (formerly at ExxonMobil)<span class="alumni-links"><a href="https://www.linkedin.com/in/justin-williams-6a83841ab" target="_blank" rel="noopener" class="alumni-link"><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> LinkedIn</a></span></li>
-            <li><span class="alumni-year">2019–2021</span> <strong>Ibrahim Ahmad</strong> — B.S. MSE, NCSU; now at Amazon</li>
-            <li><span class="alumni-year">2020–2022</span> <strong>Tiernan Baucom</strong> — B.S. MSE, NCSU; now Ph.D. Student at University of Michigan</li>
-            <li><span class="alumni-year">2019–2020</span> <strong>Jonathan Wendrock</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2019–2020</span> <strong>Johnny Donald</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2018–2021</span> <strong>Merve Fedai</strong> — B.S. MSE, NCSU (now Ph.D. candidate, Y-AIMS Lab)</li>
-            <li><span class="alumni-year">2018–2019</span> <strong>Kevin Kronk</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2018–2019</span> <strong>Branden Hawkins</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2017–2018</span> <strong>Devin Junkins</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2016–2018</span> <strong>Lukas Harries</strong> — B.S. Biochemistry, Vassar College</li>
-            <li><span class="alumni-year">2016–2017</span> <strong>John Johnson</strong> — B.S. Chemistry, NCSU</li>
-            <li><span class="alumni-year">2016–2017</span> <strong>Nathan Brown</strong> — B.S. Chemistry, NCSU</li>
-            <li><span class="alumni-year">2016–2017</span> <strong>Graham Gatwood</strong> — B.S. Engineering, NCSU</li>
-            <li><span class="alumni-year">2015–2017</span> <strong>Thomas Oweida</strong> — B.S. MSE, NCSU (now Ph.D. alumnus, Y-AIMS Lab)</li>
-            <li><span class="alumni-year">2015–2017</span> <strong>Benjamin Peterson</strong> — B.S. MSE, NCSU; now Ph.D., Penn State University</li>
-            <li><span class="alumni-year">2013–2016</span> <strong>William H. Fuss</strong> — B.S. Computer Science &amp; MSE, NCSU; now at Broadband Inc.</li>
-            <li><span class="alumni-year">2014–2016</span> <strong>Danielle Stallings</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2015–2016</span> <strong>Graham Bowers</strong> — B.S. Aerospace Engineering, NCSU</li>
-            <li><span class="alumni-year">2013–2014</span> <strong>Sabrina Huang</strong> — B.S. MSE, NCSU; Ph.D. at Purdue University</li>
-            <li><span class="alumni-year">2013–2014</span> <strong>Tasha Tucker</strong> — B.S. Chemical &amp; Biomolecular Engineering, NCSU</li>
-            <li><span class="alumni-year">2012–2013</span> <strong>Joshua Amick</strong> — B.S. Chemical &amp; Biomolecular Engineering, NCSU</li>
-            <li><span class="alumni-year">2011–2012</span> <strong>Joshua McKenney</strong> — B.S. Materials Science &amp; Engineering, NCSU</li>
-            <li><span class="alumni-year">2011–2012</span> <strong>Michael Williams</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2010–2011</span> <strong>Benjamin Bond</strong> — B.S. Nuclear Engineering, NCSU</li>
-            <li><span class="alumni-year">2010–2011</span> <strong>Andrew Veasey</strong> — B.S. Biochemistry, NCSU</li>
-            <li><span class="alumni-year">2009–2011</span> <strong>Andy Vargas</strong> — B.S. MSE, NCSU; now Ph.D., UC Berkeley</li>
-            <li><span class="alumni-year">2007–2010</span> <strong>Ashley Marlowe</strong> — B.S. MSE, NCSU (see Masters alumni)</li>
-            <li><span class="alumni-year">2009–2010</span> <strong>Evan Keresi</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2008–2010</span> <strong>Garik Sadovy</strong> — B.S. MSE, NCSU</li>
-            <li><span class="alumni-year">2010</span> <strong>Habtom Amde</strong> — B.S. Chemical Engineering, NCSU</li>
-          </ul>
-          <p style="font-size: var(--text-xs); color: var(--color-text-faint); margin-top: var(--space-4); font-style: italic;">Also includes REU students: Sanjana Addanki (VT, 2025), Leala Carbonneau (WPI, 2024), Carolina Cunningham (UNC-CH, 2023), Brooklynn Blackwell (Howard, 2022), Amani Reed (UNC-CH, 2018), Leo Sutter (RIT, 2016), Jeremy Loffredo (UVA, 2013), Trisha Dupnock (Clarkson, 2013), Ramyata Upmaka (CMU, 2012), Michael Entz (UA, 2009), and others.</p>
-        </div>
-
-        <div class="alumni-group">
-          <h3 class="alumni-group-title">Visiting Researchers</h3>
-          <ul class="alumni-list">
-            <li><span class="alumni-year">2018–2019</span> <strong>Haolong Xue</strong> — Jiangnan University, China</li>
-            <li><span class="alumni-year">2013–2014</span> <strong>Doyoung Eom</strong> — Inha University, Korea</li>
-            <li><span class="alumni-year">2010–2011</span> <strong>Hoshin Kim</strong> — Inha University, Korea</li>
-            <li><span class="alumni-year">2009–2010</span> <strong>Xiaolu Li</strong> — Duke University</li>
-            <li><span class="alumni-year">2009</span> <strong>Michael Entz</strong> — University of Alabama</li>
-            <li><span class="alumni-year">2012</span> <strong>George Washington</strong> — University of Virginia</li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="footer-ncsu-bar">
-      <img src="assets/ncsu/brick-white-on-red-web.png" alt="NC State University" class="footer-brick-logo" />
-    </div>
-    <div class="footer-inner">
-      <div class="footer-col">
-        <div class="footer-brand">Y-AIMS Laboratory</div>
-        <p class="footer-tagline">AI &amp; Materials Simulations Lab<br>Department of Materials Science &amp; Engineering<br>NC State University, Raleigh, NC</p>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">Quick Links</div>
-        <ul class="footer-links">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="research.html">Research</a></li>
-          <li><a href="team.html">Team</a></li>
-          <li><a href="publications.html">Publications</a></li>
-        <li><a href="teaching.html">Teaching</a></li>
-        <li><a href="software.html">Software</a></li>
-          <li><a href="news.html">News</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <div class="footer-heading">External</div>
-        <ul class="footer-links">
-          <li><a href="https://scholar.google.com/citations?user=2UN_tCAAAAAJ" target="_blank">Google Scholar</a></li>
-          <li><a href="https://orcid.org/0000-0002-8557-9992" target="_blank">ORCID</a></li>
-          <li><a href="https://www.mse.ncsu.edu/yingling/" target="_blank">MSE Faculty Page</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>&copy; 2025 Y-AIMS Laboratory, NC State University</span>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
+  // Scroll reveal
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  }
+})();
+</script>
 </body>
 </html>
